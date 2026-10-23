@@ -50,17 +50,20 @@ def gate() -> dict[str, Any]:
     if ps:
         sc = {s["policy"]: s for s in ps["score"]}
         pc = c["process"]
-        s = sc[pc["policy"]]
-        add(
-            f"{pc['policy']}: unsafe releases shipped",
-            s["unsafe_shipped"] <= pc["max_unsafe_shipped"],
-            f"{s['unsafe_shipped']} of {s['shipped']} shipped",
-        )
-        add(
-            f"{pc['policy']}: harmful releases shipped",
-            s["harmful_shipped"] <= pc["max_harmful_shipped"],
-            f"{s['harmful_shipped']} of {s['shipped']} shipped",
-        )
+        for pol in pc["policies"]:
+            if pol not in sc:
+                continue
+            s = sc[pol]
+            add(
+                f"{pol}: unsafe releases shipped",
+                s["unsafe_shipped"] <= pc["max_unsafe_shipped"],
+                f"{s['unsafe_shipped']} of {s['shipped']} shipped",
+            )
+            add(
+                f"{pol}: harmful releases shipped",
+                s["harmful_shipped"] <= pc["max_harmful_shipped"],
+                f"{s['harmful_shipped']} of {s['shipped']} shipped",
+            )
         s2 = sc[pc["calibrated_policy"]]
         add(
             f"{pc['calibrated_policy']}: unsafe releases passed",

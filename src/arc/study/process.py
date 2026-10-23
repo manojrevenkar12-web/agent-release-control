@@ -13,6 +13,9 @@ so every decision can be graded:
   ship only if the interval says better.
 - P3 + A/B and rollout: the whole release review; what passes P2 goes to a powered A/B test
   (alpha 1%) and a staged rollout with health checks.
+- P4 backtest and rollout: what passes P2 goes straight to the staged rollout, without the A/B test.
+  Added after process v2's dev study, where the A/B test (powered for 2pp) rejected every win the
+  backtest had already established (+0.7 to +1.6pp).
 
 This module reads the truth (it is evaluation, not shipping).
 """
@@ -132,6 +135,11 @@ class Study:
         rv = review(p, base, c, seed, day0=300 + 40 * k)
         p2 = rv.stopped_at not in ("static", "suites", "backtest")
         p3 = rv.shipped
+        # P4: what P2 passes goes straight to the staged rollout; no A/B test
+        p4, ro4 = False, None
+        if p2:
+            ro4 = ship.rollout(p, base, c, 300 + 40 * k, seed + 7)
+            p4 = ro4.shipped
         bt = rv.backtest or ship.run_backtest(p, base, c, self.backtest_n, self.labels_n, seed)
         m = bt.metrics
         p1 = m["judged_resolution"].diff > 0 and m["judged_hallucination"].diff <= 0.005
@@ -140,6 +148,8 @@ class Study:
             "P1 judges": bool(p1),
             "P2 calibrated": p2,
             "P3 + A/B and rollout": p3,
+            "P4 backtest and rollout": p4,
+            "rollout_without_ab": ro4.as_dict() if ro4 else None,
             "review": rv.as_dict(),
             "stopped_at": rv.stopped_at,
             "reasons": rv.reasons,
@@ -152,7 +162,7 @@ class Study:
         }
 
 
-POLICIES = ["P0 read 20", "P1 judges", "P2 calibrated", "P3 + A/B and rollout"]
+POLICIES = ["P0 read 20", "P1 judges", "P2 calibrated", "P3 + A/B and rollout", "P4 backtest and rollout"]
 
 
 def run(cands: list[Release], study: Study | None = None) -> tuple[pd.DataFrame, list[dict[str, Any]]]:

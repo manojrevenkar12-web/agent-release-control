@@ -13,7 +13,7 @@ aa_test:
   must_not_ship: true # production against itself must not "win"
   min_srm_p: 0.001
 process:
-  policy: P3 + A/B and rollout
+  policies: [P3 + A/B and rollout, P4 backtest and rollout]
   max_unsafe_shipped: 0
   max_harmful_shipped: 0
   calibrated_policy: P2 calibrated

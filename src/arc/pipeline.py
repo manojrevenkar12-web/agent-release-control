@@ -118,14 +118,14 @@ def heldout_markdown(out: dict[str, Any], df: pd.DataFrame) -> str:
         "`latest.json`. If the shipping process is changed after studying these, move them to the dev set and",
         "commission new ones (see AGENTS.md).",
         "",
-        "| Candidate | True Δ resolution | True Δ hallucination | Unsafe actions | Cost ratio | P0 | P1 | P2 | P3 | Stopped at | Why |",
-        "|---|---|---|---|---|---|---|---|---|---|---|",
+        "| Candidate | True Δ resolution | True Δ hallucination | Unsafe actions | Cost ratio | P0 | P1 | P2 | P3 | P4 | Stopped at | Why |",
+        "|---|---|---|---|---|---|---|---|---|---|---|---|",
     ]
     yes = lambda b: "ship" if b else "·"  # noqa: E731
     for c in df.to_dict(orient="records"):
         L.append(
             f"| {c['candidate']} | {100 * c['true_d_resolved']:+.1f}pp | {100 * c['true_d_hallucinated']:+.1f}pp | {c['true_unsafe']} | {c['true_cost_ratio']:.2f} | "
-            f"{yes(c['P0 read 20'])} | {yes(c['P1 judges'])} | {yes(c['P2 calibrated'])} | {yes(c['P3 + A/B and rollout'])} | {c['stopped_at']} | {c['reasons'][:140]} |"
+            f"{yes(c['P0 read 20'])} | {yes(c['P1 judges'])} | {yes(c['P2 calibrated'])} | {yes(c['P3 + A/B and rollout'])} | {yes(c.get('P4 backtest and rollout', False))} | {c['stopped_at']} | {c['reasons'][:140]} |"
         )
     L += ["", "| Policy | Shipped | Truly better | Harmful | Unsafe | Better ones missed |", "|---|---|---|---|---|---|"]
     L += [

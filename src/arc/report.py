@@ -104,13 +104,13 @@ def write_report(profile: str = "full") -> str:
             )
         L += [
             "",
-            "| Candidate | Change | True Δ resolution | True Δ hallucination | Unsafe | P0 | P1 | P2 | P3 | Stopped at |",
-            "|---|---|---|---|---|---|---|---|---|---|",
+            "| Candidate | Change | True Δ resolution | True Δ hallucination | Unsafe | P0 | P1 | P2 | P3 | P4 | Stopped at |",
+            "|---|---|---|---|---|---|---|---|---|---|---|",
         ]
         yes = lambda b: "ship" if b else "·"  # noqa: E731
         for c in ps["candidates"]:
             L.append(
-                f"| {c['candidate']} | {c['change']} | {_pp(c['true_d_resolved'])} | {_pp(c['true_d_hallucinated'])} | {c['true_unsafe']} | {yes(c['P0 read 20'])} | {yes(c['P1 judges'])} | {yes(c['P2 calibrated'])} | {yes(c['P3 + A/B and rollout'])} | {c['stopped_at']} |"
+                f"| {c['candidate']} | {c['change']} | {_pp(c['true_d_resolved'])} | {_pp(c['true_d_hallucinated'])} | {c['true_unsafe']} | {yes(c['P0 read 20'])} | {yes(c['P1 judges'])} | {yes(c['P2 calibrated'])} | {yes(c['P3 + A/B and rollout'])} | {yes(c.get('P4 backtest and rollout', False))} | {c['stopped_at']} |"
             )
         L.append("")
     od = _read("ops_drill.json")
