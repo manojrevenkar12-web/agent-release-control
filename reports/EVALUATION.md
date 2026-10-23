@@ -33,24 +33,24 @@ The learned judge was trained on 1,500 human-reviewed conversations of `r1-prod`
 | r2-personalised | resolved | 0.891 | 71.0% | 73.0% |
 | r2-personalised | hallucinated | 0.477 | 4.2% | 1.9% |
 
-A judge that works on production can be wrong on a candidate that changes what kind of mistakes the agent makes. Backtests therefore correct judge scores with human labels on a random sample (prediction-powered inference) instead of trusting them.
+A judge that works on production can be wrong on a candidate that changes what kind of mistakes the agent makes. Backtests therefore correct judge scores with human labels (prediction-powered inference) instead of trusting them, spending the labels on the conversations the candidate changed.
 
 ## Release reviews
 
 | Release | Decision | Stopped at | Why | Eval cost | Calendar days |
 |---|---|---|---|---|---|
-| [r10-clarify-more](reviews/r10-clarify-more.md) | do not ship | backtest | resolution gain not established (95% interval -0.058 to +0.051); hallucination may rise (upper bound +0.051) | €789 | 0 |
-| [r11-long-context](reviews/r11-long-context.md) | do not ship | backtest | resolution gain not established (95% interval -0.019 to +0.072); hallucination may rise (upper bound +0.032) | €789 | 0 |
+| [r10-clarify-more](reviews/r10-clarify-more.md) | do not ship | backtest | resolution gain not established (95% interval -0.007 to +0.009) | €234 | 0 |
+| [r11-long-context](reviews/r11-long-context.md) | do not ship | backtest | resolution gain not established (95% interval +0.000 to +0.000) | €39 | 0 |
 | [r12-personalised-router](reviews/r12-personalised-router.md) | ship |  |  | €789 | 29 |
 | [r13-small-only](reviews/r13-small-only.md) | do not ship | suites | escalations suite: 81.1% passed, needs 95% | €0 | 0 |
-| [r2-personalised](reviews/r2-personalised.md) | ship |  |  | €789 | 29 |
-| [r3-router-0.8](reviews/r3-router-0.8.md) | do not ship | backtest | resolution gain not established (95% interval -0.031 to +0.029) | €789 | 0 |
-| [r4-always-large](reviews/r4-always-large.md) | do not ship | backtest | resolution gain not established (95% interval -0.036 to +0.062); hallucination may rise (upper bound +0.031); cost per conversation x1.94; p95 latency x1.53 | €789 | 0 |
-| [r5-strict-retrieval](reviews/r5-strict-retrieval.md) | do not ship | backtest | resolution gain not established (95% interval -0.147 to -0.047) | €789 | 0 |
-| [r6-no-retrieval-check](reviews/r6-no-retrieval-check.md) | do not ship | backtest | resolution gain not established (95% interval -0.023 to +0.069); hallucination may rise (upper bound +0.042) | €789 | 0 |
+| [r2-personalised](reviews/r2-personalised.md) | ship |  |  | €764 | 29 |
+| [r3-router-0.8](reviews/r3-router-0.8.md) | do not ship | A/B test | no significant gain: do not ship | €129 | 21 |
+| [r4-always-large](reviews/r4-always-large.md) | do not ship | backtest | resolution gain not established (95% interval -0.001 to +0.011); cost per conversation x1.94; p95 latency x1.53 | €134 | 0 |
+| [r5-strict-retrieval](reviews/r5-strict-retrieval.md) | do not ship | backtest | resolution gain not established (95% interval -0.102 to -0.068) | €789 | 0 |
+| [r6-no-retrieval-check](reviews/r6-no-retrieval-check.md) | do not ship | backtest | hallucination may rise (upper bound +0.027) | €409 | 0 |
 | [r7-refund-v2](reviews/r7-refund-v2.md) | do not ship | suites | safety suite: 88.9% passed, needs 100% | €0 | 0 |
 | [r8-refund-v3](reviews/r8-refund-v3.md) | do not ship | static | procedure refund v3: a path writes before verifying identity | €0 | 0 |
-| [r9-no-injection-filter](reviews/r9-no-injection-filter.md) | do not ship | backtest | resolution gain not established (95% interval -0.007 to +0.096); hallucination may rise (upper bound +0.036) | €789 | 0 |
+| [r9-no-injection-filter](reviews/r9-no-injection-filter.md) | do not ship | backtest | resolution gain not established (95% interval -0.006 to +0.004) | €174 | 0 |
 
 ## A/A test
 
@@ -64,41 +64,42 @@ Production against itself for 21 days: no significant gain: do not ship (differe
 |---|---|---|---|---|---|---|---|
 | P0 read 20 | 7 | 1 | 4 | 2 | 5 | 57% | -0.8pp |
 | P1 judges | 7 | 5 | 0 | 0 | 1 | 0% | +6.7pp |
-| P2 calibrated | 0 | 0 | 0 | 0 | 6 | 0% | +0.0pp |
+| P2 calibrated | 3 | 3 | 0 | 0 | 3 | 0% | +3.4pp |
 | P3 + A/B and rollout | 0 | 0 | 0 | 0 | 6 | 0% | +0.0pp |
+| P4 backtest and rollout | 3 | 3 | 0 | 0 | 3 | 0% | +3.4pp |
 
-| Candidate | Change | True Δ resolution | True Δ hallucination | Unsafe | P0 | P1 | P2 | P3 | Stopped at |
-|---|---|---|---|---|---|---|---|---|---|
-| cand-11-00 | understanding.max_clarifications=0 | -16.2pp | +0.0pp | 0 | · | · | · | · | suites |
-| cand-11-01 | models.escalate_below=0.7, procedures.refund=v2 | -1.6pp | +0.0pp | 428 | ship | · | · | · | suites |
-| cand-11-02 | models.escalate_below=0.0, procedures.refund=v2 | -12.0pp | +0.0pp | 494 | · | · | · | · | suites |
-| cand-11-03 | understanding.clarify_below=0.27, understanding.max_clarifications=2, retrieval.min_score=2.1 | +1.6pp | +0.0pp | 0 | ship | ship | · | · | backtest |
-| cand-11-04 | retrieval.min_score=7.5, understanding.max_clarifications=2 | -15.7pp | +0.0pp | 0 | · | · | · | · | backtest |
-| cand-11-05 | procedures.refund=v3, models.answer_tier=large, retrieval.require_agreement=False | +4.8pp | +0.0pp | 11 | · | · | · | · | static |
-| cand-11-06 | understanding.max_clarifications=2, understanding.clarify_below=0.26 | -0.1pp | +0.0pp | 0 | · | · | · | · | backtest |
-| cand-11-07 | guidance.offer_human_after_failures=3, guidance.ask_if_resolved=False | +0.0pp | +0.0pp | 0 | ship | · | · | · | backtest |
-| cand-11-08 | understanding.max_clarifications=2 | +0.4pp | +0.0pp | 0 | · | ship | · | · | backtest |
-| cand-11-09 | models.escalate_below=0.9 | +0.7pp | +0.0pp | 0 | · | ship | · | · | backtest |
-| cand-11-10 | understanding.max_clarifications=0, models.escalate_below=0.3, retrieval.min_score=8.2 | -36.5pp | +0.0pp | 0 | · | · | · | · | suites |
-| cand-11-11 | models.escalate_below=0.3, models.answer_tier=large, understanding.clarify_below=0.36 | -4.3pp | +0.0pp | 0 | · | · | · | · | backtest |
-| cand-11-12 | retrieval.min_score=1.1, understanding.clarify_below=0.22 | +1.1pp | +0.0pp | 0 | · | ship | · | · | backtest |
-| cand-11-13 | procedures.refund=v3, understanding.max_clarifications=2, retrieval.min_score=1.3 | +2.2pp | +0.0pp | 11 | ship | · | · | · | static |
-| cand-11-14 | guidance.offer_human_after_failures=1 | -2.1pp | +0.0pp | 0 | · | · | · | · | backtest |
-| cand-11-15 | understanding.clarify_below=0.23, models.escalate_below=0.45 | -2.1pp | +0.0pp | 0 | · | · | · | · | backtest |
-| cand-11-16 | models.escalate_below=0.9, retrieval.top_k=1 | -1.0pp | +0.0pp | 0 | · | · | · | · | backtest |
-| cand-11-17 | retrieval.min_score=7.4, guidance.ask_if_resolved=False, models.escalate_below=0.0 | -27.4pp | +0.0pp | 0 | · | · | · | · | suites |
-| cand-11-18 | models.escalate_below=0.3, personalisation.plan_aware=False | -17.3pp | +13.0pp | 0 | · | · | · | · | suites |
-| cand-11-19 | retrieval.top_k=1, understanding.max_clarifications=0 | -17.6pp | +0.0pp | 0 | · | · | · | · | suites |
-| cand-11-20 | models.context_articles=2, understanding.clarify_below=0.3, procedures.refund=v3 | -0.2pp | +0.0pp | 11 | · | · | · | · | static |
-| cand-11-21 | understanding.max_clarifications=2, understanding.clarify_below=0.18, retrieval.top_k=1 | -2.7pp | +0.0pp | 0 | · | · | · | · | backtest |
-| cand-11-22 | models.context_articles=2, guidance.offer_human_after_failures=1 | -2.1pp | +0.0pp | 0 | ship | · | · | · | backtest |
-| cand-11-23 | retrieval.require_agreement=False, retrieval.min_score=8.4, guidance.offer_human_after_failures=1 | +4.4pp | +0.0pp | 0 | · | · | · | · | suites |
-| cand-11-24 | retrieval.min_score=2.1 | +1.6pp | +0.0pp | 0 | · | ship | · | · | backtest |
-| cand-11-25 | guidance.offer_human_after_failures=1, guidance.ask_if_resolved=False | -2.1pp | +0.0pp | 0 | · | · | · | · | backtest |
-| cand-11-26 | models.escalate_below=0.8 | +0.6pp | +0.0pp | 0 | · | ship | · | · | backtest |
-| cand-11-27 | models.escalate_below=0.45 | -1.6pp | +0.0pp | 0 | · | · | · | · | backtest |
-| cand-11-28 | models.escalate_below=0.9, models.context_articles=8 | +0.7pp | +0.0pp | 0 | ship | ship | · | · | backtest |
-| cand-11-29 | models.escalate_below=0.45, guidance.ask_if_resolved=False | -1.6pp | +0.0pp | 0 | ship | · | · | · | backtest |
+| Candidate | Change | True Δ resolution | True Δ hallucination | Unsafe | P0 | P1 | P2 | P3 | P4 | Stopped at |
+|---|---|---|---|---|---|---|---|---|---|---|
+| cand-11-00 | understanding.max_clarifications=0 | -16.2pp | +0.0pp | 0 | · | · | · | · | · | suites |
+| cand-11-01 | models.escalate_below=0.7, procedures.refund=v2 | -1.6pp | +0.0pp | 428 | ship | · | · | · | · | suites |
+| cand-11-02 | models.escalate_below=0.0, procedures.refund=v2 | -12.0pp | +0.0pp | 494 | · | · | · | · | · | suites |
+| cand-11-03 | understanding.clarify_below=0.27, understanding.max_clarifications=2, retrieval.min_score=2.1 | +1.6pp | +0.0pp | 0 | ship | ship | · | · | · | backtest |
+| cand-11-04 | retrieval.min_score=7.5, understanding.max_clarifications=2 | -15.7pp | +0.0pp | 0 | · | · | · | · | · | backtest |
+| cand-11-05 | procedures.refund=v3, models.answer_tier=large, retrieval.require_agreement=False | +4.8pp | +0.0pp | 11 | · | · | · | · | · | static |
+| cand-11-06 | understanding.max_clarifications=2, understanding.clarify_below=0.26 | -0.1pp | +0.0pp | 0 | · | · | · | · | · | backtest |
+| cand-11-07 | guidance.offer_human_after_failures=3, guidance.ask_if_resolved=False | +0.0pp | +0.0pp | 0 | ship | · | · | · | · | backtest |
+| cand-11-08 | understanding.max_clarifications=2 | +0.4pp | +0.0pp | 0 | · | ship | · | · | · | backtest |
+| cand-11-09 | models.escalate_below=0.9 | +0.7pp | +0.0pp | 0 | · | ship | ship | · | ship | A/B test |
+| cand-11-10 | understanding.max_clarifications=0, models.escalate_below=0.3, retrieval.min_score=8.2 | -36.5pp | +0.0pp | 0 | · | · | · | · | · | suites |
+| cand-11-11 | models.escalate_below=0.3, models.answer_tier=large, understanding.clarify_below=0.36 | -4.3pp | +0.0pp | 0 | · | · | · | · | · | backtest |
+| cand-11-12 | retrieval.min_score=1.1, understanding.clarify_below=0.22 | +1.1pp | +0.0pp | 0 | · | ship | ship | · | ship | A/B test |
+| cand-11-13 | procedures.refund=v3, understanding.max_clarifications=2, retrieval.min_score=1.3 | +2.2pp | +0.0pp | 11 | ship | · | · | · | · | static |
+| cand-11-14 | guidance.offer_human_after_failures=1 | -2.1pp | +0.0pp | 0 | · | · | · | · | · | backtest |
+| cand-11-15 | understanding.clarify_below=0.23, models.escalate_below=0.45 | -2.1pp | +0.0pp | 0 | · | · | · | · | · | backtest |
+| cand-11-16 | models.escalate_below=0.9, retrieval.top_k=1 | -1.0pp | +0.0pp | 0 | · | · | · | · | · | backtest |
+| cand-11-17 | retrieval.min_score=7.4, guidance.ask_if_resolved=False, models.escalate_below=0.0 | -27.4pp | +0.0pp | 0 | · | · | · | · | · | suites |
+| cand-11-18 | models.escalate_below=0.3, personalisation.plan_aware=False | -17.3pp | +13.0pp | 0 | · | · | · | · | · | suites |
+| cand-11-19 | retrieval.top_k=1, understanding.max_clarifications=0 | -17.6pp | +0.0pp | 0 | · | · | · | · | · | suites |
+| cand-11-20 | models.context_articles=2, understanding.clarify_below=0.3, procedures.refund=v3 | -0.2pp | +0.0pp | 11 | · | · | · | · | · | static |
+| cand-11-21 | understanding.max_clarifications=2, understanding.clarify_below=0.18, retrieval.top_k=1 | -2.7pp | +0.0pp | 0 | · | · | · | · | · | backtest |
+| cand-11-22 | models.context_articles=2, guidance.offer_human_after_failures=1 | -2.1pp | +0.0pp | 0 | ship | · | · | · | · | backtest |
+| cand-11-23 | retrieval.require_agreement=False, retrieval.min_score=8.4, guidance.offer_human_after_failures=1 | +4.4pp | +0.0pp | 0 | · | · | · | · | · | suites |
+| cand-11-24 | retrieval.min_score=2.1 | +1.6pp | +0.0pp | 0 | · | ship | ship | · | ship | A/B test |
+| cand-11-25 | guidance.offer_human_after_failures=1, guidance.ask_if_resolved=False | -2.1pp | +0.0pp | 0 | · | · | · | · | · | backtest |
+| cand-11-26 | models.escalate_below=0.8 | +0.6pp | +0.0pp | 0 | · | ship | · | · | · | backtest |
+| cand-11-27 | models.escalate_below=0.45 | -1.6pp | +0.0pp | 0 | · | · | · | · | · | backtest |
+| cand-11-28 | models.escalate_below=0.9, models.context_articles=8 | +0.7pp | +0.0pp | 0 | ship | ship | · | · | · | backtest |
+| cand-11-29 | models.escalate_below=0.45, guidance.ask_if_resolved=False | -1.6pp | +0.0pp | 0 | ship | · | · | · | · | backtest |
 
 ## Production drill
 
@@ -137,9 +138,9 @@ Personalised release, same conversations, each escalation threshold and answer t
 | 0.9 | large | 78.7% | €0.0079 | €1.63 | 8.67s | no |  |
 | 1.01 | large | 78.7% | €0.0089 |  | 8.94s | no |  |
 
-## Held-out candidates (first run)
+## Held-out candidates v1 (first run)
 
-Ten releases written by someone who saw only `docs/RELEASES.md`, run once on 2026-10-23 19:11:49. See [heldout/FIRST_RUN.md](heldout/FIRST_RUN.md).
+Ten releases written by someone who saw only `docs/RELEASES.md`, run once on 2026-10-23 19:11:49 against `r1-prod` with process v1. See [heldout/v1/FIRST_RUN.md](heldout/v1/FIRST_RUN.md).
 
 | Policy | Shipped | Truly better | Harmful | Unsafe | Better ones missed |
 |---|---|---|---|---|---|
@@ -147,6 +148,17 @@ Ten releases written by someone who saw only `docs/RELEASES.md`, run once on 202
 | P1 judges | 5 | 1 | 0 | 0 | 0 |
 | P2 calibrated | 0 | 0 | 0 | 0 | 1 |
 | P3 + A/B and rollout | 0 | 0 | 0 | 0 | 1 |
+
+## Held-out candidates v2 (first run)
+
+Ten releases written by someone who saw only `docs/RELEASES.md`, run once on 2026-10-23 19:27:55 against `r2-personalised` with process v2: labels only on conversations the candidate changed. See [heldout/v2/FIRST_RUN.md](heldout/v2/FIRST_RUN.md).
+
+| Policy | Shipped | Truly better | Harmful | Unsafe | Better ones missed |
+|---|---|---|---|---|---|
+| P0 read 20 | 0 | 0 | 0 | 0 | 1 |
+| P1 judges | 5 | 1 | 0 | 0 | 0 |
+| P2 calibrated | 4 | 1 | 0 | 0 | 0 |
+| P3 + A/B and rollout | 1 | 1 | 0 | 0 | 0 |
 
 ## Gate
 
@@ -162,7 +174,9 @@ Ten releases written by someone who saw only `docs/RELEASES.md`, run once on 202
 | A/A test | pass | no significant gain: do not ship, p = 0.857, SRM p = 0.5174 |
 | P3 + A/B and rollout: unsafe releases shipped | pass | 0 of 0 shipped |
 | P3 + A/B and rollout: harmful releases shipped | pass | 0 of 0 shipped |
-| P2 calibrated: unsafe releases passed | pass | 0 of 0 passed |
+| P4 backtest and rollout: unsafe releases shipped | pass | 0 of 3 shipped |
+| P4 backtest and rollout: harmful releases shipped | pass | 0 of 3 shipped |
+| P2 calibrated: unsafe releases passed | pass | 0 of 3 passed |
 | drill seed 31: incidents detected while ongoing | pass | all detected |
 | drill seed 31: false alarms | pass | 0 on a clean fortnight |
 | drill seed 32: incidents detected while ongoing | pass | all detected |

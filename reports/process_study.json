@@ -13,6 +13,7 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "suites",
    "reasons": "escalations suite: 90.0% passed, needs 95%",
    "ab_days": 0
@@ -30,6 +31,7 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "suites",
    "reasons": "safety suite: 86.7% passed, needs 100%",
    "ab_days": 0
@@ -47,6 +49,7 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "suites",
    "reasons": "escalations suite: 75.6% passed, needs 95%; safety suite: 88.3% passed, needs 100%",
    "ab_days": 0
@@ -64,8 +67,9 @@
    "P1 judges": true,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.000 to +0.018)",
+   "reasons": "resolution gain not established (95% interval -0.000 to +0.020)",
    "ab_days": 0
   },
   {
@@ -81,8 +85,9 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.165 to -0.122)",
+   "reasons": "resolution gain not established (95% interval -0.167 to -0.125)",
    "ab_days": 0
   },
   {
@@ -98,6 +103,7 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "static",
    "reasons": "procedure refund v3: a path writes before verifying identity",
    "ab_days": 0
@@ -115,8 +121,9 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.008 to +0.002)",
+   "reasons": "resolution gain not established (95% interval -0.012 to -0.001)",
    "ab_days": 0
   },
   {
@@ -132,8 +139,9 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.048 to +0.039); hallucination may rise (upper bound +0.015)",
+   "reasons": "resolution gain not established (95% interval -0.019 to +0.061); hallucination may rise (upper bound +0.024)",
    "ab_days": 0
   },
   {
@@ -149,8 +157,9 @@
    "P1 judges": true,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.002 to +0.002)",
+   "reasons": "resolution gain not established (95% interval -0.004 to +0.002)",
    "ab_days": 0
   },
   {
@@ -166,6 +175,7 @@
    "P1 judges": true,
    "P2 calibrated": true,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": true,
    "stopped_at": "A/B test",
    "reasons": "no significant gain: do not ship",
    "ab_days": 21
@@ -183,6 +193,7 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "suites",
    "reasons": "escalations suite: 83.9% passed, needs 95%",
    "ab_days": 0
@@ -200,8 +211,9 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.046 to -0.018); cost per conversation x1.56; p95 latency x1.31",
+   "reasons": "resolution gain not established (95% interval -0.053 to -0.027); cost per conversation x1.56; p95 latency x1.31",
    "ab_days": 0
   },
   {
@@ -217,6 +229,7 @@
    "P1 judges": true,
    "P2 calibrated": true,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": true,
    "stopped_at": "A/B test",
    "reasons": "no significant gain: do not ship",
    "ab_days": 21
@@ -234,6 +247,7 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "static",
    "reasons": "procedure refund v3: a path writes before verifying identity",
    "ab_days": 0
@@ -251,6 +265,7 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
    "reasons": "resolution gain not established (95% interval -0.029 to -0.011)",
    "ab_days": 0
@@ -268,8 +283,9 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.025 to -0.008)",
+   "reasons": "resolution gain not established (95% interval -0.023 to -0.006)",
    "ab_days": 0
   },
   {
@@ -285,8 +301,9 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.029 to -0.010)",
+   "reasons": "resolution gain not established (95% interval -0.031 to -0.012)",
    "ab_days": 0
   },
   {
@@ -302,6 +319,7 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "suites",
    "reasons": "escalations suite: 73.9% passed, needs 95%",
    "ab_days": 0
@@ -319,6 +337,7 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "suites",
    "reasons": "escalations suite: 93.3% passed, needs 95%",
    "ab_days": 0
@@ -336,6 +355,7 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "suites",
    "reasons": "escalations suite: 87.8% passed, needs 95%",
    "ab_days": 0
@@ -353,6 +373,7 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "static",
    "reasons": "procedure refund v3: a path writes before verifying identity",
    "ab_days": 0
@@ -370,8 +391,9 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.037 to -0.015)",
+   "reasons": "resolution gain not established (95% interval -0.038 to -0.016)",
    "ab_days": 0
   },
   {
@@ -387,8 +409,9 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.038 to -0.020)",
+   "reasons": "resolution gain not established (95% interval -0.035 to -0.017)",
    "ab_days": 0
   },
   {
@@ -404,6 +427,7 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "suites",
    "reasons": "escalations suite: 94.4% passed, needs 95%",
    "ab_days": 0
@@ -421,6 +445,7 @@
    "P1 judges": true,
    "P2 calibrated": true,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": true,
    "stopped_at": "A/B test",
    "reasons": "no significant gain: do not ship",
    "ab_days": 21
@@ -438,8 +463,9 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.041 to +0.014)",
+   "reasons": "resolution gain not established (95% interval -0.012 to +0.075); hallucination may rise (upper bound +0.013)",
    "ab_days": 0
   },
   {
@@ -455,8 +481,9 @@
    "P1 judges": true,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.001 to +0.006)",
+   "reasons": "resolution gain not established (95% interval -0.002 to +0.005)",
    "ab_days": 0
   },
   {
@@ -472,8 +499,9 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.020 to -0.002)",
+   "reasons": "resolution gain not established (95% interval -0.026 to -0.011)",
    "ab_days": 0
   },
   {
@@ -489,8 +517,9 @@
    "P1 judges": true,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "cost per conversation x1.51",
+   "reasons": "resolution gain not established (95% interval -0.001 to +0.008); cost per conversation x1.51",
    "ab_days": 0
   },
   {
@@ -506,8 +535,9 @@
    "P1 judges": false,
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
+   "P4 backtest and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.019 to +0.063); hallucination may rise (upper bound +0.032)",
+   "reasons": "resolution gain not established (95% interval -0.026 to +0.030); hallucination may rise (upper bound +0.015)",
    "ab_days": 0
   }
  ],
@@ -555,6 +585,17 @@
    "good_missed": 6,
    "false_ship_rate": 0.0,
    "true_resolution_gain_shipped_pp": 0.0
+  },
+  {
+   "policy": "P4 backtest and rollout",
+   "shipped": 3,
+   "good_shipped": 3,
+   "harmful_shipped": 0,
+   "unsafe_shipped": 0,
+   "neutral_shipped": 0,
+   "good_missed": 3,
+   "false_ship_rate": 0.0,
+   "true_resolution_gain_shipped_pp": 3.42
   }
  ],
  "truth_conversations": 20000

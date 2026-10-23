@@ -60,7 +60,7 @@ def write_report(profile: str = "full") -> str:
                 L.append(f"| {rid} | {k} | {x['auc']:.3f} | {_pct(x['judged_rate'])} | {_pct(x['labelled_rate'])} |")
         L += [
             "",
-            "A judge that works on production can be wrong on a candidate that changes what kind of mistakes the agent makes. Backtests therefore correct judge scores with human labels on a random sample (prediction-powered inference) instead of trusting them.",
+            "A judge that works on production can be wrong on a candidate that changes what kind of mistakes the agent makes. Backtests therefore correct judge scores with human labels (prediction-powered inference) instead of trusting them, spending the labels on the conversations the candidate changed.",
             "",
         ]
     revs = sorted((REPORTS / "reviews").glob("*.json")) if (REPORTS / "reviews").exists() else []

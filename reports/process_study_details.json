@@ -9,6 +9,7 @@
    "cost_ratio": 0.8276828938052829,
    "d_handled": -0.18485000000000007
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-00",
    "baseline": "r2-personalised",
@@ -149,6 +150,7 @@
    "cost_ratio": 1.063996441405963,
    "d_handled": -0.013299999999999979
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-01",
    "baseline": "r2-personalised",
@@ -315,6 +317,7 @@
    "cost_ratio": 0.6572558668629759,
    "d_handled": -0.13690000000000002
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-02",
    "baseline": "r2-personalised",
@@ -511,6 +514,7 @@
    "cost_ratio": 1.0039630364739112,
    "d_handled": 0.015549999999999953
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-03",
    "baseline": "r2-personalised",
@@ -532,7 +536,7 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.000 to +0.018)"
+    "resolution gain not established (95% interval -0.000 to +0.020)"
    ],
    "static": [],
    "suites": [
@@ -669,19 +673,19 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.67602,
-      "candidate": 0.68502,
-      "diff": 0.009,
-      "lo": -0.00014,
-      "hi": 0.01814,
+      "candidate": 0.68602,
+      "diff": 0.01,
+      "lo": -2e-05,
+      "hi": 0.02002,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
       "name": "calibrated_hallucination",
       "baseline": 0.03764,
-      "candidate": 0.03763,
-      "diff": -0.0,
-      "lo": -0.00363,
-      "hi": 0.00363,
+      "candidate": 0.03863,
+      "diff": 0.001,
+      "lo": -0.00194,
+      "hi": 0.00394,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -742,9 +746,9 @@
      "passes_offline": true,
      "reasons": [],
      "calibrated_resolution_gain": [
-      0.0031,
-      0.01,
-      0.0169
+      0.0043,
+      0.011,
+      0.0177
      ]
     },
     {
@@ -752,30 +756,32 @@
      "value": 0.27,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.007 to +0.003)"
+      "resolution gain not established (95% interval -0.009 to +0.003)"
      ],
      "calibrated_resolution_gain": [
-      -0.0069,
-      -0.002,
-      0.0029
+      -0.0089,
+      -0.003,
+      0.0028
      ]
     },
     {
      "setting": "understanding.max_clarifications",
      "value": 2,
-     "passes_offline": true,
-     "reasons": [],
+     "passes_offline": false,
+     "reasons": [
+      "resolution gain not established (95% interval -0.002 to +0.006)"
+     ],
      "calibrated_resolution_gain": [
-      0.0006,
-      0.004,
-      0.0074
+      -0.0015,
+      0.002,
+      0.0055
      ]
     }
    ]
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.000 to +0.018)"
+   "resolution gain not established (95% interval -0.000 to +0.020)"
   ],
   "eval_cost_eur": {
    "P0 read 20": 100.0,
@@ -794,6 +800,7 @@
    "cost_ratio": 1.0044795511981521,
    "d_handled": -0.15695000000000003
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-04",
    "baseline": "r2-personalised",
@@ -811,7 +818,7 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.165 to -0.122)"
+    "resolution gain not established (95% interval -0.167 to -0.125)"
    ],
    "static": [],
    "suites": [
@@ -940,19 +947,19 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.68993,
-      "candidate": 0.5468,
-      "diff": -0.14313,
-      "lo": -0.16464,
-      "hi": -0.12162,
+      "candidate": 0.54378,
+      "diff": -0.14616,
+      "lo": -0.16711,
+      "hi": -0.1252,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
       "name": "calibrated_hallucination",
       "baseline": 0.03351,
-      "candidate": 0.02991,
-      "diff": -0.0036,
-      "lo": -0.00971,
-      "hi": 0.00251,
+      "candidate": 0.03445,
+      "diff": 0.00094,
+      "lo": -0.00691,
+      "hi": 0.00878,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -1012,13 +1019,12 @@
      "value": 7.5,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.167 to -0.124)",
-      "hallucination may rise (upper bound +0.011)"
+      "resolution gain not established (95% interval -0.171 to -0.126)"
      ],
      "calibrated_resolution_gain": [
-      -0.1672,
-      -0.1456,
-      -0.1241
+      -0.171,
+      -0.1485,
+      -0.126
      ]
     },
     {
@@ -1036,7 +1042,7 @@
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.165 to -0.122)"
+   "resolution gain not established (95% interval -0.167 to -0.125)"
   ],
   "eval_cost_eur": {
    "P0 read 20": 100.0,
@@ -1055,6 +1061,7 @@
    "cost_ratio": 1.7937260504812593,
    "d_handled": 0.0474
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-05",
    "baseline": "r2-personalised",
@@ -1110,6 +1117,7 @@
    "cost_ratio": 1.003072014844419,
    "d_handled": -0.0015000000000000568
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-06",
    "baseline": "r2-personalised",
@@ -1127,7 +1135,7 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.008 to +0.002)"
+    "resolution gain not established (95% interval -0.012 to -0.001)"
    ],
    "static": [],
    "suites": [
@@ -1270,19 +1278,19 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.69799,
-      "candidate": 0.69496,
-      "diff": -0.00303,
-      "lo": -0.00812,
-      "hi": 0.00206,
+      "candidate": 0.69196,
+      "diff": -0.00603,
+      "lo": -0.01154,
+      "hi": -0.00052,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
       "name": "calibrated_hallucination",
       "baseline": 0.03168,
-      "candidate": 0.03055,
-      "diff": -0.00113,
-      "lo": -0.0032,
-      "hi": 0.00093,
+      "candidate": 0.03155,
+      "diff": -0.00013,
+      "lo": -0.00086,
+      "hi": 0.00059,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -1342,12 +1350,12 @@
      "value": 0.26,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.010 to -0.002)"
+      "resolution gain not established (95% interval -0.009 to +0.001)"
      ],
      "calibrated_resolution_gain": [
-      -0.0098,
-      -0.006,
-      -0.0022
+      -0.0086,
+      -0.004,
+      0.0006
      ]
     },
     {
@@ -1355,19 +1363,19 @@
      "value": 2,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.000 to +0.000)"
+      "resolution gain not established (95% interval -0.003 to +0.003)"
      ],
      "calibrated_resolution_gain": [
+      -0.0029,
       -0.0,
-      -0.0,
-      0.0
+      0.0029
      ]
     }
    ]
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.008 to +0.002)"
+   "resolution gain not established (95% interval -0.012 to -0.001)"
   ],
   "eval_cost_eur": {
    "P0 read 20": 100.0,
@@ -1386,6 +1394,7 @@
    "cost_ratio": 0.9962891985413908,
    "d_handled": 0.00034999999999996145
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-07",
    "baseline": "r2-personalised",
@@ -1403,8 +1412,8 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.048 to +0.039)",
-    "hallucination may rise (upper bound +0.015)"
+    "resolution gain not established (95% interval -0.019 to +0.061)",
+    "hallucination may rise (upper bound +0.024)"
    ],
    "static": [],
    "suites": [
@@ -1540,19 +1549,19 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.68546,
-      "candidate": 0.68093,
-      "diff": -0.00454,
-      "lo": -0.04828,
-      "hi": 0.03921,
+      "candidate": 0.70649,
+      "diff": 0.02103,
+      "lo": -0.01911,
+      "hi": 0.06117,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
       "name": "calibrated_hallucination",
       "baseline": 0.03467,
-      "candidate": 0.03927,
-      "diff": 0.00459,
-      "lo": -0.00538,
-      "hi": 0.01456,
+      "candidate": 0.03415,
+      "diff": -0.00052,
+      "lo": -0.02525,
+      "hi": 0.0242,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -1612,12 +1621,13 @@
      "value": false,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.042 to +0.022)"
+      "resolution gain not established (95% interval -0.036 to +0.047)",
+      "hallucination may rise (upper bound +0.027)"
      ],
      "calibrated_resolution_gain": [
-      -0.0415,
-      -0.0096,
-      0.0222
+      -0.0357,
+      0.0057,
+      0.0471
      ]
     },
     {
@@ -1637,8 +1647,8 @@
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.048 to +0.039)",
-   "hallucination may rise (upper bound +0.015)"
+   "resolution gain not established (95% interval -0.019 to +0.061)",
+   "hallucination may rise (upper bound +0.024)"
   ],
   "eval_cost_eur": {
    "P0 read 20": 100.0,
@@ -1657,6 +1667,7 @@
    "cost_ratio": 1.0093367003953453,
    "d_handled": 0.0035999999999999366
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-08",
    "baseline": "r2-personalised",
@@ -1670,7 +1681,7 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.002 to +0.002)"
+    "resolution gain not established (95% interval -0.004 to +0.002)"
    ],
    "static": [],
    "suites": [
@@ -1813,10 +1824,10 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.68644,
-      "candidate": 0.68644,
-      "diff": -1e-05,
-      "lo": -0.00217,
-      "hi": 0.00216,
+      "candidate": 0.68544,
+      "diff": -0.00101,
+      "lo": -0.00383,
+      "hi": 0.00182,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
@@ -1824,8 +1835,8 @@
       "baseline": 0.03387,
       "candidate": 0.03386,
       "diff": -1e-05,
-      "lo": -0.00035,
-      "hi": 0.00033,
+      "lo": -0.00292,
+      "hi": 0.0029,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -1883,7 +1894,7 @@
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.002 to +0.002)"
+   "resolution gain not established (95% interval -0.004 to +0.002)"
   ],
   "eval_cost_eur": {
    "P0 read 20": 100.0,
@@ -1901,6 +1912,69 @@
    "unsafe": 0,
    "cost_ratio": 1.256979186028087,
    "d_handled": 0.009199999999999986
+  },
+  "rollout_without_ab": {
+   "candidate": "cand-11-09",
+   "shipped": true,
+   "stopped_at": null,
+   "reasons": [],
+   "exposed_conversations": 2626,
+   "stages": [
+    {
+     "stage": "dark",
+     "days": 1,
+     "treated": 1575,
+     "error_rate_control": 0.0,
+     "error_rate_treatment": 0.0,
+     "latency_p95_control": 5.4772,
+     "latency_p95_treatment": 5.9386,
+     "writes_without_verification": 0,
+     "hallucination_judged_control": 0.0424,
+     "hallucination_judged_treatment": 0.0441,
+     "failed": []
+    },
+    {
+     "stage": "1%",
+     "days": 2,
+     "treated": 39,
+     "error_rate_control": 0.0,
+     "error_rate_treatment": 0.0,
+     "latency_p95_control": 5.4482,
+     "latency_p95_treatment": 5.9634,
+     "writes_without_verification": 0,
+     "hallucination_judged_control": 0.0425,
+     "hallucination_judged_treatment": 0.0542,
+     "failed": []
+    },
+    {
+     "stage": "10%",
+     "days": 2,
+     "treated": 154,
+     "error_rate_control": 0.0,
+     "error_rate_treatment": 0.0,
+     "latency_p95_control": 5.5001,
+     "latency_p95_treatment": 6.1196,
+     "writes_without_verification": 0,
+     "hallucination_judged_control": 0.0385,
+     "hallucination_judged_treatment": 0.0374,
+     "failed": []
+    },
+    {
+     "stage": "50%",
+     "days": 3,
+     "treated": 2433,
+     "error_rate_control": 0.0,
+     "error_rate_treatment": 0.0,
+     "latency_p95_control": 5.4045,
+     "latency_p95_treatment": 5.9779,
+     "writes_without_verification": 0,
+     "hallucination_judged_control": 0.0436,
+     "hallucination_judged_treatment": 0.0421,
+     "resolution_control": 0.7727,
+     "resolution_treatment": 0.7772,
+     "failed": []
+    }
+   ]
   },
   "review": {
    "candidate": "cand-11-09",
@@ -2022,10 +2096,10 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.69307,
-      "candidate": 0.70106,
-      "diff": 0.00799,
-      "lo": 0.00149,
-      "hi": 0.01449,
+      "candidate": 0.70006,
+      "diff": 0.00699,
+      "lo": 0.00184,
+      "hi": 0.01214,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
@@ -2184,6 +2258,7 @@
    "cost_ratio": 0.6479696346149806,
    "d_handled": -0.3921
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-10",
    "baseline": "r2-personalised",
@@ -2346,6 +2421,7 @@
    "cost_ratio": 1.5383297788460712,
    "d_handled": -0.04459999999999997
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-11",
    "baseline": "r2-personalised",
@@ -2367,7 +2443,7 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.046 to -0.018)",
+    "resolution gain not established (95% interval -0.053 to -0.027)",
     "cost per conversation x1.56",
     "p95 latency x1.31"
    ],
@@ -2512,19 +2588,19 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.68927,
-      "candidate": 0.65709,
-      "diff": -0.03218,
-      "lo": -0.04589,
-      "hi": -0.01847,
+      "candidate": 0.64909,
+      "diff": -0.04018,
+      "lo": -0.05311,
+      "hi": -0.02725,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
       "name": "calibrated_hallucination",
       "baseline": 0.03467,
-      "candidate": 0.03069,
-      "diff": -0.00398,
-      "lo": -0.00848,
-      "hi": 0.00052,
+      "candidate": 0.03169,
+      "diff": -0.00298,
+      "lo": -0.00781,
+      "hi": 0.00185,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -2599,30 +2675,32 @@
      "value": 0.3,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.051 to -0.025)"
+      "resolution gain not established (95% interval -0.055 to -0.031)"
      ],
      "calibrated_resolution_gain": [
-      -0.051,
-      -0.0382,
-      -0.0254
+      -0.0552,
+      -0.0432,
+      -0.0312
      ]
     },
     {
      "setting": "understanding.clarify_below",
      "value": 0.36,
-     "passes_offline": true,
-     "reasons": [],
+     "passes_offline": false,
+     "reasons": [
+      "resolution gain not established (95% interval -0.002 to +0.004)"
+     ],
      "calibrated_resolution_gain": [
-      0.0004,
-      0.003,
-      0.0056
+      -0.0017,
+      0.001,
+      0.0037
      ]
     }
    ]
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.046 to -0.018)",
+   "resolution gain not established (95% interval -0.053 to -0.027)",
    "cost per conversation x1.56",
    "p95 latency x1.31"
   ],
@@ -2642,6 +2720,69 @@
    "unsafe": 0,
    "cost_ratio": 0.9926213879548029,
    "d_handled": 0.00990000000000002
+  },
+  "rollout_without_ab": {
+   "candidate": "cand-11-12",
+   "shipped": true,
+   "stopped_at": null,
+   "reasons": [],
+   "exposed_conversations": 2595,
+   "stages": [
+    {
+     "stage": "dark",
+     "days": 1,
+     "treated": 1500,
+     "error_rate_control": 0.0,
+     "error_rate_treatment": 0.0,
+     "latency_p95_control": 5.5457,
+     "latency_p95_treatment": 5.6148,
+     "writes_without_verification": 0,
+     "hallucination_judged_control": 0.0399,
+     "hallucination_judged_treatment": 0.0426,
+     "failed": []
+    },
+    {
+     "stage": "1%",
+     "days": 2,
+     "treated": 25,
+     "error_rate_control": 0.0,
+     "error_rate_treatment": 0.0,
+     "latency_p95_control": 5.5237,
+     "latency_p95_treatment": 5.2564,
+     "writes_without_verification": 0,
+     "hallucination_judged_control": 0.0399,
+     "hallucination_judged_treatment": 0.0402,
+     "failed": []
+    },
+    {
+     "stage": "10%",
+     "days": 2,
+     "treated": 250,
+     "error_rate_control": 0.0,
+     "error_rate_treatment": 0.0,
+     "latency_p95_control": 5.3484,
+     "latency_p95_treatment": 5.2964,
+     "writes_without_verification": 0,
+     "hallucination_judged_control": 0.0393,
+     "hallucination_judged_treatment": 0.038,
+     "failed": []
+    },
+    {
+     "stage": "50%",
+     "days": 3,
+     "treated": 2320,
+     "error_rate_control": 0.0,
+     "error_rate_treatment": 0.0,
+     "latency_p95_control": 5.5168,
+     "latency_p95_treatment": 5.4948,
+     "writes_without_verification": 0,
+     "hallucination_judged_control": 0.0421,
+     "hallucination_judged_treatment": 0.0418,
+     "resolution_control": 0.7983,
+     "resolution_treatment": 0.7905,
+     "failed": []
+    }
+   ]
   },
   "review": {
    "candidate": "cand-11-12",
@@ -2825,19 +2966,19 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.67647,
-      "candidate": 0.68747,
-      "diff": 0.011,
-      "lo": 0.00153,
-      "hi": 0.02047,
+      "candidate": 0.68847,
+      "diff": 0.012,
+      "lo": 0.00282,
+      "hi": 0.02118,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
       "name": "calibrated_hallucination",
       "baseline": 0.03241,
-      "candidate": 0.03041,
-      "diff": -0.002,
-      "lo": -0.00671,
-      "hi": 0.00271,
+      "candidate": 0.03241,
+      "diff": 0.0,
+      "lo": -0.00454,
+      "hi": 0.00454,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -2987,6 +3128,7 @@
    "cost_ratio": 1.0093810253713642,
    "d_handled": 0.021849999999999925
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-13",
    "baseline": "r2-personalised",
@@ -3042,6 +3184,7 @@
    "cost_ratio": 0.9750387140933034,
    "d_handled": -0.02290000000000003
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-14",
    "baseline": "r2-personalised",
@@ -3200,17 +3343,17 @@
       "baseline": 0.67768,
       "candidate": 0.65768,
       "diff": -0.02,
-      "lo": -0.02937,
-      "hi": -0.01063,
+      "lo": -0.02897,
+      "hi": -0.01103,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
       "name": "calibrated_hallucination",
       "baseline": 0.03202,
-      "candidate": 0.03202,
-      "diff": -0.0,
-      "lo": -0.00095,
-      "hi": 0.00095,
+      "candidate": 0.03302,
+      "diff": 0.001,
+      "lo": -0.00116,
+      "hi": 0.00316,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -3287,6 +3430,7 @@
    "cost_ratio": 0.9122240547315307,
    "d_handled": -0.02234999999999998
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-15",
    "baseline": "r2-personalised",
@@ -3304,7 +3448,7 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.025 to -0.008)"
+    "resolution gain not established (95% interval -0.023 to -0.006)"
    ],
    "static": [],
    "suites": [
@@ -3447,19 +3591,19 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.68348,
-      "candidate": 0.66689,
-      "diff": -0.01659,
-      "lo": -0.02504,
-      "hi": -0.00814,
+      "candidate": 0.66889,
+      "diff": -0.01459,
+      "lo": -0.023,
+      "hi": -0.00619,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
       "name": "calibrated_hallucination",
       "baseline": 0.03557,
-      "candidate": 0.03404,
-      "diff": -0.00154,
-      "lo": -0.00525,
-      "hi": 0.00217,
+      "candidate": 0.03604,
+      "diff": 0.00046,
+      "lo": -0.00184,
+      "hi": 0.00277,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -3519,12 +3663,12 @@
      "value": 0.45,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.016 to -0.001)"
+      "resolution gain not established (95% interval -0.018 to -0.006)"
      ],
      "calibrated_resolution_gain": [
-      -0.0158,
-      -0.0086,
-      -0.0014
+      -0.0176,
+      -0.0116,
+      -0.0056
      ]
     },
     {
@@ -3532,19 +3676,19 @@
      "value": 0.23,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.014 to -0.002)"
+      "resolution gain not established (95% interval -0.013 to -0.001)"
      ],
      "calibrated_resolution_gain": [
-      -0.0136,
-      -0.0081,
-      -0.0025
+      -0.0129,
+      -0.0071,
+      -0.0012
      ]
     }
    ]
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.025 to -0.008)"
+   "resolution gain not established (95% interval -0.023 to -0.006)"
   ],
   "eval_cost_eur": {
    "P0 read 20": 100.0,
@@ -3563,6 +3707,7 @@
    "cost_ratio": 1.2573465101677597,
    "d_handled": -0.007900000000000018
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-16",
    "baseline": "r2-personalised",
@@ -3580,7 +3725,7 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.029 to -0.010)"
+    "resolution gain not established (95% interval -0.031 to -0.012)"
    ],
    "static": [],
    "suites": [
@@ -3702,10 +3847,10 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.68505,
-      "candidate": 0.66577,
-      "diff": -0.01928,
-      "lo": -0.02858,
-      "hi": -0.00999,
+      "candidate": 0.66377,
+      "diff": -0.02128,
+      "lo": -0.03061,
+      "hi": -0.01195,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
@@ -3774,12 +3919,12 @@
      "value": 0.9,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.006 to +0.005)"
+      "resolution gain not established (95% interval -0.004 to +0.007)"
      ],
      "calibrated_resolution_gain": [
-      -0.0055,
-      -0.0002,
-      0.0051
+      -0.0037,
+      0.0018,
+      0.0072
      ]
     },
     {
@@ -3787,19 +3932,19 @@
      "value": 1,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.030 to -0.014)"
+      "resolution gain not established (95% interval -0.029 to -0.011)"
      ],
      "calibrated_resolution_gain": [
-      -0.0304,
-      -0.0221,
-      -0.0138
+      -0.0288,
+      -0.0201,
+      -0.0114
      ]
     }
    ]
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.029 to -0.010)"
+   "resolution gain not established (95% interval -0.031 to -0.012)"
   ],
   "eval_cost_eur": {
    "P0 read 20": 100.0,
@@ -3818,6 +3963,7 @@
    "cost_ratio": 0.6204135655183263,
    "d_handled": -0.2911
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-17",
    "baseline": "r2-personalised",
@@ -3980,6 +4126,7 @@
    "cost_ratio": 0.8706215394309849,
    "d_handled": -0.17495000000000005
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-18",
    "baseline": "r2-personalised",
@@ -4138,6 +4285,7 @@
    "cost_ratio": 0.8273506930998129,
    "d_handled": -0.19905000000000006
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-19",
    "baseline": "r2-personalised",
@@ -4296,6 +4444,7 @@
    "cost_ratio": 0.9517366986373487,
    "d_handled": -0.0022999999999999687
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-20",
    "baseline": "r2-personalised",
@@ -4351,6 +4500,7 @@
    "cost_ratio": 0.9954380452254131,
    "d_handled": -0.028349999999999986
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-21",
    "baseline": "r2-personalised",
@@ -4372,7 +4522,7 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.037 to -0.015)"
+    "resolution gain not established (95% interval -0.038 to -0.016)"
    ],
    "static": [],
    "suites": [
@@ -4515,19 +4665,19 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.66839,
-      "candidate": 0.64239,
-      "diff": -0.026,
-      "lo": -0.03695,
-      "hi": -0.01505,
+      "candidate": 0.64139,
+      "diff": -0.027,
+      "lo": -0.03847,
+      "hi": -0.01553,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
       "name": "calibrated_hallucination",
       "baseline": 0.0337,
-      "candidate": 0.0347,
-      "diff": 0.001,
-      "lo": -0.00167,
-      "hi": 0.00367,
+      "candidate": 0.0337,
+      "diff": 0.0,
+      "lo": -0.00344,
+      "hi": 0.00344,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -4587,12 +4737,12 @@
      "value": 1,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.020 to -0.006)"
+      "resolution gain not established (95% interval -0.022 to -0.008)"
      ],
      "calibrated_resolution_gain": [
-      -0.0201,
-      -0.013,
-      -0.0059
+      -0.022,
+      -0.015,
+      -0.008
      ]
     },
     {
@@ -4600,32 +4750,30 @@
      "value": 0.18,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.027 to -0.009)"
+      "resolution gain not established (95% interval -0.024 to -0.008)"
      ],
      "calibrated_resolution_gain": [
-      -0.0266,
-      -0.018,
-      -0.0094
+      -0.024,
+      -0.016,
+      -0.008
      ]
     },
     {
      "setting": "understanding.max_clarifications",
      "value": 2,
-     "passes_offline": false,
-     "reasons": [
-      "resolution gain not established (95% interval -0.000 to +0.010)"
-     ],
+     "passes_offline": true,
+     "reasons": [],
      "calibrated_resolution_gain": [
-      -0.0,
-      0.005,
-      0.01
+      0.0027,
+      0.007,
+      0.0113
      ]
     }
    ]
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.037 to -0.015)"
+   "resolution gain not established (95% interval -0.038 to -0.016)"
   ],
   "eval_cost_eur": {
    "P0 read 20": 100.0,
@@ -4644,6 +4792,7 @@
    "cost_ratio": 0.9307741503309691,
    "d_handled": -0.02290000000000003
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-22",
    "baseline": "r2-personalised",
@@ -4661,7 +4810,7 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.038 to -0.020)"
+    "resolution gain not established (95% interval -0.035 to -0.017)"
    ],
    "static": [],
    "suites": [
@@ -4790,19 +4939,19 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.68818,
-      "candidate": 0.65923,
-      "diff": -0.02896,
-      "lo": -0.03773,
-      "hi": -0.02018,
+      "candidate": 0.66223,
+      "diff": -0.02596,
+      "lo": -0.03521,
+      "hi": -0.01671,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
       "name": "calibrated_hallucination",
       "baseline": 0.03326,
-      "candidate": 0.03427,
-      "diff": 0.00101,
-      "lo": -0.00104,
-      "hi": 0.00307,
+      "candidate": 0.03227,
+      "diff": -0.00099,
+      "lo": -0.00291,
+      "hi": 0.00094,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -4862,12 +5011,12 @@
      "value": 1,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.039 to -0.021)"
+      "resolution gain not established (95% interval -0.038 to -0.020)"
      ],
      "calibrated_resolution_gain": [
-      -0.0385,
-      -0.03,
-      -0.0214
+      -0.0382,
+      -0.029,
+      -0.0198
      ]
     },
     {
@@ -4887,7 +5036,7 @@
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.038 to -0.020)"
+   "resolution gain not established (95% interval -0.035 to -0.017)"
   ],
   "eval_cost_eur": {
    "P0 read 20": 100.0,
@@ -4906,6 +5055,7 @@
    "cost_ratio": 0.9974818862564654,
    "d_handled": 0.042300000000000004
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-23",
    "baseline": "r2-personalised",
@@ -5054,6 +5204,67 @@
    "unsafe": 0,
    "cost_ratio": 1.0008587992421891,
    "d_handled": 0.016100000000000003
+  },
+  "rollout_without_ab": {
+   "candidate": "cand-11-24",
+   "shipped": true,
+   "stopped_at": null,
+   "reasons": [],
+   "exposed_conversations": 2001,
+   "stages": [
+    {
+     "stage": "dark",
+     "days": 1,
+     "treated": 1724,
+     "error_rate_control": 0.0,
+     "error_rate_treatment": 0.0,
+     "latency_p95_control": 5.3703,
+     "latency_p95_treatment": 5.4581,
+     "writes_without_verification": 0,
+     "hallucination_judged_control": 0.0394,
+     "hallucination_judged_treatment": 0.0418,
+     "failed": []
+    },
+    {
+     "stage": "1%",
+     "days": 2,
+     "treated": 35,
+     "error_rate_control": 0.0,
+     "error_rate_treatment": 0.0,
+     "latency_p95_control": 5.5409,
+     "latency_p95_treatment": 5.3018,
+     "writes_without_verification": 0,
+     "hallucination_judged_control": 0.041,
+     "hallucination_judged_treatment": 0.0516,
+     "failed": []
+    },
+    {
+     "stage": "10%",
+     "days": 2,
+     "treated": 294,
+     "error_rate_control": 0.0,
+     "error_rate_treatment": 0.0,
+     "latency_p95_control": 5.5632,
+     "latency_p95_treatment": 5.1806,
+     "writes_without_verification": 0,
+     "hallucination_judged_control": 0.0417,
+     "hallucination_judged_treatment": 0.0349,
+     "failed": []
+    },
+    {
+     "stage": "50%",
+     "days": 3,
+     "treated": 1672,
+     "error_rate_control": 0.0,
+     "error_rate_treatment": 0.0,
+     "latency_p95_control": 5.452,
+     "latency_p95_treatment": 5.4532,
+     "writes_without_verification": 0,
+     "hallucination_judged_control": 0.0382,
+     "hallucination_judged_treatment": 0.0417,
+     "failed": []
+    }
+   ]
   },
   "review": {
    "candidate": "cand-11-24",
@@ -5207,8 +5418,8 @@
       "baseline": 0.67589,
       "candidate": 0.68889,
       "diff": 0.013,
-      "lo": 0.00584,
-      "hi": 0.02016,
+      "lo": 0.00592,
+      "hi": 0.02008,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
@@ -5216,8 +5427,8 @@
       "baseline": 0.03576,
       "candidate": 0.03677,
       "diff": 0.001,
-      "lo": -0.0019,
-      "hi": 0.0039,
+      "lo": -0.00186,
+      "hi": 0.00387,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -5367,6 +5578,7 @@
    "cost_ratio": 0.9706426715124444,
    "d_handled": -0.02290000000000003
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-25",
    "baseline": "r2-personalised",
@@ -5384,7 +5596,8 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.041 to +0.014)"
+    "resolution gain not established (95% interval -0.012 to +0.075)",
+    "hallucination may rise (upper bound +0.013)"
    ],
    "static": [],
    "suites": [
@@ -5499,10 +5712,10 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.68195,
-      "candidate": 0.66862,
-      "diff": -0.01333,
-      "lo": -0.04073,
-      "hi": 0.01408,
+      "candidate": 0.71386,
+      "diff": 0.03191,
+      "lo": -0.01161,
+      "hi": 0.07543,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
@@ -5510,8 +5723,8 @@
       "baseline": 0.0321,
       "candidate": 0.02112,
       "diff": -0.01098,
-      "lo": -0.03063,
-      "hi": 0.00866,
+      "lo": -0.03514,
+      "hi": 0.01317,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -5571,12 +5784,13 @@
      "value": false,
      "passes_offline": false,
      "reasons": [
-      "hallucination may rise (upper bound +0.033)"
+      "resolution gain not established (95% interval -0.027 to +0.052)",
+      "hallucination may rise (upper bound +0.030)"
      ],
      "calibrated_resolution_gain": [
-      0.0015,
-      0.0326,
-      0.0636
+      -0.0273,
+      0.0125,
+      0.0522
      ]
     },
     {
@@ -5584,19 +5798,20 @@
      "value": 1,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.027 to -0.011)"
+      "resolution gain not established (95% interval -0.024 to -0.008)"
      ],
      "calibrated_resolution_gain": [
-      -0.0265,
-      -0.019,
-      -0.0115
+      -0.024,
+      -0.016,
+      -0.008
      ]
     }
    ]
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.041 to +0.014)"
+   "resolution gain not established (95% interval -0.012 to +0.075)",
+   "hallucination may rise (upper bound +0.013)"
   ],
   "eval_cost_eur": {
    "P0 read 20": 100.0,
@@ -5615,6 +5830,7 @@
    "cost_ratio": 1.1338022613231407,
    "d_handled": 0.00824999999999998
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-26",
    "baseline": "r2-personalised",
@@ -5628,7 +5844,7 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.001 to +0.006)"
+    "resolution gain not established (95% interval -0.002 to +0.005)"
    ],
    "static": [],
    "suites": [
@@ -5735,19 +5951,19 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.68268,
-      "candidate": 0.68512,
-      "diff": 0.00244,
-      "lo": -0.0008,
-      "hi": 0.00568,
+      "candidate": 0.68412,
+      "diff": 0.00144,
+      "lo": -0.00221,
+      "hi": 0.00509,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
       "name": "calibrated_hallucination",
       "baseline": 0.03434,
-      "candidate": 0.03617,
-      "diff": 0.00183,
-      "lo": -0.0001,
-      "hi": 0.00376,
+      "candidate": 0.03517,
+      "diff": 0.00083,
+      "lo": 0.0006,
+      "hi": 0.00106,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -5805,7 +6021,7 @@
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.001 to +0.006)"
+   "resolution gain not established (95% interval -0.002 to +0.005)"
   ],
   "eval_cost_eur": {
    "P0 read 20": 100.0,
@@ -5824,6 +6040,7 @@
    "cost_ratio": 0.9175774654439786,
    "d_handled": -0.01739999999999997
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-27",
    "baseline": "r2-personalised",
@@ -5837,7 +6054,7 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.020 to -0.002)"
+    "resolution gain not established (95% interval -0.026 to -0.011)"
    ],
    "static": [],
    "suites": [
@@ -5973,19 +6190,19 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.68163,
-      "candidate": 0.67027,
-      "diff": -0.01136,
-      "lo": -0.02034,
-      "hi": -0.00239,
+      "candidate": 0.66327,
+      "diff": -0.01836,
+      "lo": -0.02577,
+      "hi": -0.01095,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
       "name": "calibrated_hallucination",
       "baseline": 0.03474,
-      "candidate": 0.03734,
-      "diff": 0.0026,
-      "lo": -0.00169,
-      "hi": 0.00688,
+      "candidate": 0.03434,
+      "diff": -0.0004,
+      "lo": -0.00414,
+      "hi": 0.00334,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -6043,7 +6260,7 @@
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.020 to -0.002)"
+   "resolution gain not established (95% interval -0.026 to -0.011)"
   ],
   "eval_cost_eur": {
    "P0 read 20": 100.0,
@@ -6062,6 +6279,7 @@
    "cost_ratio": 1.4894178600330756,
    "d_handled": 0.009199999999999986
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-28",
    "baseline": "r2-personalised",
@@ -6079,6 +6297,7 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
+    "resolution gain not established (95% interval -0.001 to +0.008)",
     "cost per conversation x1.51"
    ],
    "static": [],
@@ -6215,10 +6434,10 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.69636,
-      "candidate": 0.70124,
-      "diff": 0.00489,
-      "lo": 0.00065,
-      "hi": 0.00912,
+      "candidate": 0.70024,
+      "diff": 0.00389,
+      "lo": -0.00071,
+      "hi": 0.00849,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
@@ -6298,20 +6517,19 @@
     {
      "setting": "models.escalate_below",
      "value": 0.9,
-     "passes_offline": false,
-     "reasons": [
-      "resolution gain not established (95% interval -0.005 to +0.004)"
-     ],
+     "passes_offline": true,
+     "reasons": [],
      "calibrated_resolution_gain": [
-      -0.0047,
-      -0.0001,
-      0.0045
+      0.0002,
+      0.0039,
+      0.0075
      ]
     }
    ]
   },
   "stopped_at": "backtest",
   "reasons": [
+   "resolution gain not established (95% interval -0.001 to +0.008)",
    "cost per conversation x1.51"
   ],
   "eval_cost_eur": {
@@ -6331,6 +6549,7 @@
    "cost_ratio": 0.9130988972035831,
    "d_handled": -0.01739999999999997
   },
+  "rollout_without_ab": null,
   "review": {
    "candidate": "cand-11-29",
    "baseline": "r2-personalised",
@@ -6348,8 +6567,8 @@
    "decision": "do not ship",
    "stopped_at": "backtest",
    "reasons": [
-    "resolution gain not established (95% interval -0.019 to +0.063)",
-    "hallucination may rise (upper bound +0.032)"
+    "resolution gain not established (95% interval -0.026 to +0.030)",
+    "hallucination may rise (upper bound +0.015)"
    ],
    "static": [],
    "suites": [
@@ -6492,19 +6711,19 @@
      "calibrated_resolution": {
       "name": "calibrated_resolution",
       "baseline": 0.66712,
-      "candidate": 0.68924,
-      "diff": 0.02212,
-      "lo": -0.019,
-      "hi": 0.06324,
+      "candidate": 0.66927,
+      "diff": 0.00215,
+      "lo": -0.02618,
+      "hi": 0.03048,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "calibrated_hallucination": {
       "name": "calibrated_hallucination",
       "baseline": 0.03448,
-      "candidate": 0.04027,
-      "diff": 0.00579,
-      "lo": -0.02033,
-      "hi": 0.03191,
+      "candidate": 0.03528,
+      "diff": 0.0008,
+      "lo": -0.01335,
+      "hi": 0.01495,
       "method": "judges + human labels on changed conversations (PPI)"
      },
      "confirmed": {
@@ -6564,13 +6783,12 @@
      "value": false,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.029 to +0.053)",
-      "hallucination may rise (upper bound +0.018)"
+      "resolution gain not established (95% interval -0.009 to +0.053)"
      ],
      "calibrated_resolution_gain": [
-      -0.029,
-      0.0121,
-      0.0531
+      -0.0088,
+      0.0219,
+      0.0526
      ]
     },
     {
@@ -6578,20 +6796,20 @@
      "value": 0.45,
      "passes_offline": false,
      "reasons": [
-      "resolution gain not established (95% interval -0.019 to -0.004)"
+      "resolution gain not established (95% interval -0.020 to -0.005)"
      ],
      "calibrated_resolution_gain": [
-      -0.0194,
-      -0.0116,
-      -0.0037
+      -0.0199,
+      -0.0126,
+      -0.0052
      ]
     }
    ]
   },
   "stopped_at": "backtest",
   "reasons": [
-   "resolution gain not established (95% interval -0.019 to +0.063)",
-   "hallucination may rise (upper bound +0.032)"
+   "resolution gain not established (95% interval -0.026 to +0.030)",
+   "hallucination may rise (upper bound +0.015)"
   ],
   "eval_cost_eur": {
    "P0 read 20": 100.0,

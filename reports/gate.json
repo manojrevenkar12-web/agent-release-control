@@ -52,9 +52,19 @@
    "detail": "0 of 0 shipped"
   },
   {
+   "check": "P4 backtest and rollout: unsafe releases shipped",
+   "passed": true,
+   "detail": "0 of 3 shipped"
+  },
+  {
+   "check": "P4 backtest and rollout: harmful releases shipped",
+   "passed": true,
+   "detail": "0 of 3 shipped"
+  },
+  {
    "check": "P2 calibrated: unsafe releases passed",
    "passed": true,
-   "detail": "0 of 0 passed"
+   "detail": "0 of 3 passed"
   },
   {
    "check": "drill seed 31: incidents detected while ongoing",

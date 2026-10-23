@@ -33,7 +33,70 @@ instrument can be checked against the truth, and so can the whole process.
 From `arc run` ([reports/EVALUATION.md](reports/EVALUATION.md)); CI reruns a smaller version on
 every push and `arc gate` fails the build when a check fails. All data is simulated.
 
-The full results are in [reports/EVALUATION.md](reports/EVALUATION.md).
+**How often does the shipping process make the wrong call?** 30 candidate releases, each a random
+change to production (the personalised release) of the kind a team proposes in a quarter, put
+through five policies. True effects measured on 20,000 conversations: 6 are better, 20 harmful
+(17 lower resolution by 0.5pp or more, 5 act unsafely on accounts, some both), 4 make no difference.
+
+| Policy | Shipped | Truly better | Harmful | Unsafe | Wins missed | True resolution gained |
+|---|---|---|---|---|---|---|
+| P0: a person reads 20 replayed conversations | 7 | 1 | **4** | **2** | 5 | −0.8pp |
+| P1: LLM-judge backtest, ship if judged better | 7 | 5 | 0 | 0 | 1 | +6.7pp |
+| P2: static checks, eval suites, calibrated backtest | 3 | 3 | 0 | 0 | 3 | +3.4pp |
+| P3: P2, then A/B test (2pp, alpha 1%) and rollout | **0** | 0 | 0 | 0 | 6 | 0 |
+| P4: P2, then staged rollout without the A/B test | 3 | 3 | 0 | 0 | 3 | +3.4pp |
+
+- **Process v1 shipped nothing and missed six real wins.** Its backtest labelled 150 random
+  conversations, most of them identical under both releases, so the calibrated interval was about
+  ±5pp ([reports/process_v1](reports/process_v1)). **Process v2 labels only the conversations a
+  candidate changed**: the same 150 labels give intervals of about ±0.5–1pp
+  ([ADR 0005](docs/adr/0005-label-only-changed-conversations.md)).
+- **Then the A/B test became the bottleneck.** Powered for 2pp over 21 days, it rejected all three
+  wins (+0.7 to +1.6pp) the backtest had already established. Sending those straight to the staged
+  rollout (P4) shipped all three and nothing harmful. P4 is a dev-set result; it has not had a
+  held-out run yet.
+- **Judges alone did well here, for a reason that does not generalise.** From the personalised
+  baseline the agent rarely says anything false, so the judges' blind spot (below) has little to
+  hide. P1 runs no safety checks: one of its wins fails 5.6% of the escalation suite (bug, privacy and
+  security reports reaching the right team), which blocks it in P2. Reading 20 conversations shipped
+  two releases that act unsafely on accounts (refunds outside policy, refunds without verification).
+
+**Blind held-out candidates.** Ten releases written by an agent that saw only
+[docs/RELEASES.md](docs/RELEASES.md), run once; the first runs are kept as written
+([v1](reports/heldout/v1/FIRST_RUN.md), [v2](reports/heldout/v2/FIRST_RUN.md),
+[what they taught](docs/HELDOUT.md)).
+
+| Set (process) | Full process shipped | Truly better among them | Harmful or unsafe shipped | Wins missed |
+|---|---|---|---|---|
+| v1 (process v1, against `r1-prod`) | 0 | 0 | 0 | 1 (+0.6pp) |
+| v2 (process v2, against `r2-personalised`) | 1 | 1 (+1.6pp) | 0 | 0 |
+
+In v1 the biggest win (+14.7pp, plan-aware answers) came bundled with a large-tier change that
+cost ×1.8 and added 50% p95 latency. The review now splits a failing bundle into the changes that
+pass on their own, and names the plan-aware change.
+
+**Judges drift with the release they score.** The learned judge (trained on 1,500 reviewed
+production conversations) ranks production well: AUC 0.92 for resolution, 0.96 for hallucination.
+On the personalised release its hallucination AUC is **0.48**, and it reports 4.2% hallucination
+where reviewers find 1.9%. That is why backtests are calibrated with human labels.
+
+**Release reviews of known changes** ([reports/reviews](reports/reviews)): the personalised
+release ships (A/B +11.2pp, 95% interval 9.8–12.7, 28,000 conversations); the refund window typo
+stops at the safety suite in a second; skipping verification for small refunds stops at the static
+check before any traffic; always using the large tier stops at the backtest (cost ×1.9, p95
+latency ×1.5, no gain); an A/A test does not ship (p = 0.86).
+
+**Production drill** (five incidents in a fortnight, three seeds): every incident is alerted on
+while it is still happening. The provider latency spike pages in 25–30 min; the error burst
+in 5–40 min; the large-tier outage in 20–45 min; the help-centre search outage is caught by the
+resolution CUSUM in 74–94 min; a bad config push raises the cost ticket in 15–40 min. There are
+**0 false alarms** on the same fortnights without incidents.
+
+**Cost.** AI spend is about €0.004 per conversation against €4 for a person, so the router
+threshold is a latency decision more than a cost one. Moving the threshold from 0.6 to 0.7
+costs €0.05 per extra resolution, and 0.8 to 0.9 costs €1.60. Answering on the large tier
+adds 2.5s p95 for no gain and breaks the latency SLO above a 0.3 threshold
+([cost frontier](reports/EVALUATION.md#router-threshold-and-cost)).
 
 ## Run it
 
