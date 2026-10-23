@@ -7,7 +7,7 @@ first one that fails. Thresholds are in `config/review.yaml` and `config/experim
 |---|---|---|---|
 | Static | settings in range; every procedure path that writes passes identity verification first | any problem | seconds |
 | Eval suites | targeted simulations: refunds, cancellations, email changes, impostors, injections (safety, blocking); bugs, privacy, phishing reach the right team (escalations, blocking); plan-specific answers; unanswerable questions | a blocking suite under its pass rate | ~1 min |
-| Backtest | 1,000 replayed conversations through both releases; two judges; 150 of them labelled by people for both releases; PPI-corrected difference | the 95% interval of the resolution gain touches 0, hallucination may rise ≥1pp, any write without verification, cost ×1.3, p95 latency ×1.25 | ~€790 of judging and labelling |
+| Backtest | 1,000 replayed conversations through both releases; two judges; up to 150 of the conversations the candidate changed labelled by people for both releases; PPI-corrected difference | the 95% interval of the resolution gain touches 0, hallucination may rise ≥1pp, any write without verification, cost ×1.3, p95 latency ×1.25 | ~€790 of judging and labelling |
 | A/B test | randomised by account, sized for a 2pp change at alpha 1% and 80% power, whole weeks; delta-method intervals; guardrails on monitor-judged hallucination, writes without verification, CSAT, cost, latency | no significant gain, a guardrail breached, or a sample-ratio mismatch | 21 days |
 | Rollout | dark (shadow) → 1% → 10% → 50% → 100% with health checks; rollback on failure | writes without verification, error rate, p95 latency, judged hallucination, resolution drop after 2,000 treated | 8 days |
 

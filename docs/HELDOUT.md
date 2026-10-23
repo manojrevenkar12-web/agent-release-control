@@ -1,5 +1,7 @@
 # What the held-out candidates taught
 
+## Set v1 (process v1)
+
 Ten candidate releases were written by an agent that saw only `docs/RELEASES.md`, `_base.yaml` and
 `r1-prod.yaml`, and were run once (`reports/heldout/FIRST_RUN.md`, not regenerated). The shipping
 process was not tuned on them. This page is what we read from that first run.
@@ -28,5 +30,8 @@ process was not tuned on them. This page is what we read from that first run.
    changes; the rest wait for a decision on whether a bigger labelled sample is worth its cost
    (300 labels is about €750 per backtest).
 
-Because the review changed after this run (point 2), the next held-out set must be written fresh,
-by someone who has not seen the code, before anyone claims a number for the new process.
+The dev-set process study said the same as point 5 more loudly (none of 30 candidates shipped, six
+real wins missed; `reports/process_v1/`). Process v2 labels only the conversations a candidate
+changed (`docs/adr/0005-label-only-changed-conversations.md`). Because the process changed, set v1
+was retired to `config/releases/heldout_v1/` and a new set, v2, was written blind against the new
+production release and run once.
