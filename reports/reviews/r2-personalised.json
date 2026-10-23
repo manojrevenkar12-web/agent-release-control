@@ -119,9 +119,10 @@
   "baseline": "r1-prod",
   "candidate": "r2-personalised",
   "n": 1000,
-  "n_labels": 150,
+  "n_labels": 145,
   "disagreement_share": 0.051,
-  "eval_cost_eur": 789.2,
+  "changed_share": 0.145,
+  "eval_cost_eur": 764.2,
   "metrics": {
    "judged_resolution": {
     "name": "judged_resolution",
@@ -143,21 +144,21 @@
    },
    "calibrated_resolution": {
     "name": "calibrated_resolution",
-    "baseline": 0.61258,
-    "candidate": 0.75144,
-    "diff": 0.13886,
-    "lo": 0.08425,
-    "hi": 0.19347,
-    "method": "judges + human labels (PPI)"
+    "baseline": 0.61376,
+    "candidate": 0.74176,
+    "diff": 0.128,
+    "lo": 0.11077,
+    "hi": 0.14523,
+    "method": "judges + human labels on changed conversations (PPI)"
    },
    "calibrated_hallucination": {
     "name": "calibrated_hallucination",
-    "baseline": 0.15287,
-    "candidate": 0.01835,
-    "diff": -0.13452,
-    "lo": -0.17578,
-    "hi": -0.09327,
-    "method": "judges + human labels (PPI)"
+    "baseline": 0.08864,
+    "candidate": -0.05136,
+    "diff": -0.14,
+    "lo": -0.15046,
+    "hi": -0.12954,
+    "method": "judges + human labels on changed conversations (PPI)"
    },
    "confirmed": {
     "name": "confirmed",
@@ -341,6 +342,7 @@
    }
   ]
  },
- "eval_cost_eur": 789.2,
- "calendar_days": 29
+ "eval_cost_eur": 764.2,
+ "calendar_days": 29,
+ "split": []
 }

@@ -4,8 +4,7 @@ Send eight passages with every answer.
 
 **Decision: do not ship** (stopped at backtest)
 
-- resolution gain not established (95% interval -0.019 to +0.072)
-- hallucination may rise (upper bound +0.032)
+- resolution gain not established (95% interval +0.000 to +0.000)
 
 ## Changes from r1-prod
 
@@ -22,14 +21,14 @@ Send eight passages with every answer.
 | safety | yes | 100.0% | 100% |
 | unanswerable | no | 100.0% | 90% |
 
-## Backtest (1000 replayed conversations, 150 human-labelled, eval cost €789)
+## Backtest (1000 replayed conversations, 0 human-labelled, eval cost €39)
 
 | Metric | Production | Candidate | Change | 95% interval | Method |
 |---|---|---|---|---|---|
 | judged_resolution | 0.6003 | 0.6003 | +0.0000 | +0.0000 to +0.0000 | judges |
 | judged_hallucination | 0.0915 | 0.0915 | +0.0000 | +0.0000 to +0.0000 | judges |
-| calibrated_resolution | 0.5865 | 0.6132 | +0.0267 | -0.0185 to +0.0719 | judges + human labels (PPI) |
-| calibrated_hallucination | 0.1472 | 0.1472 | +0.0000 | -0.0321 to +0.0321 | judges + human labels (PPI) |
+| calibrated_resolution | 0.6003 | 0.6003 | +0.0000 | +0.0000 to +0.0000 | judges + human labels on changed conversations (PPI) |
+| calibrated_hallucination | 0.0915 | 0.0915 | +0.0000 | +0.0000 to +0.0000 | judges + human labels on changed conversations (PPI) |
 | confirmed | 0.3270 | 0.3270 | +0.0000 | +0.0000 to +0.0000 | observed |
 | handoff | 0.2370 | 0.2370 | +0.0000 | +0.0000 to +0.0000 | observed |
 | writes_without_verification | 0.0000 | 0.0000 | +0.0000 | +0.0000 to +0.0000 | action log |

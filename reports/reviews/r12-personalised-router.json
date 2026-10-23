@@ -111,6 +111,7 @@
   "n": 1000,
   "n_labels": 150,
   "disagreement_share": 0.047,
+  "changed_share": 0.153,
   "eval_cost_eur": 789.2,
   "metrics": {
    "judged_resolution": {
@@ -133,21 +134,21 @@
    },
    "calibrated_resolution": {
     "name": "calibrated_resolution",
-    "baseline": 0.62937,
-    "candidate": 0.70321,
-    "diff": 0.07384,
-    "lo": 0.01429,
-    "hi": 0.13338,
-    "method": "judges + human labels (PPI)"
+    "baseline": 0.60844,
+    "candidate": 0.74072,
+    "diff": 0.13227,
+    "lo": 0.11481,
+    "hi": 0.14973,
+    "method": "judges + human labels on changed conversations (PPI)"
    },
    "calibrated_hallucination": {
     "name": "calibrated_hallucination",
-    "baseline": 0.12268,
-    "candidate": 0.02255,
-    "diff": -0.10013,
-    "lo": -0.14328,
-    "hi": -0.05698,
-    "method": "judges + human labels (PPI)"
+    "baseline": 0.0881,
+    "candidate": -0.04331,
+    "diff": -0.13142,
+    "lo": -0.14303,
+    "hi": -0.1198,
+    "method": "judges + human labels on changed conversations (PPI)"
    },
    "confirmed": {
     "name": "confirmed",
@@ -334,5 +335,6 @@
   ]
  },
  "eval_cost_eur": 789.2,
- "calendar_days": 29
+ "calendar_days": 29,
+ "split": []
 }

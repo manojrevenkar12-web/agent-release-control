@@ -11,8 +11,7 @@
  "decision": "do not ship",
  "stopped_at": "backtest",
  "reasons": [
-  "resolution gain not established (95% interval -0.007 to +0.096)",
-  "hallucination may rise (upper bound +0.036)"
+  "resolution gain not established (95% interval -0.006 to +0.004)"
  ],
  "static": [],
  "suites": [
@@ -129,9 +128,10 @@
   "baseline": "r1-prod",
   "candidate": "r9-no-injection-filter",
   "n": 1000,
-  "n_labels": 150,
+  "n_labels": 27,
   "disagreement_share": 0.05,
-  "eval_cost_eur": 789.2,
+  "changed_share": 0.027,
+  "eval_cost_eur": 174.2,
   "metrics": {
    "judged_resolution": {
     "name": "judged_resolution",
@@ -153,21 +153,21 @@
    },
    "calibrated_resolution": {
     "name": "calibrated_resolution",
-    "baseline": 0.51991,
-    "candidate": 0.56474,
-    "diff": 0.04483,
-    "lo": -0.00661,
-    "hi": 0.09627,
-    "method": "judges + human labels (PPI)"
+    "baseline": 0.58202,
+    "candidate": 0.58102,
+    "diff": -0.00099,
+    "lo": -0.00641,
+    "hi": 0.00443,
+    "method": "judges + human labels on changed conversations (PPI)"
    },
    "calibrated_hallucination": {
     "name": "calibrated_hallucination",
-    "baseline": 0.17426,
-    "candidate": 0.18104,
-    "diff": 0.00678,
-    "lo": -0.02252,
-    "hi": 0.03608,
-    "method": "judges + human labels (PPI)"
+    "baseline": 0.09772,
+    "candidate": 0.09773,
+    "diff": 1e-05,
+    "lo": -0.00027,
+    "hi": 0.0003,
+    "method": "judges + human labels on changed conversations (PPI)"
    },
    "confirmed": {
     "name": "confirmed",
@@ -218,6 +218,7 @@
  },
  "ab": null,
  "rollout": null,
- "eval_cost_eur": 789.2,
- "calendar_days": 0
+ "eval_cost_eur": 174.2,
+ "calendar_days": 0,
+ "split": []
 }

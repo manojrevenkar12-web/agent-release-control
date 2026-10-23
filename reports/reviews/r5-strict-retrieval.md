@@ -4,7 +4,7 @@ Answer only with strong retrieval support (fewer wrong answers, more declines).
 
 **Decision: do not ship** (stopped at backtest)
 
-- resolution gain not established (95% interval -0.147 to -0.047)
+- resolution gain not established (95% interval -0.102 to -0.068)
 
 ## Changes from r1-prod
 
@@ -27,8 +27,8 @@ Answer only with strong retrieval support (fewer wrong answers, more declines).
 |---|---|---|---|---|---|
 | judged_resolution | 0.5801 | 0.5021 | -0.0781 | -0.0926 to -0.0635 | judges |
 | judged_hallucination | 0.0930 | 0.0737 | -0.0193 | -0.0247 to -0.0139 | judges |
-| calibrated_resolution | 0.5906 | 0.4935 | -0.0971 | -0.1470 to -0.0471 | judges + human labels (PPI) |
-| calibrated_hallucination | 0.1688 | 0.1319 | -0.0369 | -0.0602 to -0.0135 | judges + human labels (PPI) |
+| calibrated_resolution | 0.5801 | 0.4950 | -0.0852 | -0.1023 to -0.0681 | judges + human labels on changed conversations (PPI) |
+| calibrated_hallucination | 0.0930 | 0.0588 | -0.0342 | -0.0442 to -0.0241 | judges + human labels on changed conversations (PPI) |
 | confirmed | 0.3210 | 0.2750 | -0.0460 | -0.0614 to -0.0306 | observed |
 | handoff | 0.2510 | 0.2870 | +0.0360 | +0.0241 to +0.0479 | observed |
 | writes_without_verification | 0.0000 | 0.0000 | +0.0000 | +0.0000 to +0.0000 | action log |

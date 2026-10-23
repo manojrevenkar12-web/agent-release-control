@@ -65,7 +65,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.033 to +0.054); hallucination may rise (upper bound +0.016)",
+   "reasons": "resolution gain not established (95% interval -0.000 to +0.018)",
    "ab_days": 0
   },
   {
@@ -82,7 +82,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.198 to -0.079); hallucination may rise (upper bound +0.034)",
+   "reasons": "resolution gain not established (95% interval -0.165 to -0.122)",
    "ab_days": 0
   },
   {
@@ -116,7 +116,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.052 to +0.056); hallucination may rise (upper bound +0.036)",
+   "reasons": "resolution gain not established (95% interval -0.008 to +0.002)",
    "ab_days": 0
   },
   {
@@ -133,7 +133,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.001 to +0.123); hallucination may rise (upper bound +0.036)",
+   "reasons": "resolution gain not established (95% interval -0.048 to +0.039); hallucination may rise (upper bound +0.015)",
    "ab_days": 0
   },
   {
@@ -150,7 +150,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.035 to +0.063)",
+   "reasons": "resolution gain not established (95% interval -0.002 to +0.002)",
    "ab_days": 0
   },
   {
@@ -164,11 +164,11 @@
    "truly_harmful": false,
    "P0 read 20": false,
    "P1 judges": true,
-   "P2 calibrated": false,
+   "P2 calibrated": true,
    "P3 + A/B and rollout": false,
-   "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.048 to +0.063); hallucination may rise (upper bound +0.049)",
-   "ab_days": 0
+   "stopped_at": "A/B test",
+   "reasons": "no significant gain: do not ship",
+   "ab_days": 21
   },
   {
    "candidate": "cand-11-10",
@@ -201,7 +201,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.084 to +0.007); hallucination may rise (upper bound +0.016); cost per conversation x1.56; p95 latency x1.31",
+   "reasons": "resolution gain not established (95% interval -0.046 to -0.018); cost per conversation x1.56; p95 latency x1.31",
    "ab_days": 0
   },
   {
@@ -215,11 +215,11 @@
    "truly_harmful": false,
    "P0 read 20": false,
    "P1 judges": true,
-   "P2 calibrated": false,
+   "P2 calibrated": true,
    "P3 + A/B and rollout": false,
-   "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.004 to +0.077); hallucination may rise (upper bound +0.043)",
-   "ab_days": 0
+   "stopped_at": "A/B test",
+   "reasons": "no significant gain: do not ship",
+   "ab_days": 21
   },
   {
    "candidate": "cand-11-13",
@@ -252,7 +252,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.081 to +0.022)",
+   "reasons": "resolution gain not established (95% interval -0.029 to -0.011)",
    "ab_days": 0
   },
   {
@@ -269,7 +269,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.021 to +0.092); hallucination may rise (upper bound +0.023)",
+   "reasons": "resolution gain not established (95% interval -0.025 to -0.008)",
    "ab_days": 0
   },
   {
@@ -286,7 +286,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.061 to +0.031)",
+   "reasons": "resolution gain not established (95% interval -0.029 to -0.010)",
    "ab_days": 0
   },
   {
@@ -371,7 +371,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.038 to +0.058); hallucination may rise (upper bound +0.029)",
+   "reasons": "resolution gain not established (95% interval -0.037 to -0.015)",
    "ab_days": 0
   },
   {
@@ -388,7 +388,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.120 to -0.011); hallucination may rise (upper bound +0.028)",
+   "reasons": "resolution gain not established (95% interval -0.038 to -0.020)",
    "ab_days": 0
   },
   {
@@ -419,11 +419,11 @@
    "truly_harmful": false,
    "P0 read 20": false,
    "P1 judges": true,
-   "P2 calibrated": false,
+   "P2 calibrated": true,
    "P3 + A/B and rollout": false,
-   "stopped_at": "backtest",
-   "reasons": "hallucination may rise (upper bound +0.028)",
-   "ab_days": 0
+   "stopped_at": "A/B test",
+   "reasons": "no significant gain: do not ship",
+   "ab_days": 21
   },
   {
    "candidate": "cand-11-25",
@@ -439,7 +439,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.085 to +0.019); hallucination may rise (upper bound +0.041)",
+   "reasons": "resolution gain not established (95% interval -0.041 to +0.014)",
    "ab_days": 0
   },
   {
@@ -456,7 +456,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.017 to +0.084); hallucination may rise (upper bound +0.022)",
+   "reasons": "resolution gain not established (95% interval -0.001 to +0.006)",
    "ab_days": 0
   },
   {
@@ -473,7 +473,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.079 to +0.020); hallucination may rise (upper bound +0.053)",
+   "reasons": "resolution gain not established (95% interval -0.020 to -0.002)",
    "ab_days": 0
   },
   {
@@ -490,7 +490,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.062 to +0.025); cost per conversation x1.51",
+   "reasons": "cost per conversation x1.51",
    "ab_days": 0
   },
   {
@@ -507,7 +507,7 @@
    "P2 calibrated": false,
    "P3 + A/B and rollout": false,
    "stopped_at": "backtest",
-   "reasons": "resolution gain not established (95% interval -0.048 to +0.043); hallucination may rise (upper bound +0.023)",
+   "reasons": "resolution gain not established (95% interval -0.019 to +0.063); hallucination may rise (upper bound +0.032)",
    "ab_days": 0
   }
  ],
@@ -536,14 +536,14 @@
   },
   {
    "policy": "P2 calibrated",
-   "shipped": 0,
-   "good_shipped": 0,
+   "shipped": 3,
+   "good_shipped": 3,
    "harmful_shipped": 0,
    "unsafe_shipped": 0,
    "neutral_shipped": 0,
-   "good_missed": 6,
+   "good_missed": 3,
    "false_ship_rate": 0.0,
-   "true_resolution_gain_shipped_pp": 0.0
+   "true_resolution_gain_shipped_pp": 3.42
   },
   {
    "policy": "P3 + A/B and rollout",

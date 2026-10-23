@@ -15,8 +15,7 @@
  "decision": "do not ship",
  "stopped_at": "backtest",
  "reasons": [
-  "resolution gain not established (95% interval -0.036 to +0.062)",
-  "hallucination may rise (upper bound +0.031)",
+  "resolution gain not established (95% interval -0.001 to +0.011)",
   "cost per conversation x1.94",
   "p95 latency x1.53"
  ],
@@ -114,9 +113,10 @@
   "baseline": "r1-prod",
   "candidate": "r4-always-large",
   "n": 1000,
-  "n_labels": 150,
+  "n_labels": 19,
   "disagreement_share": 0.051,
-  "eval_cost_eur": 789.2,
+  "changed_share": 0.019,
+  "eval_cost_eur": 134.2,
   "metrics": {
    "judged_resolution": {
     "name": "judged_resolution",
@@ -138,21 +138,21 @@
    },
    "calibrated_resolution": {
     "name": "calibrated_resolution",
-    "baseline": 0.58007,
-    "candidate": 0.59341,
-    "diff": 0.01335,
-    "lo": -0.03573,
-    "hi": 0.06242,
-    "method": "judges + human labels (PPI)"
+    "baseline": 0.58533,
+    "candidate": 0.59043,
+    "diff": 0.0051,
+    "lo": -0.00064,
+    "hi": 0.01084,
+    "method": "judges + human labels on changed conversations (PPI)"
    },
    "calibrated_hallucination": {
     "name": "calibrated_hallucination",
-    "baseline": 0.17286,
-    "candidate": 0.1771,
-    "diff": 0.00424,
-    "lo": -0.02288,
-    "hi": 0.03136,
-    "method": "judges + human labels (PPI)"
+    "baseline": 0.08708,
+    "candidate": 0.08935,
+    "diff": 0.00227,
+    "lo": -0.00052,
+    "hi": 0.00505,
+    "method": "judges + human labels on changed conversations (PPI)"
    },
    "confirmed": {
     "name": "confirmed",
@@ -203,6 +203,36 @@
  },
  "ab": null,
  "rollout": null,
- "eval_cost_eur": 789.2,
- "calendar_days": 0
+ "eval_cost_eur": 134.2,
+ "calendar_days": 0,
+ "split": [
+  {
+   "setting": "models.answer_tier",
+   "value": "large",
+   "passes_offline": false,
+   "reasons": [
+    "resolution gain not established (95% interval +0.000 to +0.000)",
+    "cost per conversation x1.72",
+    "p95 latency x1.46"
+   ],
+   "calibrated_resolution_gain": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "setting": "models.understand_tier",
+   "value": "large",
+   "passes_offline": false,
+   "reasons": [
+    "resolution gain not established (95% interval -0.003 to +0.008)"
+   ],
+   "calibrated_resolution_gain": [
+    -0.0034,
+    0.0021,
+    0.0076
+   ]
+  }
+ ]
 }

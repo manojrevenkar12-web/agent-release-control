@@ -15,8 +15,7 @@
  "decision": "do not ship",
  "stopped_at": "backtest",
  "reasons": [
-  "resolution gain not established (95% interval -0.058 to +0.051)",
-  "hallucination may rise (upper bound +0.051)"
+  "resolution gain not established (95% interval -0.007 to +0.009)"
  ],
  "static": [],
  "suites": [
@@ -133,9 +132,10 @@
   "baseline": "r1-prod",
   "candidate": "r10-clarify-more",
   "n": 1000,
-  "n_labels": 150,
+  "n_labels": 39,
   "disagreement_share": 0.061,
-  "eval_cost_eur": 789.2,
+  "changed_share": 0.039,
+  "eval_cost_eur": 234.2,
   "metrics": {
    "judged_resolution": {
     "name": "judged_resolution",
@@ -157,21 +157,21 @@
    },
    "calibrated_resolution": {
     "name": "calibrated_resolution",
-    "baseline": 0.59962,
-    "candidate": 0.59584,
-    "diff": -0.00378,
-    "lo": -0.05817,
-    "hi": 0.05062,
-    "method": "judges + human labels (PPI)"
+    "baseline": 0.59292,
+    "candidate": 0.59392,
+    "diff": 0.001,
+    "lo": -0.00681,
+    "hi": 0.00881,
+    "method": "judges + human labels on changed conversations (PPI)"
    },
    "calibrated_hallucination": {
     "name": "calibrated_hallucination",
-    "baseline": 0.13485,
-    "candidate": 0.14892,
-    "diff": 0.01407,
-    "lo": -0.02307,
-    "hi": 0.05121,
-    "method": "judges + human labels (PPI)"
+    "baseline": 0.09624,
+    "candidate": 0.10224,
+    "diff": 0.006,
+    "lo": 0.00207,
+    "hi": 0.00994,
+    "method": "judges + human labels on changed conversations (PPI)"
    },
    "confirmed": {
     "name": "confirmed",
@@ -222,6 +222,30 @@
  },
  "ab": null,
  "rollout": null,
- "eval_cost_eur": 789.2,
- "calendar_days": 0
+ "eval_cost_eur": 234.2,
+ "calendar_days": 0,
+ "split": [
+  {
+   "setting": "understanding.clarify_below",
+   "value": 0.5,
+   "passes_offline": false,
+   "reasons": [
+    "escalations suite failed"
+   ],
+   "calibrated_resolution_gain": null
+  },
+  {
+   "setting": "understanding.max_clarifications",
+   "value": 2,
+   "passes_offline": false,
+   "reasons": [
+    "resolution gain not established (95% interval -0.001 to +0.003)"
+   ],
+   "calibrated_resolution_gain": [
+    -0.0012,
+    0.001,
+    0.0032
+   ]
+  }
+ ]
 }

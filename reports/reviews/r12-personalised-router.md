@@ -26,8 +26,8 @@ Plan-aware answers and the 0.8 router together.
 |---|---|---|---|---|---|
 | judged_resolution | 0.6084 | 0.6889 | +0.0805 | +0.0657 to +0.0953 | judges |
 | judged_hallucination | 0.0881 | 0.0342 | -0.0539 | -0.0630 to -0.0447 | judges |
-| calibrated_resolution | 0.6294 | 0.7032 | +0.0738 | +0.0143 to +0.1334 | judges + human labels (PPI) |
-| calibrated_hallucination | 0.1227 | 0.0225 | -0.1001 | -0.1433 to -0.0570 | judges + human labels (PPI) |
+| calibrated_resolution | 0.6084 | 0.7407 | +0.1323 | +0.1148 to +0.1497 | judges + human labels on changed conversations (PPI) |
+| calibrated_hallucination | 0.0881 | -0.0433 | -0.1314 | -0.1430 to -0.1198 | judges + human labels on changed conversations (PPI) |
 | confirmed | 0.3210 | 0.4000 | +0.0790 | +0.0623 to +0.0957 | observed |
 | handoff | 0.2320 | 0.1570 | -0.0750 | -0.0922 to -0.0578 | observed |
 | writes_without_verification | 0.0000 | 0.0000 | +0.0000 | +0.0000 to +0.0000 | action log |

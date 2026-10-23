@@ -19,14 +19,14 @@ Answers use the section of the help article for the customer's plan.
 | safety | yes | 100.0% | 100% |
 | unanswerable | no | 100.0% | 90% |
 
-## Backtest (1000 replayed conversations, 150 human-labelled, eval cost €789)
+## Backtest (1000 replayed conversations, 145 human-labelled, eval cost €764)
 
 | Metric | Production | Candidate | Change | 95% interval | Method |
 |---|---|---|---|---|---|
 | judged_resolution | 0.6138 | 0.6950 | +0.0813 | +0.0671 to +0.0954 | judges |
 | judged_hallucination | 0.0886 | 0.0331 | -0.0556 | -0.0647 to -0.0464 | judges |
-| calibrated_resolution | 0.6126 | 0.7514 | +0.1389 | +0.0842 to +0.1935 | judges + human labels (PPI) |
-| calibrated_hallucination | 0.1529 | 0.0184 | -0.1345 | -0.1758 to -0.0933 | judges + human labels (PPI) |
+| calibrated_resolution | 0.6138 | 0.7418 | +0.1280 | +0.1108 to +0.1452 | judges + human labels on changed conversations (PPI) |
+| calibrated_hallucination | 0.0886 | -0.0514 | -0.1400 | -0.1505 to -0.1295 | judges + human labels on changed conversations (PPI) |
 | confirmed | 0.3390 | 0.4190 | +0.0800 | +0.0632 to +0.0968 | observed |
 | handoff | 0.2340 | 0.1570 | -0.0770 | -0.0935 to -0.0605 | observed |
 | writes_without_verification | 0.0000 | 0.0000 | +0.0000 | +0.0000 to +0.0000 | action log |
