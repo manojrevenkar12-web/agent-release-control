@@ -71,7 +71,7 @@ def releaser(r: str = Depends(role)) -> str:
 class Serving(BaseModel):
     production: str = "r1-prod"
     candidate: str | None = None
-    share: float = Field(0.0, ge=0.0, le=1.0)
+    share: float = Field(default=0.0, ge=0.0, le=1.0)
 
 
 class Start(BaseModel):

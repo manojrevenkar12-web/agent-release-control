@@ -35,3 +35,13 @@ def test_rollout_stops_a_release_that_writes_without_verification(platform):
     assert not ro.shipped and any("writes without verification" in r for r in ro.reasons)
     # it is caught, but rare small refunds can reach real customers first: why the static check runs first
     assert ro.stopped_at in ("dark", "1%", "10%", "50%")
+
+
+def test_a_failing_bundle_is_split_into_the_change_worth_proposing_again(platform):
+    from arc.agent.release import from_dict
+
+    bundle = from_dict({"id": "bundle", "personalisation": {"plan_aware": True}, "models": {"answer_tier": "large"}})
+    r = review(platform, load("r1-prod"), bundle, seed=2, online=False)
+    assert r.stopped_at == "backtest"  # the large answer tier costs too much and is slower
+    ok = {s["setting"] for s in r.split if s["passes_offline"]}
+    assert ok == {"personalisation.plan_aware"}
