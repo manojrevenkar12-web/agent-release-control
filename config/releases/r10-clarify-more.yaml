@@ -1,0 +1,3 @@
+id: r10-clarify-more
+description: Ask up to two clarifying questions, and ask more readily.
+understanding: {clarify_below: 0.5, max_clarifications: 2}

@@ -1,0 +1,3 @@
+id: r13-small-only
+description: Never call the large model (cost saving).
+models: {escalate_below: 0.0}

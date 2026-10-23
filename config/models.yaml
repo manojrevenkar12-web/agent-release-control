@@ -1,0 +1,13 @@
+# Model tiers the agent can call. Prices are EUR per million tokens; latency is the median seconds
+# of a call with ~500 tokens in, growing with tokens. Defaults are in the range of public small and
+# large model prices; set them to the contract you have.
+tiers:
+  small: {price_in: 0.90, price_out: 4.50, latency_s: 0.55, per_1k_tokens_s: 0.25, error_rate: 0.002}
+  large: {price_in: 2.80, price_out: 14.00, latency_s: 1.60, per_1k_tokens_s: 0.70, error_rate: 0.002}
+judge:
+  tier: large
+  calls_per_conversation: 1
+human_review_eur: 2.50        # one conversation read and labelled by a support specialist
+human_handling_eur: 4.00      # what a conversation costs when a person handles it
+system_prompt_tokens: 900
+passage_tokens: 400           # tokens per help-centre passage sent as context (full articles, not the summaries here)

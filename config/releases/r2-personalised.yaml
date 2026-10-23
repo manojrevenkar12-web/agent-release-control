@@ -1,0 +1,3 @@
+id: r2-personalised
+description: Answers use the section of the help article for the customer's plan.
+personalisation: {plan_aware: true}

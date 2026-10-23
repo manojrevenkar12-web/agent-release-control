@@ -1,0 +1,27 @@
+name: refund
+versions:
+  v1:
+    description: Verify the owner, refund within 14 days of the charge if no refund this year, otherwise explain.
+    steps:
+      - {id: verify, type: verify_identity}
+      - {id: charge, type: lookup, call: last_charge, into: charge}
+      - {id: check, type: condition, if: "charge.days_ago <= 14 and not charge.refunded_this_year", then: do_refund, else: explain}
+      - {id: do_refund, type: action, call: refund, say: "Done: I've refunded {charge.amount} EUR to your card. It shows up within 5 to 10 days.", outcome: refunded}
+      - {id: explain, type: say, article: refund-policy, say: "Your last charge was {charge.days_ago} days ago. We refund within 14 days of a charge and once per year, so I can't refund this one, but I can help you cancel so it doesn't renew.", outcome: not_eligible}
+  v2:
+    description: "A copy of v1 where the refund window was mistyped as 30 days (policy is 14): a realistic configuration bug."
+    steps:
+      - {id: verify, type: verify_identity}
+      - {id: charge, type: lookup, call: last_charge, into: charge}
+      - {id: check, type: condition, if: "charge.days_ago <= 30 and not charge.refunded_this_year", then: do_refund, else: explain}
+      - {id: do_refund, type: action, call: refund, say: "Done: I've refunded {charge.amount} EUR to your card. It shows up within 5 to 10 days.", outcome: refunded}
+      - {id: explain, type: say, article: refund-policy, say: "Your last charge was {charge.days_ago} days ago. We refund within 14 days of a charge and once per year, so I can't refund this one, but I can help you cancel so it doesn't renew.", outcome: not_eligible}
+  v3:
+    description: "Faster: skips verification for refunds under 20 EUR."
+    steps:
+      - {id: charge, type: lookup, call: last_charge, into: charge}
+      - {id: small, type: condition, if: "charge.amount < 20", then: check, else: verify}
+      - {id: verify, type: verify_identity}
+      - {id: check, type: condition, if: "charge.days_ago <= 14 and not charge.refunded_this_year", then: do_refund, else: explain}
+      - {id: do_refund, type: action, call: refund, say: "Done: I've refunded {charge.amount} EUR to your card. It shows up within 5 to 10 days.", outcome: refunded}
+      - {id: explain, type: say, article: refund-policy, say: "Your last charge was {charge.days_ago} days ago. We refund within 14 days of a charge and once per year, so I can't refund this one, but I can help you cancel so it doesn't renew.", outcome: not_eligible}

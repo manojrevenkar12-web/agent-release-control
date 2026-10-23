@@ -1,0 +1,3 @@
+id: r4-always-large
+description: Use the large model for understanding and answers.
+models: {understand_tier: large, answer_tier: large}

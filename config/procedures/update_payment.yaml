@@ -1,0 +1,6 @@
+name: update_payment
+versions:
+  v1:
+    description: Send a secure link to update the card to the email on file.
+    steps:
+      - {id: do_link, type: action, call: send_card_link, say: "I've emailed you a secure link to update your card. We retry the payment for 7 days, and you keep paid features meanwhile.", outcome: link_sent}

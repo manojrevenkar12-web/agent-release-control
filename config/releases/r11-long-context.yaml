@@ -1,0 +1,3 @@
+id: r11-long-context
+description: Send eight passages with every answer.
+models: {context_articles: 8}

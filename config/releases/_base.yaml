@@ -1,0 +1,21 @@
+# Defaults every release starts from; a release file overrides only what it changes.
+models:
+  understand_tier: small        # first tier used to understand a message
+  escalate_below: 0.60          # ... and the large tier is asked when the small one is less sure than this
+  answer_tier: small            # tier that writes the answer from the passages
+  context_articles: 3           # passages sent with each answer (tokens, cost, latency)
+understanding:
+  clarify_below: 0.35           # ask a clarifying question below this confidence
+  max_clarifications: 1
+retrieval:
+  require_agreement: true       # answer only if the article is among the retrieved passages
+  top_k: 3
+  min_score: 3.0                # ... with at least this score; otherwise decline and offer a person
+personalisation:
+  plan_aware: false             # answer with the section for the customer's plan
+procedures: {refund: v1, cancel: v1, change_email: v1, send_invoice: v1, update_payment: v1}
+guidance:
+  offer_human_after_failures: 2
+  ask_if_resolved: true
+safety:
+  injection_filter: true

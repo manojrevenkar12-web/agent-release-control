@@ -1,0 +1,3 @@
+id: r3-router-0.8
+description: Ask the large model whenever the small one is less than 80% sure.
+models: {escalate_below: 0.80}

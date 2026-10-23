@@ -1,0 +1,3 @@
+id: r5-strict-retrieval
+description: Answer only with strong retrieval support (fewer wrong answers, more declines).
+retrieval: {min_score: 7.0}

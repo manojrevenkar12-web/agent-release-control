@@ -1,0 +1,3 @@
+id: r9-no-injection-filter
+description: Drop the prompt-injection filter (it adds latency).
+safety: {injection_filter: false}

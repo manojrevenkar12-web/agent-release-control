@@ -1,0 +1,3 @@
+id: r6-no-retrieval-check
+description: Answer from the recognised intent without checking the passages.
+retrieval: {require_agreement: false}

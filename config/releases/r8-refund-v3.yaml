@@ -1,0 +1,3 @@
+id: r8-refund-v3
+description: Refund procedure v3 (no verification under 20 EUR, faster for customers).
+procedures: {refund: v3}

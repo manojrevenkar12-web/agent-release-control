@@ -1,0 +1,6 @@
+name: send_invoice
+versions:
+  v1:
+    description: Resend the latest invoice to the billing email on file (no verification needed; it goes to the owner).
+    steps:
+      - {id: do_send, type: action, call: resend_invoice, say: "I've sent your latest invoice as a PDF to the billing email on file. You can also find all invoices under Settings > Billing > Invoices.", outcome: sent}

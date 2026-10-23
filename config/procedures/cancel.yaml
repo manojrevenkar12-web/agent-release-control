@@ -1,0 +1,7 @@
+name: cancel
+versions:
+  v1:
+    description: Verify the owner and cancel at the end of the period.
+    steps:
+      - {id: verify, type: verify_identity}
+      - {id: do_cancel, type: action, call: cancel, say: "Your plan is cancelled. You keep the paid features until the end of the period, then the workspace moves to Free; no data is deleted.", outcome: cancelled}

@@ -1,0 +1,4 @@
+id: r12-personalised-router
+description: Plan-aware answers and the 0.8 router together.
+personalisation: {plan_aware: true}
+models: {escalate_below: 0.80}

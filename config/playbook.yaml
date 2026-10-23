@@ -1,0 +1,30 @@
+# How the agent handles each kind of request it recognises (owned by the product team).
+answer:
+  reset_password: reset-password
+  two_factor: two-factor
+  slack_integration: slack-integration
+  mobile_app: mobile-app
+  recurring_tasks: recurring-tasks
+  import_csv: import-csv
+  calendar_sync: calendar-sync
+  keyboard_shortcuts: keyboard-shortcuts
+  status_outage: status-and-outages
+  data_export: data-export
+  sso_setup: sso
+  api_rate_limit: api-rate-limits
+  storage_limits: storage-limits
+  guest_access: guest-access
+  upgrade_plan: upgrade-plan
+  time_tracking: time-tracking
+  webhooks: webhooks
+procedure:
+  refund_request: refund
+  cancel_subscription: cancel
+  change_email: change_email
+  invoice_copy: send_invoice
+  failed_payment: update_payment
+handoff:
+  bug_report: engineering
+  account_deletion: privacy
+  security_phishing: security
+decline: [unanswerable]

@@ -1,0 +1,8 @@
+name: change_email
+versions:
+  v1:
+    description: Verify the owner, ask for the new address, change it.
+    steps:
+      - {id: verify, type: verify_identity}
+      - {id: ask, type: ask, slot: new_email, question: "Which email address should the account use from now on?"}
+      - {id: do_change, type: action, call: change_email, args: [new_email], say: "Done: your account now uses {new_email}. We've sent a confirmation to both addresses.", outcome: changed}

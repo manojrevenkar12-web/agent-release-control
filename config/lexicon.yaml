@@ -1,0 +1,28 @@
+# Wider vocabulary the large tier understands (a stand-in for what a larger model knows about how
+# people describe things): when a pattern appears in a message, these words are added for it.
+"credentials|sign in fails|new password": password log in
+"extra security code|authenticator app gone|new phone": two factor authenticator
+"team chat": slack
+"without internet|on the train|ipad|tablet": mobile app offline
+"every monday|each month|automatically again|come back": repeat recurring task
+"from a sheet|bulk add|old task list": import csv spreadsheet
+"agenda|deadlines": calendar due dates
+"faster way": keyboard shortcuts
+"nothing loads|having problems right now|is it down|not loading": outage status down
+"copy of everything|data out|everything we have": export data
+"identity provider|corporate directory|company login": sso saml
+"slow down|too many requests|throttl": api rate limit 429
+"gigabytes|out of space|space for files": storage limit
+"freelancer|share a project with a customer|outside": guest invite external
+"bigger plan|more than what we have|options": upgrade plan pricing
+"how long work took|billable hours|record how long": time tracking
+"notify our server|our server": webhook
+"give it back|money back|charged by mistake|didn't mean to renew": refund charge
+"done with larkspur|end it|don't charge us again": cancel subscription
+"old address|different email|address doesn't exist": change email address
+"accountant|the bill|resend the pdf": invoice copy
+"couldn't charge|card expired|expired": payment failed card
+"goes white|vanish|disappear|drag a card": bug broken crash
+"forget everything about me|forget me": delete account personal data gdpr
+"another country|strange email|your logo": phishing hacked security suspicious
+"whiteboard|competition|competitor|better than": feature roadmap question
