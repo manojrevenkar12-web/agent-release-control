@@ -17,9 +17,7 @@ RUN pip install --no-cache-dir .
 COPY config ./config
 COPY knowledge ./knowledge
 COPY world ./world
-COPY reports ./reports
-
-RUN useradd --uid 10001 --create-home arc && mkdir -p /models && chown arc /models
+RUN useradd --uid 10001 --create-home arc && mkdir -p /models /app/reports && chown arc /models /app/reports
 USER arc
 
 EXPOSE 8000

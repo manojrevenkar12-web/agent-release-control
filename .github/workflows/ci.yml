@@ -70,11 +70,15 @@ jobs:
         with:
           name: models
           path: serving-models
+      - uses: actions/download-artifact@v4
+        with:
+          name: ci-reports
+          path: serving-reports
       - run: docker build -t arc:ci .
       - name: serve and call the API
         run: |
-          chmod -R a+rX serving-models
-          docker run -d --name api -p 8000:8000 -v "$PWD/serving-models:/models:ro" \
+          chmod -R a+rX serving-models serving-reports
+          docker run -d --name api -p 8000:8000 -v "$PWD/serving-models:/models:ro" -v "$PWD/serving-reports:/app/reports:ro" \
             -e ARC_API_KEYS='viewer-key:viewer,releaser-key:releaser' arc:ci
           for i in $(seq 1 60); do curl -fsS localhost:8000/health >/dev/null 2>&1 && break; sleep 2; done
           scripts/ci-run.sh deploy/smoke.sh http://localhost:8000 viewer-key
