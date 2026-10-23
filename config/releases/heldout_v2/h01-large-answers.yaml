@@ -1,0 +1,5 @@
+id: h01-large-answers
+description: Answers are written by the large tier instead of the small one, in the hope that answers are more accurate and fewer customers say the answer did not help.
+personalisation: {plan_aware: true}
+models:
+  answer_tier: large

@@ -1,0 +1,5 @@
+id: h04-escalate-more
+description: Asks the large tier to re-read a message whenever the small tier is under 0.70 confident (was 0.60), so fewer messages are misunderstood or sent to a clarifying question.
+personalisation: {plan_aware: true}
+models:
+  escalate_below: 0.70

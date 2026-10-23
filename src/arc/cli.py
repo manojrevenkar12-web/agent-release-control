@@ -38,7 +38,8 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--candidates", type=int, default=30)
     s.add_argument("--truth", type=int, default=20000)
     s.add_argument("--seed", type=int, default=11)
-    sub.add_parser("heldout")
+    ho = sub.add_parser("heldout")
+    ho.add_argument("--version", default=None, help="default: the latest set")
     sub.add_parser("ops")
     ru = sub.add_parser("run")
     ru.add_argument("--quick", action="store_true")
@@ -78,7 +79,7 @@ def main(argv: list[str] | None = None) -> int:
         from arc.pipeline import run_heldout
         from arc.platform import SimPlatform
 
-        run_heldout(SimPlatform())
+        run_heldout(SimPlatform(), a.version)
     elif a.cmd == "ops":
         from arc.config import load as load_cfg
         from arc.pipeline import ops

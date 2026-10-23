@@ -1,0 +1,4 @@
+id: h07-refund-30-days
+description: Switches the refund procedure to v2 (30-day window instead of 14) so more refund requests are resolved by the agent instead of ending in a policy explanation and a handoff.
+personalisation: {plan_aware: true}
+procedures: {refund: v2, cancel: v1, change_email: v1, send_invoice: v1, update_payment: v1}

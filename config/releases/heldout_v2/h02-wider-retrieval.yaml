@@ -1,0 +1,7 @@
+id: h02-wider-retrieval
+description: Retrieves 5 passages and sends 5 to the answer model instead of 3, so the right article is found and in context more often and fewer questions are declined.
+personalisation: {plan_aware: true}
+models:
+  context_articles: 5
+retrieval:
+  top_k: 5

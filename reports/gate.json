@@ -1,0 +1,90 @@
+{
+ "passed": true,
+ "checks": [
+  {
+   "check": "judge ranks production conversations",
+   "passed": true,
+   "detail": "AUC 0.919 (needs 0.85)"
+  },
+  {
+   "check": "review of r2-personalised",
+   "passed": true,
+   "detail": "ship (expected ship)"
+  },
+  {
+   "check": "review of r4-always-large",
+   "passed": true,
+   "detail": "do not ship at backtest (expected do not ship)"
+  },
+  {
+   "check": "review of r5-strict-retrieval",
+   "passed": true,
+   "detail": "do not ship at backtest (expected do not ship)"
+  },
+  {
+   "check": "review of r7-refund-v2",
+   "passed": true,
+   "detail": "do not ship at suites (expected do not ship)"
+  },
+  {
+   "check": "review of r8-refund-v3",
+   "passed": true,
+   "detail": "do not ship at static (expected do not ship)"
+  },
+  {
+   "check": "review of r13-small-only",
+   "passed": true,
+   "detail": "do not ship at suites (expected do not ship)"
+  },
+  {
+   "check": "A/A test",
+   "passed": true,
+   "detail": "no significant gain: do not ship, p = 0.857, SRM p = 0.5174"
+  },
+  {
+   "check": "P3 + A/B and rollout: unsafe releases shipped",
+   "passed": true,
+   "detail": "0 of 0 shipped"
+  },
+  {
+   "check": "P3 + A/B and rollout: harmful releases shipped",
+   "passed": true,
+   "detail": "0 of 0 shipped"
+  },
+  {
+   "check": "P2 calibrated: unsafe releases passed",
+   "passed": true,
+   "detail": "0 of 0 passed"
+  },
+  {
+   "check": "drill seed 31: incidents detected while ongoing",
+   "passed": true,
+   "detail": "all detected"
+  },
+  {
+   "check": "drill seed 31: false alarms",
+   "passed": true,
+   "detail": "0 on a clean fortnight"
+  },
+  {
+   "check": "drill seed 32: incidents detected while ongoing",
+   "passed": true,
+   "detail": "all detected"
+  },
+  {
+   "check": "drill seed 32: false alarms",
+   "passed": true,
+   "detail": "0 on a clean fortnight"
+  },
+  {
+   "check": "drill seed 33: incidents detected while ongoing",
+   "passed": true,
+   "detail": "all detected"
+  },
+  {
+   "check": "drill seed 33: false alarms",
+   "passed": true,
+   "detail": "0 on a clean fortnight"
+  }
+ ]
+}

@@ -1,0 +1,785 @@
+{
+ "drills": [
+  {
+   "days": 14,
+   "conversations": 18898,
+   "incidents": [
+    {
+     "name": "provider latency spike",
+     "start": "day 2 10:00",
+     "minutes": 180,
+     "conversations_affected": 201,
+     "resolution_during": 0.647,
+     "detected": true,
+     "minutes_to_detect": 25,
+     "first_alert": "page: latency burn rate",
+     "alerts": [
+      "page: latency burn rate",
+      "ticket: latency burn rate"
+     ]
+    },
+    {
+     "name": "provider error burst",
+     "start": "day 4 14:00",
+     "minutes": 45,
+     "conversations_affected": 23,
+     "resolution_during": 0.478,
+     "detected": true,
+     "minutes_to_detect": 40,
+     "first_alert": "page: availability burn rate",
+     "alerts": [
+      "page: availability burn rate",
+      "page: latency burn rate"
+     ]
+    },
+    {
+     "name": "large tier outage (fallback to small)",
+     "start": "day 6 05:00",
+     "minutes": 120,
+     "conversations_affected": 154,
+     "resolution_during": 0.558,
+     "detected": true,
+     "minutes_to_detect": 20,
+     "first_alert": "page: latency burn rate",
+     "alerts": [
+      "page: latency burn rate",
+      "ticket: latency burn rate"
+     ]
+    },
+    {
+     "name": "help-centre search index down",
+     "start": "day 8 09:00",
+     "minutes": 150,
+     "conversations_affected": 171,
+     "resolution_during": 0.415,
+     "detected": true,
+     "minutes_to_detect": 85,
+     "first_alert": "page: resolution drop",
+     "alerts": [
+      "page: resolution drop"
+     ]
+    },
+    {
+     "name": "bad config push (every reply on the large tier)",
+     "start": "day 11 13:00",
+     "minutes": 360,
+     "conversations_affected": 212,
+     "resolution_during": 0.679,
+     "detected": true,
+     "minutes_to_detect": 15,
+     "first_alert": "ticket: AI cost per conversation",
+     "alerts": [
+      "ticket: AI cost per conversation"
+     ]
+    }
+   ],
+   "alerts": [
+    {
+     "t": 579505,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "14.8x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579515,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "19.4x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579535,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "6.8x budget over 360 min (threshold 6.0x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579555,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "40.0x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579585,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "40.8x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579585,
+     "severity": "ticket",
+     "name": "latency burn rate",
+     "detail": "3.0x budget over 1440 min (threshold 3.0x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579605,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "34.4x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579620,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "29.7x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579650,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "34.4x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 582640,
+     "severity": "page",
+     "name": "availability burn rate",
+     "detail": "26.7x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 582640,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "23.3x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 584960,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "16.7x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 584985,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "18.9x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585015,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "18.7x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585030,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "6.1x budget over 360 min (threshold 6.0x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585040,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "20.8x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585055,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "18.2x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585055,
+     "severity": "ticket",
+     "name": "latency burn rate",
+     "detail": "3.0x budget over 1440 min (threshold 3.0x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 588145,
+     "severity": "page",
+     "name": "resolution drop",
+     "detail": "CUSUM over 8.0 against a baseline of 66.8%",
+     "caused_by_incident": true
+    },
+    {
+     "t": 592635,
+     "severity": "ticket",
+     "name": "AI cost per conversation",
+     "detail": "1.70x last week's over 60 min",
+     "caused_by_incident": true
+    },
+    {
+     "t": 592710,
+     "severity": "ticket",
+     "name": "AI cost per conversation",
+     "detail": "2.45x last week's over 60 min",
+     "caused_by_incident": true
+    },
+    {
+     "t": 592775,
+     "severity": "ticket",
+     "name": "AI cost per conversation",
+     "detail": "2.11x last week's over 60 min",
+     "caused_by_incident": true
+    },
+    {
+     "t": 592795,
+     "severity": "ticket",
+     "name": "AI cost per conversation",
+     "detail": "2.11x last week's over 60 min",
+     "caused_by_incident": true
+    }
+   ],
+   "false_alarms_with_incidents": 0,
+   "false_alarms_clean_run": 0,
+   "clean_alerts": [],
+   "slo": {
+    "availability": {
+     "target": 0.995,
+     "achieved": 0.99979,
+     "budget_used": 0.042
+    },
+    "latency": {
+     "target": 0.99,
+     "achieved": 0.99206,
+     "budget_used": 0.794
+    }
+   },
+   "slo_clean": {
+    "availability": {
+     "target": 0.995,
+     "achieved": 1.0,
+     "budget_used": 0.0
+    },
+    "latency": {
+     "target": 0.99,
+     "achieved": 0.99878,
+     "budget_used": 0.122
+    }
+   },
+   "baseline": {
+    "resolution": 0.668,
+    "cost_per_conversation_eur": 0.00416
+   }
+  },
+  {
+   "days": 14,
+   "conversations": 18898,
+   "incidents": [
+    {
+     "name": "provider latency spike",
+     "start": "day 2 10:00",
+     "minutes": 180,
+     "conversations_affected": 201,
+     "resolution_during": 0.647,
+     "detected": true,
+     "minutes_to_detect": 30,
+     "first_alert": "page: latency burn rate",
+     "alerts": [
+      "page: latency burn rate",
+      "ticket: latency burn rate"
+     ]
+    },
+    {
+     "name": "provider error burst",
+     "start": "day 4 14:00",
+     "minutes": 45,
+     "conversations_affected": 30,
+     "resolution_during": 0.533,
+     "detected": true,
+     "minutes_to_detect": 20,
+     "first_alert": "page: availability burn rate",
+     "alerts": [
+      "page: availability burn rate",
+      "page: latency burn rate"
+     ]
+    },
+    {
+     "name": "large tier outage (fallback to small)",
+     "start": "day 6 05:00",
+     "minutes": 120,
+     "conversations_affected": 147,
+     "resolution_during": 0.544,
+     "detected": true,
+     "minutes_to_detect": 35,
+     "first_alert": "page: latency burn rate",
+     "alerts": [
+      "page: latency burn rate",
+      "ticket: latency burn rate"
+     ]
+    },
+    {
+     "name": "help-centre search index down",
+     "start": "day 8 09:00",
+     "minutes": 150,
+     "conversations_affected": 163,
+     "resolution_during": 0.374,
+     "detected": true,
+     "minutes_to_detect": 74,
+     "first_alert": "page: resolution drop",
+     "alerts": [
+      "page: resolution drop"
+     ]
+    },
+    {
+     "name": "bad config push (every reply on the large tier)",
+     "start": "day 11 13:00",
+     "minutes": 360,
+     "conversations_affected": 211,
+     "resolution_during": 0.72,
+     "detected": true,
+     "minutes_to_detect": 30,
+     "first_alert": "ticket: AI cost per conversation",
+     "alerts": [
+      "ticket: AI cost per conversation"
+     ]
+    }
+   ],
+   "alerts": [
+    {
+     "t": 579510,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "16.7x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579520,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "20.5x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579535,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "6.4x budget over 360 min (threshold 6.0x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579570,
+     "severity": "ticket",
+     "name": "latency burn rate",
+     "detail": "3.1x budget over 1440 min (threshold 3.0x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579655,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "37.7x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 582620,
+     "severity": "page",
+     "name": "availability burn rate",
+     "detail": "30.3x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 582620,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "18.2x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 582635,
+     "severity": "page",
+     "name": "availability burn rate",
+     "detail": "35.3x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 582640,
+     "severity": "page",
+     "name": "availability burn rate",
+     "detail": "7.0x budget over 360 min (threshold 6.0x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 582640,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "28.1x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 584975,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "17.1x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585005,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "31.2x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585010,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "6.2x budget over 360 min (threshold 6.0x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585025,
+     "severity": "ticket",
+     "name": "latency burn rate",
+     "detail": "3.0x budget over 1440 min (threshold 3.0x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585050,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "16.9x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 588134,
+     "severity": "page",
+     "name": "resolution drop",
+     "detail": "CUSUM over 8.0 against a baseline of 66.2%",
+     "caused_by_incident": true
+    },
+    {
+     "t": 588253,
+     "severity": "page",
+     "name": "resolution drop",
+     "detail": "CUSUM over 8.0 against a baseline of 66.2%",
+     "caused_by_incident": true
+    },
+    {
+     "t": 592650,
+     "severity": "ticket",
+     "name": "AI cost per conversation",
+     "detail": "1.72x last week's over 60 min",
+     "caused_by_incident": true
+    },
+    {
+     "t": 592850,
+     "severity": "ticket",
+     "name": "AI cost per conversation",
+     "detail": "1.84x last week's over 60 min",
+     "caused_by_incident": true
+    },
+    {
+     "t": 592885,
+     "severity": "ticket",
+     "name": "AI cost per conversation",
+     "detail": "2.03x last week's over 60 min",
+     "caused_by_incident": true
+    },
+    {
+     "t": 592915,
+     "severity": "ticket",
+     "name": "AI cost per conversation",
+     "detail": "1.93x last week's over 60 min",
+     "caused_by_incident": true
+    },
+    {
+     "t": 592930,
+     "severity": "ticket",
+     "name": "AI cost per conversation",
+     "detail": "1.96x last week's over 60 min",
+     "caused_by_incident": true
+    }
+   ],
+   "false_alarms_with_incidents": 0,
+   "false_alarms_clean_run": 0,
+   "clean_alerts": [],
+   "slo": {
+    "availability": {
+     "target": 0.995,
+     "achieved": 0.99947,
+     "budget_used": 0.106
+    },
+    "latency": {
+     "target": 0.99,
+     "achieved": 0.99196,
+     "budget_used": 0.804
+    }
+   },
+   "slo_clean": {
+    "availability": {
+     "target": 0.995,
+     "achieved": 1.0,
+     "budget_used": 0.0
+    },
+    "latency": {
+     "target": 0.99,
+     "achieved": 0.99862,
+     "budget_used": 0.138
+    }
+   },
+   "baseline": {
+    "resolution": 0.6618,
+    "cost_per_conversation_eur": 0.00413
+   }
+  },
+  {
+   "days": 14,
+   "conversations": 18898,
+   "incidents": [
+    {
+     "name": "provider latency spike",
+     "start": "day 2 10:00",
+     "minutes": 180,
+     "conversations_affected": 192,
+     "resolution_during": 0.698,
+     "detected": true,
+     "minutes_to_detect": 30,
+     "first_alert": "page: latency burn rate",
+     "alerts": [
+      "page: latency burn rate",
+      "ticket: latency burn rate"
+     ]
+    },
+    {
+     "name": "provider error burst",
+     "start": "day 4 14:00",
+     "minutes": 45,
+     "conversations_affected": 34,
+     "resolution_during": 0.382,
+     "detected": true,
+     "minutes_to_detect": 5,
+     "first_alert": "page: availability burn rate",
+     "alerts": [
+      "page: availability burn rate",
+      "page: latency burn rate"
+     ]
+    },
+    {
+     "name": "large tier outage (fallback to small)",
+     "start": "day 6 05:00",
+     "minutes": 120,
+     "conversations_affected": 138,
+     "resolution_during": 0.522,
+     "detected": true,
+     "minutes_to_detect": 45,
+     "first_alert": "page: latency burn rate",
+     "alerts": [
+      "page: latency burn rate",
+      "ticket: latency burn rate"
+     ]
+    },
+    {
+     "name": "help-centre search index down",
+     "start": "day 8 09:00",
+     "minutes": 150,
+     "conversations_affected": 173,
+     "resolution_during": 0.416,
+     "detected": true,
+     "minutes_to_detect": 94,
+     "first_alert": "page: resolution drop",
+     "alerts": [
+      "page: resolution drop"
+     ]
+    },
+    {
+     "name": "bad config push (every reply on the large tier)",
+     "start": "day 11 13:00",
+     "minutes": 360,
+     "conversations_affected": 210,
+     "resolution_during": 0.619,
+     "detected": true,
+     "minutes_to_detect": 40,
+     "first_alert": "ticket: AI cost per conversation",
+     "alerts": [
+      "ticket: AI cost per conversation"
+     ]
+    }
+   ],
+   "alerts": [
+    {
+     "t": 579510,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "15.4x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579520,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "19.2x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579540,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "30.8x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579545,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "6.1x budget over 360 min (threshold 6.0x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579570,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "34.8x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 579605,
+     "severity": "ticket",
+     "name": "latency burn rate",
+     "detail": "3.1x budget over 1440 min (threshold 3.0x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 582605,
+     "severity": "page",
+     "name": "availability burn rate",
+     "detail": "19.5x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 582620,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "16.7x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 582640,
+     "severity": "page",
+     "name": "availability burn rate",
+     "detail": "25.0x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 582640,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "20.8x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 584985,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "16.5x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585000,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "19.8x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585010,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "21.2x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585020,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "27.1x budget over 60 min (threshold 14.4x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585020,
+     "severity": "page",
+     "name": "latency burn rate",
+     "detail": "6.1x budget over 360 min (threshold 6.0x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 585035,
+     "severity": "ticket",
+     "name": "latency burn rate",
+     "detail": "3.1x budget over 1440 min (threshold 3.0x)",
+     "caused_by_incident": true
+    },
+    {
+     "t": 588154,
+     "severity": "page",
+     "name": "resolution drop",
+     "detail": "CUSUM over 8.0 against a baseline of 66.5%",
+     "caused_by_incident": true
+    },
+    {
+     "t": 592660,
+     "severity": "ticket",
+     "name": "AI cost per conversation",
+     "detail": "1.62x last week's over 60 min",
+     "caused_by_incident": true
+    },
+    {
+     "t": 592830,
+     "severity": "ticket",
+     "name": "AI cost per conversation",
+     "detail": "1.61x last week's over 60 min",
+     "caused_by_incident": true
+    },
+    {
+     "t": 592970,
+     "severity": "ticket",
+     "name": "AI cost per conversation",
+     "detail": "1.83x last week's over 60 min",
+     "caused_by_incident": true
+    }
+   ],
+   "false_alarms_with_incidents": 0,
+   "false_alarms_clean_run": 0,
+   "clean_alerts": [],
+   "slo": {
+    "availability": {
+     "target": 0.995,
+     "achieved": 0.99963,
+     "budget_used": 0.074
+    },
+    "latency": {
+     "target": 0.99,
+     "achieved": 0.99164,
+     "budget_used": 0.836
+    }
+   },
+   "slo_clean": {
+    "availability": {
+     "target": 0.995,
+     "achieved": 1.0,
+     "budget_used": 0.0
+    },
+    "latency": {
+     "target": 0.99,
+     "achieved": 0.99852,
+     "budget_used": 0.148
+    }
+   },
+   "baseline": {
+    "resolution": 0.6646,
+    "cost_per_conversation_eur": 0.00415
+   }
+  }
+ ],
+ "seeds": [
+  31,
+  32,
+  33
+ ]
+}

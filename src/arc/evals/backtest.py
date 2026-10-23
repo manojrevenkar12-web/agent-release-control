@@ -46,6 +46,7 @@ class BacktestResult:
     n_labels: int
     metrics: dict[str, Metric] = field(default_factory=dict)
     disagreement_share: float = 0.0
+    changed_share: float = 0.0  # conversations that went differently under the candidate
     eval_cost_eur: float = 0.0
 
     def get(self, name: str) -> Metric:
@@ -58,9 +59,25 @@ class BacktestResult:
             "n": self.n,
             "n_labels": self.n_labels,
             "disagreement_share": round(self.disagreement_share, 4),
+            "changed_share": round(self.changed_share, 4),
             "eval_cost_eur": round(self.eval_cost_eur, 2),
             "metrics": {k: m.as_dict() for k, m in self.metrics.items()},
         }
+
+
+def same_conversation(a: Outcome, b: Outcome) -> bool:
+    """The same messages in the same order, and the same observable ending."""
+    return [t["text"] for t in a.transcript] == [t["text"] for t in b.transcript] and (
+        a.confirmed,
+        a.handed_off,
+        a.abandoned,
+        a.reopened,
+    ) == (
+        b.confirmed,
+        b.handed_off,
+        b.abandoned,
+        b.reopened,
+    )
 
 
 def _paired(name: str, a: np.ndarray, b: np.ndarray, method: str = "paired") -> Metric:
@@ -89,19 +106,24 @@ def backtest(
     r.disagreement_share = float(np.mean(np.maximum(da, db) > 0.5))
     r.metrics["judged_resolution"] = _paired("judged_resolution", sa.resolved, sb.resolved, "judges")
     r.metrics["judged_hallucination"] = _paired("judged_hallucination", sa.hallucinated, sb.hallucinated, "judges")
+    changed = np.flatnonzero([not same_conversation(a, b) for a, b in zip(A, B, strict=True)])
+    r.changed_share = len(changed) / n if n else 0.0
     if labeler is not None and n_labels > 0:
         rng = np.random.default_rng(seed)
-        lab = np.sort(rng.choice(n, size=min(n_labels, n), replace=False))
-        la = labeler([A[i] for i in lab])
-        lb = labeler([B[i] for i in lab])
+        lab = np.sort(rng.choice(changed, size=min(n_labels, len(changed)), replace=False)) if len(changed) else np.array([], dtype=int)
+        la = labeler([A[i] for i in lab]) if len(lab) else None
+        lb = labeler([B[i] for i in lab]) if len(lab) else None
         for metric, col in (("resolution", "resolved"), ("hallucination", "hallucinated")):
             fa = sa.resolved if col == "resolved" else sa.hallucinated
             fb = sb.resolved if col == "resolved" else sb.hallucinated
-            e = ppi.paired_diff(fa, fb, lab, la[col].to_numpy(), lb[col].to_numpy())
+            ya = la[col].to_numpy() if la is not None else np.array([])
+            yb = lb[col].to_numpy() if lb is not None else np.array([])
+            e = ppi.paired_diff_changed(fa, fb, changed, lab, ya, yb)
             lo, hi = e.ci()
-            ma = ppi.mean(fa, fa[lab], la[col].to_numpy()).est
-            mb = ppi.mean(fb, fb[lab], lb[col].to_numpy()).est
-            r.metrics[f"calibrated_{metric}"] = Metric(f"calibrated_{metric}", ma, mb, e.est, lo, hi, "judges + human labels (PPI)")
+            base_mean = float(np.mean(fa))
+            r.metrics[f"calibrated_{metric}"] = Metric(
+                f"calibrated_{metric}", base_mean, base_mean + e.est, e.est, lo, hi, "judges + human labels on changed conversations (PPI)"
+            )
         r.n_labels = len(lab)
     obs = lambda outs, f: np.array([f(o) for o in outs], dtype=float)  # noqa: E731
     r.metrics["confirmed"] = _paired("confirmed", obs(A, lambda o: o.confirmed), obs(B, lambda o: o.confirmed), "observed")

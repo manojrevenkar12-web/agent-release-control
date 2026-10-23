@@ -11,7 +11,7 @@ from typing import Any
 import pandas as pd
 
 from arc import ship
-from arc.agent.release import all_releases, heldout
+from arc.agent.release import all_releases, heldout, heldout_versions
 from arc.agent.release import load as load_release
 from arc.config import MODELS, REPORTS, load
 from arc.ops import cost, drill
@@ -83,31 +83,38 @@ def ops(seeds: list[int], frontier_n: int, p: SimPlatform) -> dict[str, Any]:
     return out
 
 
-def run_heldout(p: SimPlatform, truth_n: int = 20000) -> dict[str, Any]:
-    """The blind candidates (config/releases/heldout). The first run is written once and kept."""
-    st = process.Study(p, truth_n=truth_n, seed=4040, base_id="r1-prod")  # they were written against r1-prod
-    df, details = process.run(heldout(), st)
+def run_heldout(p: SimPlatform, version: str | None = None, truth_n: int = 20000) -> dict[str, Any]:
+    """The blind candidates (config/releases/heldout_vN). The first run is written once and kept."""
+    v = version or heldout_versions()[-1]
+    meta = load("pipeline")["heldout"][v]
+    st = process.Study(p, truth_n=truth_n, seed=4040, base_id=meta["base"])
+    df, details = process.run(heldout(v), st)
     out = {
+        "version": v,
+        "base": meta["base"],
+        "process": meta["process"],
         "ran_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "candidates": df.to_dict(orient="records"),
         "score": process.score(df).to_dict(orient="records"),
     }
-    first = REPORTS / "heldout" / "first_run.json"
-    target = first if not first.exists() else REPORTS / "heldout" / "latest.json"
+    d = REPORTS / "heldout" / v
+    first = d / "first_run.json"
+    target = first if not first.exists() else d / "latest.json"
     _write(target, out)
     _write(target.with_name(target.stem + "_details.json"), details)
     if target == first:
-        _write(REPORTS / "heldout" / "FIRST_RUN.md", heldout_markdown(out, df))
-    _log(f"held-out candidates written to {target.relative_to(REPORTS.parent)}")
+        _write(d / "FIRST_RUN.md", heldout_markdown(out, df))
+    _log(f"held-out {v} written to {target.relative_to(REPORTS.parent)}")
     return out
 
 
 def heldout_markdown(out: dict[str, Any], df: pd.DataFrame) -> str:
     L = [
-        "# Held-out candidate releases: first run",
+        f"# Held-out candidate releases {out['version']}: first run",
         "",
-        f"Run once on {out['ran_at']}. Written by an agent that read only `docs/RELEASES.md`, `_base.yaml` and",
-        "`r1-prod.yaml`, before these candidates were ever run. This file is not regenerated: later runs go to",
+        f"Set {out['version']}, run once on {out['ran_at']} against `{out['base']}` with process {out['process']}.",
+        f"Written by an agent that read only `docs/RELEASES.md`, `_base.yaml` and `{out['base']}.yaml`, before",
+        "these candidates were ever run. This file is not regenerated: later runs go to",
         "`latest.json`. If the shipping process is changed after studying these, move them to the dev set and",
         "commission new ones (see AGENTS.md).",
         "",

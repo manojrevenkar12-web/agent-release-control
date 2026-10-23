@@ -15,3 +15,8 @@ quick:
   study_seed: 11
   drill_seeds: [31]
   frontier_conversations: 1000
+# Held-out candidate sets, each written blind after the shipping process last changed, against the
+# release that was production at the time. Each is run once by `arc heldout`; the first run is kept.
+heldout:
+  v1: {base: r1-prod, process: "v1: labels on a random sample of replayed conversations"}
+  v2: {base: r2-personalised, process: "v2: labels only on conversations the candidate changed"}

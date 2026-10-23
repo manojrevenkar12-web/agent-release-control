@@ -1,0 +1,6 @@
+id: h05-lean-context
+description: "Cost saving: sends 2 passages instead of 3 with each answer and escalates to the large tier only below 0.50 confidence, on the view that the top passage carries the answer and most escalations are unnecessary."
+personalisation: {plan_aware: true}
+models:
+  context_articles: 2
+  escalate_below: 0.50

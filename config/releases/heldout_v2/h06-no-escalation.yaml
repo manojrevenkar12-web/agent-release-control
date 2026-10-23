@@ -1,0 +1,5 @@
+id: h06-no-escalation
+description: "Latency fix: never calls the large tier to re-read a message, removing the slow second call from the p95 path; low-confidence messages still get a clarifying question."
+personalisation: {plan_aware: true}
+models:
+  escalate_below: 0

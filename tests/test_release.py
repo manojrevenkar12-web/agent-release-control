@@ -7,16 +7,21 @@ from arc.agent.release import RELEASES, all_releases, from_dict, heldout, load, 
 def test_every_release_loads_and_validates():
     rs = all_releases()
     assert [r.id for r in rs][:2] == ["r1-prod", "r2-personalised"]
-    for r in rs + heldout():
+    for r in rs + heldout("v1"):
         assert validate(r.cfg) == []
         assert r.id == (RELEASES / f"{r.id}.yaml").stem or r.id.startswith("h")
 
 
-def test_heldout_releases_change_something_and_have_ten():
-    hs = heldout()
-    assert len(hs) == 10
-    base = load("r1-prod")
-    assert all(h.diff(base) for h in hs)
+def test_every_heldout_set_has_ten_releases_that_change_something():
+    from arc.agent.release import heldout_versions
+    from arc.config import load as load_cfg
+
+    meta = load_cfg("pipeline")["heldout"]
+    assert heldout_versions() and set(heldout_versions()) <= set(meta)
+    for v in heldout_versions():
+        hs = heldout(v)
+        assert len(hs) == 10
+        assert all(h.diff(load(meta[v]["base"])) for h in hs)
 
 
 def test_diff_and_fingerprint():

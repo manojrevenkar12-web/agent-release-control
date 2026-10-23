@@ -113,7 +113,9 @@ def load(name_or_path: str | Path) -> Release:
     if not p.exists():
         p = RELEASES / f"{name_or_path}.yaml"
     if not p.exists():
-        p = RELEASES / "heldout" / f"{name_or_path}.yaml"
+        found = sorted(RELEASES.glob(f"heldout_v*/{name_or_path}.yaml"))
+        if found:
+            p = found[-1]
     return from_dict(yaml.safe_load(p.read_text()))
 
 
@@ -121,6 +123,13 @@ def all_releases(directory: Path = RELEASES, prefix: str = "r") -> list[Release]
     return [load(p) for p in sorted(directory.glob(f"{prefix}*.yaml"), key=lambda p: int(p.stem.split("-")[0][len(prefix) :]))]
 
 
-def heldout() -> list[Release]:
-    """Candidate releases written without seeing the agent or the simulator (docs/RELEASES.md only)."""
-    return all_releases(RELEASES / "heldout", "h")
+def heldout_versions() -> list[str]:
+    return sorted((p.name.removeprefix("heldout_") for p in RELEASES.glob("heldout_v*") if p.is_dir()), key=lambda v: int(v[1:]))
+
+
+def heldout(version: str | None = None) -> list[Release]:
+    """Candidate releases written without seeing the agent or the simulator (docs/RELEASES.md only).
+    Each version was written fresh after the shipping process last changed; the latest is current."""
+    vs = heldout_versions()
+    v = version or (vs[-1] if vs else None)
+    return all_releases(RELEASES / f"heldout_{v}", "h") if v else []

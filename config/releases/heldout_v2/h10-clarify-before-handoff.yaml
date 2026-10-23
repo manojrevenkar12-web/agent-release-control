@@ -1,0 +1,7 @@
+id: h10-clarify-before-handoff
+description: Allows up to 2 clarifying questions (was 1) and offers a person after 3 failed answers (was 2), so the agent gets another chance to resolve a conversation before handing it to the support team.
+personalisation: {plan_aware: true}
+understanding:
+  max_clarifications: 2
+guidance:
+  offer_human_after_failures: 3

@@ -27,7 +27,7 @@ from pydantic import BaseModel, Field
 
 from arc.agent.core import Agent, ConvState
 from arc.agent.provider import Offline
-from arc.agent.release import Release, all_releases, heldout
+from arc.agent.release import Release, all_releases, heldout, heldout_versions
 from arc.agent.release import load as load_release
 from arc.config import REPORTS
 from arc.experiment.ab import assign
@@ -143,7 +143,11 @@ def create_app() -> FastAPI:
     @app.get("/releases")
     def releases(_: str = Depends(role)) -> list[dict[str, Any]]:
         out = [{"id": r.id, "description": r.description, "fingerprint": r.fingerprint, "set": "dev"} for r in all_releases()]
-        return out + [{"id": r.id, "description": r.description, "fingerprint": r.fingerprint, "set": "heldout"} for r in heldout()]
+        return out + [
+            {"id": r.id, "description": r.description, "fingerprint": r.fingerprint, "set": f"heldout {v}"}
+            for v in heldout_versions()
+            for r in heldout(v)
+        ]
 
     @app.get("/releases/{rid}")
     def release(rid: str, _: str = Depends(role)) -> dict[str, Any]:
@@ -262,7 +266,8 @@ def create_app() -> FastAPI:
             "ops_drill": "ops_drill.json",
             "gate": "gate.json",
             "releases": "releases.json",
-            "heldout": "heldout/first_run.json",
+            "heldout_v1": "heldout/v1/first_run.json",
+            "heldout_v2": "heldout/v2/first_run.json",
         }
         if name not in allowed or not (REPORTS / allowed[name]).exists():
             raise HTTPException(404, f"no report {name}")

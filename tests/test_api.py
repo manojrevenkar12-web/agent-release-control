@@ -37,7 +37,7 @@ def test_refund_conversation_end_to_end(client):
 
 def test_releases_and_diff(client):
     ids = {r["id"]: r["set"] for r in client.get("/releases", headers=V).json()}
-    assert ids["r2-personalised"] == "dev" and sum(s == "heldout" for s in ids.values()) == 10
+    assert ids["r2-personalised"] == "dev" and sum(s.startswith("heldout") for s in ids.values()) >= 10
     d = client.get("/releases/r2-personalised/diff", headers=V).json()
     assert d["changes"] == {"personalisation.plan_aware": {"from": False, "to": True}}
     assert client.get("/releases/nope", headers=V).status_code == 404

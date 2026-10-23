@@ -46,6 +46,29 @@ def paired_diff(fa: np.ndarray, fb: np.ndarray, lab: np.ndarray, ya: np.ndarray,
     return Estimate(float(d.mean() + rect.mean()), float(np.sqrt(d.var(ddof=1) / len(d) + rect.var(ddof=1) / max(len(rect), 2))))
 
 
+def paired_diff_changed(fa: np.ndarray, fb: np.ndarray, changed: np.ndarray, lab: np.ndarray, ya: np.ndarray, yb: np.ndarray) -> Estimate:
+    """Like `paired_diff`, when only some conversations went differently under the candidate.
+
+    Where both releases produced the same conversation, the difference is zero for the judges and for
+    any reviewer, so labels are spent only on conversations that changed (`changed`: their indices;
+    `lab`: the labelled ones among them). The estimate is the changed share times the PPI estimate
+    on the changed conversations, which is far tighter when a release changes few conversations.
+    """
+    fa, fb, ya, yb = (np.asarray(x, float) for x in (fa, fb, ya, yb))
+    n, k = len(fa), len(changed)
+    if k == 0:
+        return Estimate(0.0, 0.0)
+    share = k / n
+    d = fb - fa  # zero wherever the conversation did not change
+    rect = (yb - fb[lab]) - (ya - fa[lab])
+    # sampling of conversations (which ones changed, and by how much) plus the judges' error on the
+    # changed ones, measured on the labelled sample (reviewer disagreement included)
+    var_r = rect.var(ddof=1) / len(rect) if len(rect) > 1 else 0.0
+    return Estimate(
+        float(d.mean() + share * rect.mean()) if len(rect) else float(d.mean()), float(np.sqrt(d.var(ddof=1) / n + share**2 * var_r))
+    )
+
+
 def paired_naive(fa: np.ndarray, fb: np.ndarray) -> Estimate:
     d = np.asarray(fb, float) - np.asarray(fa, float)
     return Estimate(float(d.mean()), float(d.std(ddof=1) / np.sqrt(len(d))))

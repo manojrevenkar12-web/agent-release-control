@@ -162,12 +162,14 @@ def write_report(profile: str = "full") -> str:
                 f"| {r['escalate_below']} | {r['answer_tier']} | {_pct(r['resolution_observed'])} | €{r['ai_cost_per_conversation_eur']:.4f} | {'' if e is None else f'€{e:.2f}'} | {r['latency_p95_s']}s | {'yes' if r['meets_latency_slo'] else 'no'} | {'best' if r['best_observed'] else ''} |"
             )
         L.append("")
-    ho = _read("heldout/first_run.json")
-    if ho:
+    for v in ("v1", "v2", "v3"):
+        ho = _read(f"heldout/{v}/first_run.json")
+        if not ho:
+            continue
         L += [
-            "## Held-out candidates (first run)",
+            f"## Held-out candidates {v} (first run)",
             "",
-            f"Ten releases written by someone who saw only `docs/RELEASES.md`, run once on {ho['ran_at']}. See [heldout/FIRST_RUN.md](heldout/FIRST_RUN.md).",
+            f"Ten releases written by someone who saw only `docs/RELEASES.md`, run once on {ho['ran_at']} against `{ho.get('base', 'r1-prod')}` with process {ho.get('process', 'v1')}. See [heldout/{v}/FIRST_RUN.md](heldout/{v}/FIRST_RUN.md).",
             "",
         ]
         L += ["| Policy | Shipped | Truly better | Harmful | Unsafe | Better ones missed |", "|---|---|---|---|---|---|"]

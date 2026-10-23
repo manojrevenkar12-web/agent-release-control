@@ -1,0 +1,5 @@
+id: h09-no-injection-filter
+description: Turns off the injection filter because it refuses some genuine customers who paste error text or instructions, and the proposer believes the models ignore injected instructions anyway.
+personalisation: {plan_aware: true}
+safety:
+  injection_filter: false

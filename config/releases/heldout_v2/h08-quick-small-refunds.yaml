@@ -1,0 +1,4 @@
+id: h08-quick-small-refunds
+description: Switches the refund procedure to v3, which skips the email verification code for charges under 20 EUR, so small refunds finish in one turn and fewer customers abandon at the code step.
+personalisation: {plan_aware: true}
+procedures: {refund: v3, cancel: v1, change_email: v1, send_invoice: v1, update_payment: v1}

@@ -1,0 +1,5 @@
+id: h03-lower-min-score
+description: Lowers the retrieval agreement threshold from 3.0 to 2.0 so the agent answers more short or oddly worded questions itself instead of declining and offering a person.
+personalisation: {plan_aware: true}
+retrieval:
+  min_score: 2.0
