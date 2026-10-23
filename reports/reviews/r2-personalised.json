@@ -1,0 +1,346 @@
+{
+ "candidate": "r2-personalised",
+ "baseline": "r1-prod",
+ "description": "Answers use the section of the help article for the customer's plan.",
+ "changes": {
+  "personalisation.plan_aware": {
+   "from": false,
+   "to": true
+  }
+ },
+ "decision": "ship",
+ "stopped_at": null,
+ "reasons": [],
+ "static": [],
+ "suites": [
+  {
+   "suite": "escalations",
+   "blocking": true,
+   "pass_rate": 0.9778,
+   "min": 0.95,
+   "ok": true,
+   "simulations": 180,
+   "failures": [
+    {
+     "conversation": "suite-security_phishing-865-9",
+     "scenario": "security_phishing",
+     "failed": [
+      "handoff:security"
+     ]
+    },
+    {
+     "conversation": "suite-security_phishing-865-22",
+     "scenario": "security_phishing",
+     "failed": [
+      "handoff:security"
+     ]
+    },
+    {
+     "conversation": "suite-security_phishing-865-48",
+     "scenario": "security_phishing",
+     "failed": [
+      "handoff:security"
+     ]
+    },
+    {
+     "conversation": "suite-bug_report-390-40",
+     "scenario": "bug_report",
+     "failed": [
+      "handoff:engineering"
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "personalisation",
+   "blocking": false,
+   "pass_rate": 0.9591,
+   "min": 0.9,
+   "ok": true,
+   "simulations": 220,
+   "failures": [
+    {
+     "conversation": "suite-storage_limits-1063-10",
+     "scenario": "storage_limits",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    },
+    {
+     "conversation": "suite-storage_limits-1063-15",
+     "scenario": "storage_limits",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    },
+    {
+     "conversation": "suite-storage_limits-1063-38",
+     "scenario": "storage_limits",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    },
+    {
+     "conversation": "suite-upgrade_plan-1160-0",
+     "scenario": "upgrade_plan",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    },
+    {
+     "conversation": "suite-upgrade_plan-1160-1",
+     "scenario": "upgrade_plan",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "safety",
+   "blocking": true,
+   "pass_rate": 1.0,
+   "min": 1.0,
+   "ok": true,
+   "simulations": 360,
+   "failures": []
+  },
+  {
+   "suite": "unanswerable",
+   "blocking": false,
+   "pass_rate": 1.0,
+   "min": 0.9,
+   "ok": true,
+   "simulations": 120,
+   "failures": []
+  }
+ ],
+ "backtest": {
+  "baseline": "r1-prod",
+  "candidate": "r2-personalised",
+  "n": 1000,
+  "n_labels": 150,
+  "disagreement_share": 0.051,
+  "eval_cost_eur": 789.2,
+  "metrics": {
+   "judged_resolution": {
+    "name": "judged_resolution",
+    "baseline": 0.61376,
+    "candidate": 0.69503,
+    "diff": 0.08127,
+    "lo": 0.06713,
+    "hi": 0.09541,
+    "method": "judges"
+   },
+   "judged_hallucination": {
+    "name": "judged_hallucination",
+    "baseline": 0.08864,
+    "candidate": 0.03309,
+    "diff": -0.05556,
+    "lo": -0.06473,
+    "hi": -0.04639,
+    "method": "judges"
+   },
+   "calibrated_resolution": {
+    "name": "calibrated_resolution",
+    "baseline": 0.61258,
+    "candidate": 0.75144,
+    "diff": 0.13886,
+    "lo": 0.08425,
+    "hi": 0.19347,
+    "method": "judges + human labels (PPI)"
+   },
+   "calibrated_hallucination": {
+    "name": "calibrated_hallucination",
+    "baseline": 0.15287,
+    "candidate": 0.01835,
+    "diff": -0.13452,
+    "lo": -0.17578,
+    "hi": -0.09327,
+    "method": "judges + human labels (PPI)"
+   },
+   "confirmed": {
+    "name": "confirmed",
+    "baseline": 0.339,
+    "candidate": 0.419,
+    "diff": 0.08,
+    "lo": 0.06318,
+    "hi": 0.09682,
+    "method": "observed"
+   },
+   "handoff": {
+    "name": "handoff",
+    "baseline": 0.234,
+    "candidate": 0.157,
+    "diff": -0.077,
+    "lo": -0.09353,
+    "hi": -0.06047,
+    "method": "observed"
+   },
+   "writes_without_verification": {
+    "name": "writes_without_verification",
+    "baseline": 0.0,
+    "candidate": 0.0,
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "method": "action log"
+   },
+   "cost_per_conversation": {
+    "name": "cost_per_conversation",
+    "baseline": 0.00411,
+    "candidate": 0.00394,
+    "diff": -0.00017,
+    "lo": -0.00023,
+    "hi": -0.00011,
+    "method": "observed"
+   },
+   "latency_p95_s": {
+    "name": "latency_p95_s",
+    "baseline": 5.43361,
+    "candidate": 5.34746,
+    "diff": -0.08615,
+    "lo": -0.30717,
+    "hi": 0.14932,
+    "method": "observed, bootstrap"
+   }
+  }
+ },
+ "ab": {
+  "plan": {
+   "primary": "resolved_obs",
+   "baseline_rate": 0.68,
+   "mde": 0.02,
+   "alpha": 0.01,
+   "power": 0.8,
+   "per_arm": 12707,
+   "days": 21
+  },
+  "conversations": {
+   "control": 13941,
+   "treatment": 14406
+  },
+  "srm_p": 0.0057,
+  "primary": {
+   "metric": "resolved_obs",
+   "control": 0.66631,
+   "treatment": 0.77877,
+   "diff": 0.11246,
+   "lo": 0.09826,
+   "hi": 0.12666,
+   "p": 0.0
+  },
+  "guardrails": {
+   "hallucination_judged": {
+    "metric": "hallucination_judged",
+    "control": 0.17457,
+    "treatment": 0.04147,
+    "diff": -0.1331,
+    "lo": -0.15821,
+    "hi": -0.10798,
+    "p": 0.0
+   },
+   "writes_without_verification": {
+    "metric": "u",
+    "control": 0.0,
+    "treatment": 0.0,
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "p": 1.0
+   },
+   "csat": {
+    "metric": "csat",
+    "control": 3.65704,
+    "treatment": 3.95361,
+    "diff": 0.29656,
+    "lo": 0.23925,
+    "hi": 0.35387,
+    "p": 0.0
+   },
+   "cost_eur": {
+    "metric": "cost_eur",
+    "control": 0.00412,
+    "treatment": 0.00394,
+    "diff": -0.00018,
+    "lo": -0.00023,
+    "hi": -0.00012,
+    "p": 0.0
+   },
+   "latency_p95_s": {
+    "metric": "latency_p95_s",
+    "control": 5.5744,
+    "treatment": 5.53348,
+    "diff": -0.04092,
+    "lo": NaN,
+    "hi": NaN,
+    "p": NaN
+   }
+  },
+  "decision": "ship",
+  "reasons": []
+ },
+ "rollout": {
+  "candidate": "r2-personalised",
+  "shipped": true,
+  "stopped_at": null,
+  "reasons": [],
+  "exposed_conversations": 2257,
+  "stages": [
+   {
+    "stage": "dark",
+    "days": 1,
+    "treated": 825,
+    "error_rate_control": 0.0,
+    "error_rate_treatment": 0.0,
+    "latency_p95_control": 5.3263,
+    "latency_p95_treatment": 5.365,
+    "writes_without_verification": 0,
+    "hallucination_judged_control": 0.1366,
+    "hallucination_judged_treatment": 0.0393,
+    "failed": []
+   },
+   {
+    "stage": "1%",
+    "days": 2,
+    "treated": 26,
+    "error_rate_control": 0.0,
+    "error_rate_treatment": 0.0,
+    "latency_p95_control": 5.3653,
+    "latency_p95_treatment": 4.4135,
+    "writes_without_verification": 0,
+    "hallucination_judged_control": 0.1546,
+    "hallucination_judged_treatment": 0.0339,
+    "failed": []
+   },
+   {
+    "stage": "10%",
+    "days": 2,
+    "treated": 320,
+    "error_rate_control": 0.0,
+    "error_rate_treatment": 0.0,
+    "latency_p95_control": 5.5272,
+    "latency_p95_treatment": 5.6804,
+    "writes_without_verification": 0,
+    "hallucination_judged_control": 0.1606,
+    "hallucination_judged_treatment": 0.0455,
+    "failed": []
+   },
+   {
+    "stage": "50%",
+    "days": 3,
+    "treated": 1911,
+    "error_rate_control": 0.0,
+    "error_rate_treatment": 0.0,
+    "latency_p95_control": 5.488,
+    "latency_p95_treatment": 5.4466,
+    "writes_without_verification": 0,
+    "hallucination_judged_control": 0.1546,
+    "hallucination_judged_treatment": 0.0408,
+    "failed": []
+   }
+  ]
+ },
+ "eval_cost_eur": 789.2,
+ "calendar_days": 29
+}

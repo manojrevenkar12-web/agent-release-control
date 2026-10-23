@@ -1,0 +1,44 @@
+{
+ "trained_at": "2026-10-23T16:53:32+00:00",
+ "nlu": {
+  "labelled_messages": 13226,
+  "tiers": {
+   "small": 2000,
+   "large": 13226
+  }
+ },
+ "judge": {
+  "trained_on_release": "r1-prod",
+  "reviewed_conversations": 1500,
+  "label_resolved_rate": 0.6027,
+  "label_hallucinated_rate": 0.1627,
+  "validation": {
+   "r1-prod": {
+    "resolved": {
+     "auc": 0.919,
+     "judged_rate": 0.5725,
+     "labelled_rate": 0.5637
+    },
+    "hallucinated": {
+     "auc": 0.957,
+     "judged_rate": 0.1633,
+     "labelled_rate": 0.165
+    }
+   },
+   "r2-personalised": {
+    "resolved": {
+     "auc": 0.891,
+     "judged_rate": 0.7099,
+     "labelled_rate": 0.73
+    },
+    "hallucinated": {
+     "auc": 0.477,
+     "judged_rate": 0.0417,
+     "labelled_rate": 0.0187
+    }
+   }
+  }
+ },
+ "history_conversations": 6000,
+ "seconds": 47.4
+}

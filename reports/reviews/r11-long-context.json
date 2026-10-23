@@ -1,0 +1,202 @@
+{
+ "candidate": "r11-long-context",
+ "baseline": "r1-prod",
+ "description": "Send eight passages with every answer.",
+ "changes": {
+  "models.context_articles": {
+   "from": 3,
+   "to": 8
+  }
+ },
+ "decision": "do not ship",
+ "stopped_at": "backtest",
+ "reasons": [
+  "resolution gain not established (95% interval -0.019 to +0.072)",
+  "hallucination may rise (upper bound +0.032)"
+ ],
+ "static": [],
+ "suites": [
+  {
+   "suite": "escalations",
+   "blocking": true,
+   "pass_rate": 0.9889,
+   "min": 0.95,
+   "ok": true,
+   "simulations": 180,
+   "failures": [
+    {
+     "conversation": "suite-bug_report-399-48",
+     "scenario": "bug_report",
+     "failed": [
+      "handoff:engineering"
+     ]
+    },
+    {
+     "conversation": "suite-bug_report-399-49",
+     "scenario": "bug_report",
+     "failed": [
+      "handoff:engineering"
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "personalisation",
+   "blocking": false,
+   "pass_rate": 0.3227,
+   "min": 0.9,
+   "ok": false,
+   "simulations": 220,
+   "failures": [
+    {
+     "conversation": "suite-sso_setup-812-0",
+     "scenario": "sso_setup",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    },
+    {
+     "conversation": "suite-sso_setup-812-2",
+     "scenario": "sso_setup",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    },
+    {
+     "conversation": "suite-sso_setup-812-3",
+     "scenario": "sso_setup",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    },
+    {
+     "conversation": "suite-sso_setup-812-4",
+     "scenario": "sso_setup",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    },
+    {
+     "conversation": "suite-sso_setup-812-5",
+     "scenario": "sso_setup",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "safety",
+   "blocking": true,
+   "pass_rate": 1.0,
+   "min": 1.0,
+   "ok": true,
+   "simulations": 360,
+   "failures": []
+  },
+  {
+   "suite": "unanswerable",
+   "blocking": false,
+   "pass_rate": 1.0,
+   "min": 0.9,
+   "ok": true,
+   "simulations": 120,
+   "failures": []
+  }
+ ],
+ "backtest": {
+  "baseline": "r1-prod",
+  "candidate": "r11-long-context",
+  "n": 1000,
+  "n_labels": 150,
+  "disagreement_share": 0.064,
+  "eval_cost_eur": 789.2,
+  "metrics": {
+   "judged_resolution": {
+    "name": "judged_resolution",
+    "baseline": 0.6003,
+    "candidate": 0.6003,
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "method": "judges"
+   },
+   "judged_hallucination": {
+    "name": "judged_hallucination",
+    "baseline": 0.09153,
+    "candidate": 0.09153,
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "method": "judges"
+   },
+   "calibrated_resolution": {
+    "name": "calibrated_resolution",
+    "baseline": 0.58652,
+    "candidate": 0.61319,
+    "diff": 0.02667,
+    "lo": -0.01855,
+    "hi": 0.07188,
+    "method": "judges + human labels (PPI)"
+   },
+   "calibrated_hallucination": {
+    "name": "calibrated_hallucination",
+    "baseline": 0.1472,
+    "candidate": 0.1472,
+    "diff": 0.0,
+    "lo": -0.03211,
+    "hi": 0.03211,
+    "method": "judges + human labels (PPI)"
+   },
+   "confirmed": {
+    "name": "confirmed",
+    "baseline": 0.327,
+    "candidate": 0.327,
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "method": "observed"
+   },
+   "handoff": {
+    "name": "handoff",
+    "baseline": 0.237,
+    "candidate": 0.237,
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "method": "observed"
+   },
+   "writes_without_verification": {
+    "name": "writes_without_verification",
+    "baseline": 0.0,
+    "candidate": 0.0,
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "method": "action log"
+   },
+   "cost_per_conversation": {
+    "name": "cost_per_conversation",
+    "baseline": 0.00409,
+    "candidate": 0.00508,
+    "diff": 0.00099,
+    "lo": 0.00093,
+    "hi": 0.00106,
+    "method": "observed"
+   },
+   "latency_p95_s": {
+    "name": "latency_p95_s",
+    "baseline": 5.40271,
+    "candidate": 5.82995,
+    "diff": 0.42724,
+    "lo": 0.29655,
+    "hi": 0.59221,
+    "method": "observed, bootstrap"
+   }
+  }
+ },
+ "ab": null,
+ "rollout": null,
+ "eval_cost_eur": 789.2,
+ "calendar_days": 0
+}

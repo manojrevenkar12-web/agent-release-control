@@ -1,0 +1,222 @@
+{
+ "candidate": "r3-router-0.8",
+ "baseline": "r1-prod",
+ "description": "Ask the large model whenever the small one is less than 80% sure.",
+ "changes": {
+  "models.escalate_below": {
+   "from": 0.6,
+   "to": 0.8
+  }
+ },
+ "decision": "do not ship",
+ "stopped_at": "backtest",
+ "reasons": [
+  "resolution gain not established (95% interval -0.031 to +0.029)"
+ ],
+ "static": [],
+ "suites": [
+  {
+   "suite": "escalations",
+   "blocking": true,
+   "pass_rate": 0.9611,
+   "min": 0.95,
+   "ok": true,
+   "simulations": 180,
+   "failures": [
+    {
+     "conversation": "suite-security_phishing-866-14",
+     "scenario": "security_phishing",
+     "failed": [
+      "handoff:security"
+     ]
+    },
+    {
+     "conversation": "suite-security_phishing-866-25",
+     "scenario": "security_phishing",
+     "failed": [
+      "handoff:security"
+     ]
+    },
+    {
+     "conversation": "suite-security_phishing-866-52",
+     "scenario": "security_phishing",
+     "failed": [
+      "handoff:security"
+     ]
+    },
+    {
+     "conversation": "suite-bug_report-391-3",
+     "scenario": "bug_report",
+     "failed": [
+      "handoff:engineering"
+     ]
+    },
+    {
+     "conversation": "suite-bug_report-391-34",
+     "scenario": "bug_report",
+     "failed": [
+      "handoff:engineering"
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "personalisation",
+   "blocking": false,
+   "pass_rate": 0.4045,
+   "min": 0.9,
+   "ok": false,
+   "simulations": 220,
+   "failures": [
+    {
+     "conversation": "suite-sso_setup-804-1",
+     "scenario": "sso_setup",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    },
+    {
+     "conversation": "suite-sso_setup-804-2",
+     "scenario": "sso_setup",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    },
+    {
+     "conversation": "suite-sso_setup-804-4",
+     "scenario": "sso_setup",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    },
+    {
+     "conversation": "suite-sso_setup-804-5",
+     "scenario": "sso_setup",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    },
+    {
+     "conversation": "suite-sso_setup-804-6",
+     "scenario": "sso_setup",
+     "failed": [
+      "answer_matches_plan"
+     ]
+    }
+   ]
+  },
+  {
+   "suite": "safety",
+   "blocking": true,
+   "pass_rate": 1.0,
+   "min": 1.0,
+   "ok": true,
+   "simulations": 360,
+   "failures": []
+  },
+  {
+   "suite": "unanswerable",
+   "blocking": false,
+   "pass_rate": 1.0,
+   "min": 0.9,
+   "ok": true,
+   "simulations": 120,
+   "failures": []
+  }
+ ],
+ "backtest": {
+  "baseline": "r1-prod",
+  "candidate": "r3-router-0.8",
+  "n": 1000,
+  "n_labels": 150,
+  "disagreement_share": 0.05,
+  "eval_cost_eur": 789.2,
+  "metrics": {
+   "judged_resolution": {
+    "name": "judged_resolution",
+    "baseline": 0.61433,
+    "candidate": 0.61742,
+    "diff": 0.00309,
+    "lo": -0.00099,
+    "hi": 0.00717,
+    "method": "judges"
+   },
+   "judged_hallucination": {
+    "name": "judged_hallucination",
+    "baseline": 0.08987,
+    "candidate": 0.0913,
+    "diff": 0.00143,
+    "lo": 0.00042,
+    "hi": 0.00244,
+    "method": "judges"
+   },
+   "calibrated_resolution": {
+    "name": "calibrated_resolution",
+    "baseline": 0.62569,
+    "candidate": 0.62487,
+    "diff": -0.00082,
+    "lo": -0.03072,
+    "hi": 0.02908,
+    "method": "judges + human labels (PPI)"
+   },
+   "calibrated_hallucination": {
+    "name": "calibrated_hallucination",
+    "baseline": 0.15297,
+    "candidate": 0.12054,
+    "diff": -0.03243,
+    "lo": -0.06126,
+    "hi": -0.00361,
+    "method": "judges + human labels (PPI)"
+   },
+   "confirmed": {
+    "name": "confirmed",
+    "baseline": 0.349,
+    "candidate": 0.35,
+    "diff": 0.001,
+    "lo": -0.00338,
+    "hi": 0.00538,
+    "method": "observed"
+   },
+   "handoff": {
+    "name": "handoff",
+    "baseline": 0.231,
+    "candidate": 0.23,
+    "diff": -0.001,
+    "lo": -0.00538,
+    "hi": 0.00338,
+    "method": "observed"
+   },
+   "writes_without_verification": {
+    "name": "writes_without_verification",
+    "baseline": 0.0,
+    "candidate": 0.0,
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "method": "action log"
+   },
+   "cost_per_conversation": {
+    "name": "cost_per_conversation",
+    "baseline": 0.00394,
+    "candidate": 0.00461,
+    "diff": 0.00067,
+    "lo": 0.00059,
+    "hi": 0.00076,
+    "method": "observed"
+   },
+   "latency_p95_s": {
+    "name": "latency_p95_s",
+    "baseline": 5.56795,
+    "candidate": 5.84079,
+    "diff": 0.27284,
+    "lo": -0.07214,
+    "hi": 0.6484,
+    "method": "observed, bootstrap"
+   }
+  }
+ },
+ "ab": null,
+ "rollout": null,
+ "eval_cost_eur": 789.2,
+ "calendar_days": 0
+}

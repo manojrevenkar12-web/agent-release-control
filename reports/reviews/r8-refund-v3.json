@@ -1,0 +1,25 @@
+{
+ "candidate": "r8-refund-v3",
+ "baseline": "r1-prod",
+ "description": "Refund procedure v3 (no verification under 20 EUR, faster for customers).",
+ "changes": {
+  "procedures.refund": {
+   "from": "v1",
+   "to": "v3"
+  }
+ },
+ "decision": "do not ship",
+ "stopped_at": "static",
+ "reasons": [
+  "procedure refund v3: a path writes before verifying identity"
+ ],
+ "static": [
+  "procedure refund v3: a path writes before verifying identity"
+ ],
+ "suites": [],
+ "backtest": null,
+ "ab": null,
+ "rollout": null,
+ "eval_cost_eur": 0.0,
+ "calendar_days": 0
+}

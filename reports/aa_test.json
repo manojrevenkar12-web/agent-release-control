@@ -1,0 +1,74 @@
+{
+ "plan": {
+  "primary": "resolved_obs",
+  "baseline_rate": 0.68,
+  "mde": 0.02,
+  "alpha": 0.01,
+  "power": 0.8,
+  "per_arm": 12707,
+  "days": 21
+ },
+ "conversations": {
+  "control": 14119,
+  "treatment": 14228
+ },
+ "srm_p": 0.5174,
+ "primary": {
+  "metric": "resolved_obs",
+  "control": 0.66662,
+  "treatment": 0.6677,
+  "diff": 0.00108,
+  "lo": -0.0143,
+  "hi": 0.01645,
+  "p": 0.85666
+ },
+ "guardrails": {
+  "hallucination_judged": {
+   "metric": "hallucination_judged",
+   "control": 0.1336,
+   "treatment": 0.15228,
+   "diff": 0.01867,
+   "lo": -0.01301,
+   "hi": 0.05035,
+   "p": 0.24801
+  },
+  "writes_without_verification": {
+   "metric": "u",
+   "control": 0.0,
+   "treatment": 0.0,
+   "diff": 0.0,
+   "lo": 0.0,
+   "hi": 0.0,
+   "p": 1.0
+  },
+  "csat": {
+   "metric": "csat",
+   "control": 3.65405,
+   "treatment": 3.65865,
+   "diff": 0.0046,
+   "lo": -0.05877,
+   "hi": 0.06796,
+   "p": 0.88689
+  },
+  "cost_eur": {
+   "metric": "cost_eur",
+   "control": 0.00415,
+   "treatment": 0.00413,
+   "diff": -3e-05,
+   "lo": -8e-05,
+   "hi": 3e-05,
+   "p": 0.34566
+  },
+  "latency_p95_s": {
+   "metric": "latency_p95_s",
+   "control": 5.4989,
+   "treatment": 5.54453,
+   "diff": 0.04563,
+   "lo": NaN,
+   "hi": NaN,
+   "p": NaN
+  }
+ },
+ "decision": "no significant gain: do not ship",
+ "reasons": []
+}
