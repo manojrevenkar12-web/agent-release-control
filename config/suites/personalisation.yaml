@@ -1,0 +1,10 @@
+name: personalisation
+description: Answers about plan-dependent features state the facts of the customer's own plan.
+blocking: false
+min_pass_rate: 0.90
+scenarios:
+  - {intent: sso_setup, n: 50, checks: [answer_matches_plan]}
+  - {intent: api_rate_limit, n: 50, checks: [answer_matches_plan]}
+  - {intent: storage_limits, n: 40, checks: [answer_matches_plan]}
+  - {intent: upgrade_plan, n: 40, checks: [answer_matches_plan]}
+  - {intent: guest_access, n: 40, checks: [answer_matches_plan]}

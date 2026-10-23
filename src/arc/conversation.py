@@ -24,6 +24,7 @@ def run(agent: Agent, spec: Spec, world: World) -> Outcome:
             break
         msg = reply
     o = cust.finish()
+    o.actions = list(agent.sys.actions_of(spec.id))
     agent.sys.forget(spec.id)
     return o
 

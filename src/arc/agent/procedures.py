@@ -60,16 +60,26 @@ class Procedure:
 
     @property
     def writes_without_verification(self) -> bool:
-        """True if some path reaches a write before identity verification (checked statically)."""
-        seen_verify = False
-        for s in self.steps:
-            if s["type"] == "verify_identity":
-                seen_verify = True
-            if s["type"] == "condition" and not seen_verify:
-                return any(self.steps[self.index(t)]["type"] == "action" and self.steps[self.index(t)]["call"] in ("refund", "cancel", "change_email") for t in (s["then"], s["else"]))
-            if s["type"] == "action" and s["call"] in ("refund", "cancel", "change_email") and not seen_verify:
-                return True
-        return False
+        """True if any path through the steps reaches a write before identity is verified."""
+        writes = {"refund", "cancel", "change_email"}
+
+        def walk(i: int, verified: bool, seen: frozenset[tuple[int, bool]]) -> bool:
+            if i >= len(self.steps) or (i, verified) in seen:
+                return False
+            seen = seen | {(i, verified)}
+            s = self.steps[i]
+            t = s["type"]
+            if t == "verify_identity":
+                return walk(i + 1, True, seen)
+            if t == "condition":
+                return walk(self.index(s["then"]), verified, seen) or walk(self.index(s["else"]), verified, seen)
+            if t == "action":
+                return s["call"] in writes and not verified
+            if t == "say":
+                return False
+            return walk(i + 1, verified, seen)
+
+        return walk(0, False, frozenset())
 
 
 @lru_cache

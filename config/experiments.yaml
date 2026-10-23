@@ -1,0 +1,25 @@
+# How A/B tests are planned and read (owned by the AI group; changed by review, not per test).
+primary: resolved_obs          # resolution rate: hard (customer confirmed) + soft (no handoff, no reopen in 3 days)
+mde: 0.02                      # smallest change worth detecting, absolute
+alpha: 0.01                    # stricter than 5%: many tests run all the time
+power: 0.80
+traffic_share: 0.5
+monitor_sample_rate: 0.05      # share of conversations scored by monitor judges
+guardrails:
+  hallucination_max_increase: 0.01
+  csat_max_drop: 0.10
+  latency_p95_max_ratio: 1.25
+  cost_max_ratio: 1.30
+rollout:
+  stages:
+    - {name: dark, share: 1.0, days: 1, shadow: true}
+    - {name: 1%, share: 0.01, days: 2}
+    - {name: 10%, share: 0.10, days: 2}
+    - {name: 50%, share: 0.50, days: 3}
+    - {name: 100%, share: 1.0, days: 0}
+  health:
+    error_rate_max_increase: 0.005
+    latency_p95_max_ratio: 1.25
+    writes_without_verification_max: 0
+    hallucination_judged_max_increase: 0.02
+    resolution_max_drop: 0.03       # checked once a stage has 2,000 treated conversations

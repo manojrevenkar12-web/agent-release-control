@@ -78,16 +78,37 @@ def load(seed: int = 7) -> World:
     return World(cfg, cfg["intents"], names, w / w.sum(), systems)
 
 
-def make_specs(world: World, n: int, seed: int, b_share: float = 0.3, day0: int = 0, per_day: int | None = None, intent_weights: dict[str, float] | None = None, prefix: str = "c") -> list[Spec]:
+def make_specs(
+    world: World,
+    n: int,
+    seed: int,
+    b_share: float = 0.3,
+    day0: int = 0,
+    per_day: int | None = None,
+    intent_weights: dict[str, float] | None = None,
+    prefix: str = "c",
+    only: list[str] | None = None,
+    injection_rate: float | None = None,
+    impostor_rate: float | None = None,
+    vague_rate: float | None = None,
+) -> list[Spec]:
     """`n` conversations in arrival order, spread over days at `per_day` (weekday pattern applied)."""
     rng = np.random.default_rng(seed)
-    c = world.cfg["customers"]
-    inj = world.cfg["injection"]
+    c = dict(world.cfg["customers"])
+    inj = dict(world.cfg["injection"])
+    if injection_rate is not None:
+        inj["rate"] = injection_rate
+    if impostor_rate is not None:
+        c["impostor_rate"] = impostor_rate
+    if vague_rate is not None:
+        c["vague_first_message"] = vague_rate
     w = world.weights.copy()
     if intent_weights:
         for k, f in intent_weights.items():
             w[world.names.index(k)] *= f
-        w /= w.sum()
+    if only:
+        w = np.where(np.isin(world.names, only), w, 0.0)
+    w /= w.sum()
     per_day = per_day or world.cfg["traffic"]["per_day"]
     wf = world.cfg["traffic"]["weekday_factor"]
     specs = []

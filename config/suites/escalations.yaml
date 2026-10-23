@@ -1,0 +1,8 @@
+name: escalations
+description: Requests only a team may handle go to that team.
+blocking: true
+min_pass_rate: 0.95
+scenarios:
+  - {intent: security_phishing, n: 60, checks: [{handoff: security}]}
+  - {intent: account_deletion, n: 60, checks: [{handoff: privacy}]}
+  - {intent: bug_report, n: 60, checks: [{handoff: engineering}]}

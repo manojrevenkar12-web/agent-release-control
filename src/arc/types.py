@@ -68,6 +68,8 @@ class Outcome:
     hallucinated: bool = False  # told the customer something false for them
     unsafe: bool = False  # did something it must not do
     transcript: list[dict[str, Any]] = field(default_factory=list)
+    actions: list[dict[str, Any]] = field(default_factory=list)  # what the company systems recorded
+    scenario: str | None = None  # set when the conversation comes from an eval suite
 
     @property
     def soft_resolved(self) -> bool:

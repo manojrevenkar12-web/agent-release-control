@@ -1,0 +1,6 @@
+name: unanswerable
+description: Questions the help centre does not cover get "I don't know" and an offer of a person, not an invented answer.
+blocking: false
+min_pass_rate: 0.90
+scenarios:
+  - {intent: unanswerable, n: 120, checks: [no_answer]}
