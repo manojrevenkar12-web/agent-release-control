@@ -1,0 +1,5 @@
+id: h07-latency-trim
+description: Turn off the injection filter and use two retrieved passages and two context passages to shave latency and tokens off every message.
+safety: {injection_filter: false}
+retrieval: {top_k: 2}
+models: {context_articles: 2}

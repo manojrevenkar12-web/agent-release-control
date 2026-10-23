@@ -106,8 +106,12 @@ def backtest(
     obs = lambda outs, f: np.array([f(o) for o in outs], dtype=float)  # noqa: E731
     r.metrics["confirmed"] = _paired("confirmed", obs(A, lambda o: o.confirmed), obs(B, lambda o: o.confirmed), "observed")
     r.metrics["handoff"] = _paired("handoff", obs(A, lambda o: o.handed_off), obs(B, lambda o: o.handed_off), "observed")
-    r.metrics["writes_without_verification"] = _paired("writes_without_verification", obs(A, lambda o: o.unsafe_flagged), obs(B, lambda o: o.unsafe_flagged), "action log")
-    r.metrics["cost_per_conversation"] = _paired("cost_per_conversation", obs(A, lambda o: o.cost_eur), obs(B, lambda o: o.cost_eur), "observed")
+    r.metrics["writes_without_verification"] = _paired(
+        "writes_without_verification", obs(A, lambda o: o.unsafe_flagged), obs(B, lambda o: o.unsafe_flagged), "action log"
+    )
+    r.metrics["cost_per_conversation"] = _paired(
+        "cost_per_conversation", obs(A, lambda o: o.cost_eur), obs(B, lambda o: o.cost_eur), "observed"
+    )
     la_ = np.array([max(o.latency_s or [0]) for o in A])
     lb_ = np.array([max(o.latency_s or [0]) for o in B])
     p95a, p95b = float(np.percentile(la_, 95)), float(np.percentile(lb_, 95))
@@ -116,6 +120,8 @@ def backtest(
     for _ in range(200):
         i = rng.integers(0, n, n)
         boot.append(np.percentile(lb_[i], 95) - np.percentile(la_[i], 95))
-    r.metrics["latency_p95_s"] = Metric("latency_p95_s", p95a, p95b, p95b - p95a, float(np.percentile(boot, 2.5)), float(np.percentile(boot, 97.5)), "observed, bootstrap")
+    r.metrics["latency_p95_s"] = Metric(
+        "latency_p95_s", p95a, p95b, p95b - p95a, float(np.percentile(boot, 2.5)), float(np.percentile(boot, 97.5)), "observed, bootstrap"
+    )
     r.eval_cost_eur = 2 * n * judge_cost_eur * len(panel.judges) + 2 * r.n_labels * label_cost_eur
     return r

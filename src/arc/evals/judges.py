@@ -29,7 +29,11 @@ from arc.config import MODELS
 from arc.types import Outcome
 
 KINDS = ["answer", "result", "decline", "handoff", "refuse", "clarify", "verify", "ask_slot", "closing", "error"]
-PLAN_WORDS = {"free": re.compile(r"\b(on free|free plan|free workspaces)\b", re.I), "pro": re.compile(r"\b(on pro|pro plan|pro workspaces)\b", re.I), "business": re.compile(r"\b(on business|business plan|business workspaces)\b", re.I)}
+PLAN_WORDS = {
+    "free": re.compile(r"\b(on free|free plan|free workspaces)\b", re.I),
+    "pro": re.compile(r"\b(on pro|pro plan|pro workspaces)\b", re.I),
+    "business": re.compile(r"\b(on business|business plan|business workspaces)\b", re.I),
+}
 NEG = re.compile(r"^\s*(no\b|not what|that's not|wrong)", re.I)
 HUMAN = re.compile(r"\b(human|real person|agent)\b", re.I)
 THANKS = re.compile(r"\b(solved|perfect|thank|great|what i needed)\b", re.I)

@@ -8,18 +8,17 @@ messages from past conversations that support specialists labelled.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
 import joblib
 import numpy as np
-import re
-
 import yaml
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.preprocessing import FunctionTransformer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import FeatureUnion, Pipeline
+from sklearn.preprocessing import FunctionTransformer
 
 from arc.config import CONFIG, MODELS
 

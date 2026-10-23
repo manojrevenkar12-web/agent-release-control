@@ -1,0 +1,39 @@
+# Service level objectives for the agent in production, and the alerts that protect them.
+# Burn-rate alerts follow the multi-window pattern from the Google SRE workbook: a page needs a
+# fast burn over both a long and a short window (the short one makes the alert stop quickly once
+# the problem is fixed); a ticket needs a slower burn over longer windows.
+period_days: 28
+
+slis:
+  availability:
+    description: conversations not handed off because the model provider failed
+    target: 0.995
+  latency:
+    description: conversations where every reply came within the threshold
+    threshold_s: 9.0
+    target: 0.99
+
+burn_alerts:
+  - {severity: page, long_min: 60, short_min: 5, burn: 14.4}
+  - {severity: page, long_min: 360, short_min: 30, burn: 6.0}
+  - {severity: ticket, long_min: 1440, short_min: 120, burn: 3.0}
+min_events: 20 # a window with fewer conversations than this cannot fire
+
+# Resolution has no error budget in the SRE sense (a third of conversations go unresolved on a
+# good day), so it is watched with a one-sided Bernoulli CUSUM against the last week's rate.
+quality:
+  metric: resolved_obs
+  baseline_days: 7
+  shift: 0.08 # the drop the detector is tuned for (absolute)
+  threshold: 8.0 # CUSUM decision interval h
+  severity: page
+
+# AI spend per hour against a forecast from the same hours of the last week.
+cost:
+  window_min: 60
+  max_ratio: 1.6
+  min_events: 30
+  severity: ticket
+
+# minutes after an incident ends during which an alert still counts as caused by it
+grace_min: 60

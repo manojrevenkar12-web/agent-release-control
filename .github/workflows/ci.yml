@@ -1,0 +1,82 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: lint, types, unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - run: scripts/ci-run.sh ruff check src tests
+      - run: scripts/ci-run.sh ruff format --check src tests
+      - run: scripts/ci-run.sh mypy
+      - run: scripts/ci-run.sh pytest -q -p no:warnings -m "not slow"
+
+  pipeline:
+    name: train, simulation tests, release reviews, process study, drill, gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      ARC_REPORTS: ci-reports
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - name: train the understanding tiers and the judge
+        run: scripts/ci-run.sh arc train
+      - name: simulation tests (agent, API, shipping process on poisoned truth)
+        run: scripts/ci-run.sh pytest -q -p no:warnings -m slow
+      - name: quick pipeline and release gate
+        run: scripts/ci-run.sh arc run --quick --skip-train
+      - name: evaluation summary
+        if: always()
+        run: test -f ci-reports/EVALUATION.md && cat ci-reports/EVALUATION.md >> "$GITHUB_STEP_SUMMARY" || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ci-reports
+          path: ci-reports
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        with:
+          name: models
+          path: models
+          retention-days: 3
+
+  container:
+    name: container and API smoke test
+    needs: pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: models
+          path: serving-models
+      - run: docker build -t arc:ci .
+      - name: serve and call the API
+        run: |
+          chmod -R a+rX serving-models
+          docker run -d --name api -p 8000:8000 -v "$PWD/serving-models:/models:ro" \
+            -e ARC_API_KEYS='viewer-key:viewer,releaser-key:releaser' arc:ci
+          for i in $(seq 1 60); do curl -fsS localhost:8000/health >/dev/null 2>&1 && break; sleep 2; done
+          scripts/ci-run.sh deploy/smoke.sh http://localhost:8000 viewer-key
+      - if: failure()
+        run: docker logs api || true

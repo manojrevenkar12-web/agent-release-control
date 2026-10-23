@@ -17,4 +17,10 @@ def labels(outs: list[Outcome], seed: int = 0) -> pd.DataFrame:
     h = np.array([o.hallucinated for o in outs], dtype=float)
     flip_r = rng.random(len(outs)) < noise
     flip_h = rng.random(len(outs)) < noise / 3
-    return pd.DataFrame({"conv": [o.conv for o in outs], "resolved": np.where(flip_r, 1 - r, r).astype(int), "hallucinated": np.where(flip_h, 1 - h, h).astype(int)})
+    return pd.DataFrame(
+        {
+            "conv": [o.conv for o in outs],
+            "resolved": np.where(flip_r, 1 - r, r).astype(int),
+            "hallucinated": np.where(flip_h, 1 - h, h).astype(int),
+        }
+    )

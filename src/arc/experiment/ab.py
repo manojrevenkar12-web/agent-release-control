@@ -121,7 +121,15 @@ def analyse(df: pd.DataFrame, p: Plan, cfg: dict[str, Any] | None = None) -> ABR
     res.guardrails["csat"] = ratio_by_account(df[df.csat.notna()], "csat")
     res.guardrails["cost_eur"] = ratio_by_account(df, "cost_eur")
     lat = df.groupby("arm").latency_max_s.quantile(0.95)
-    res.guardrails["latency_p95_s"] = Effect("latency_p95_s", float(lat["control"]), float(lat["treatment"]), float(lat["treatment"] - lat["control"]), float("nan"), float("nan"), float("nan"))
+    res.guardrails["latency_p95_s"] = Effect(
+        "latency_p95_s",
+        float(lat["control"]),
+        float(lat["treatment"]),
+        float(lat["treatment"] - lat["control"]),
+        float("nan"),
+        float("nan"),
+        float("nan"),
+    )
     g = c["guardrails"]
     if srm < 0.001:
         res.reasons.append("sample ratio mismatch: assignment is broken, result not trusted")

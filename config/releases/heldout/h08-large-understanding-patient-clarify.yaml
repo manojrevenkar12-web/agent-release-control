@@ -1,0 +1,4 @@
+id: h08-large-understanding-patient-clarify
+description: Understand every message with the large tier, clarify only below 0.25 confidence but allow two clarifying questions, so unusual phrasings are routed correctly instead of handed off.
+models: {understand_tier: large}
+understanding: {clarify_below: 0.25, max_clarifications: 2}

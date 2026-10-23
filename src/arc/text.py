@@ -8,7 +8,54 @@ from collections import Counter
 from dataclasses import dataclass
 
 TOKEN = re.compile(r"[a-z0-9]+")
-STOP = set("a an the to of and or in on for with my me i we our you your is are be can do does how what when where why it this that there at from by as please pls hi hello hey thanks thank".split())
+STOP = set(
+    [
+        "a",
+        "an",
+        "the",
+        "to",
+        "of",
+        "and",
+        "or",
+        "in",
+        "on",
+        "for",
+        "with",
+        "my",
+        "me",
+        "i",
+        "we",
+        "our",
+        "you",
+        "your",
+        "is",
+        "are",
+        "be",
+        "can",
+        "do",
+        "does",
+        "how",
+        "what",
+        "when",
+        "where",
+        "why",
+        "it",
+        "this",
+        "that",
+        "there",
+        "at",
+        "from",
+        "by",
+        "as",
+        "please",
+        "pls",
+        "hi",
+        "hello",
+        "hey",
+        "thanks",
+        "thank",
+    ]
+)
 
 
 def tokens(text: str) -> list[str]:

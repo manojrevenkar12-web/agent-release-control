@@ -55,8 +55,13 @@ class Release:
         return out
 
 
-SCHEMA = {
-    "models": {"understand_tier": ("small", "large"), "escalate_below": (0.0, 1.01), "answer_tier": ("small", "large"), "context_articles": (1, 12)},
+SCHEMA: dict[str, dict[str, tuple[Any, ...]]] = {
+    "models": {
+        "understand_tier": ("small", "large"),
+        "escalate_below": (0.0, 1.01),
+        "answer_tier": ("small", "large"),
+        "context_articles": (1, 12),
+    },
     "understanding": {"clarify_below": (0.0, 1.0), "max_clarifications": (0, 3)},
     "retrieval": {"require_agreement": (False, True), "top_k": (1, 10), "min_score": (0.0, 30.0)},
     "personalisation": {"plan_aware": (False, True)},
@@ -69,7 +74,7 @@ def validate(cfg: dict[str, Any]) -> list[str]:
     """Problems with a release configuration (unknown keys, values out of range, missing procedures)."""
     errs = []
     for sec, keys in SCHEMA.items():
-        got = cfg.get(sec, {})
+        got: dict[str, Any] = cfg.get(sec, {})
         for k in set(got) - set(keys):
             errs.append(f"unknown setting {sec}.{k}")
         for k, allowed in keys.items():
@@ -77,7 +82,7 @@ def validate(cfg: dict[str, Any]) -> list[str]:
                 errs.append(f"missing {sec}.{k}")
                 continue
             v = got[k]
-            if isinstance(allowed[0], str) or isinstance(allowed[0], bool):
+            if isinstance(allowed[0], str | bool):
                 if v not in allowed:
                     errs.append(f"{sec}.{k}={v!r} is not one of {allowed}")
             elif not (allowed[0] <= v <= allowed[1]):
@@ -107,8 +112,15 @@ def load(name_or_path: str | Path) -> Release:
     p = Path(name_or_path)
     if not p.exists():
         p = RELEASES / f"{name_or_path}.yaml"
+    if not p.exists():
+        p = RELEASES / "heldout" / f"{name_or_path}.yaml"
     return from_dict(yaml.safe_load(p.read_text()))
 
 
-def all_releases(directory: Path = RELEASES) -> list[Release]:
-    return [load(p) for p in sorted(directory.glob("r*.yaml"), key=lambda p: int(p.stem.split("-")[0][1:]))]
+def all_releases(directory: Path = RELEASES, prefix: str = "r") -> list[Release]:
+    return [load(p) for p in sorted(directory.glob(f"{prefix}*.yaml"), key=lambda p: int(p.stem.split("-")[0][len(prefix) :]))]
+
+
+def heldout() -> list[Release]:
+    """Candidate releases written without seeing the agent or the simulator (docs/RELEASES.md only)."""
+    return all_releases(RELEASES / "heldout", "h")

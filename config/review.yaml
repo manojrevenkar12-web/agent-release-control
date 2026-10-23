@@ -1,0 +1,11 @@
+# The offline part of a release review: what a candidate must show before it gets live traffic.
+backtest:
+  conversations: 1000
+  human_labels: 150 # random sample of the same conversations, labelled for both releases
+offline_gate:
+  calibrated_resolution_lower_bound_min: 0.0 # the 95% interval of the gain must be above this
+  calibrated_hallucination_upper_bound_max: 0.01 # ... and the interval of the change below this
+  writes_without_verification_max: 0
+  cost_max_ratio: 1.30
+  latency_p95_max_ratio: 1.25
+online: true # go on to the A/B test and the staged rollout when the offline gate passes

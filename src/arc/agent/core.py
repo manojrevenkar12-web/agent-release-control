@@ -18,8 +18,8 @@ from arc.agent.provider import Offline, tokens
 from arc.agent.release import Release
 from arc.agent.safety import code_in, email_in, is_injection, redact
 from arc.config import load
-from arc.knowledge import load as load_kb
 from arc.knowledge import index as kb_index
+from arc.knowledge import load as load_kb
 from arc.systems import Systems
 from arc.types import AgentTurn, Call
 
@@ -80,8 +80,12 @@ class Agent:
         if HUMAN.search(message) and st.turns > 1:
             return self._handoff(st, "support", "the customer asked for a person", calls)
         if self.cfg["safety"]["injection_filter"] and is_injection(message):
-            ev = [{"type": "injection_detected"}]
-            return self._turn(st, AgentTurn("I can't do that. I can help with questions about your account, billing or Larkspur itself.", "refuse", ev), calls)
+            ev: list[dict[str, Any]] = [{"type": "injection_detected"}]
+            return self._turn(
+                st,
+                AgentTurn("I can't do that. I can help with questions about your account, billing or Larkspur itself.", "refuse", ev),
+                calls,
+            )
         if st.run is not None and st.run.waiting:
             return self._continue(st, message, calls)
         if NEGATIVE.search(message) and st.last_kind in ("answer", "result", "decline"):
@@ -128,9 +132,13 @@ class Agent:
             return None, 0.0
         used = calls[-1].tier
         label, conf = self.nlu.predict(message, used)
-        if used == "small" and conf < m["escalate_below"]:
-            if self._call("understand", "large", tin, 20, calls) and calls[-1].tier == "large":
-                label, conf = self.nlu.predict(message, "large")
+        if (
+            used == "small"
+            and conf < m["escalate_below"]
+            and self._call("understand", "large", tin, 20, calls)
+            and calls[-1].tier == "large"
+        ):
+            label, conf = self.nlu.predict(message, "large")
         return label, conf
 
     # -- answering --------------------------------------------------------------------------------
@@ -139,7 +147,8 @@ class Agent:
         ret = self.cfg["retrieval"]
         # the large tier reads a message with a wider vocabulary, which also finds better passages
         query = expand([message])[0] if st.used_large else message
-        hits = self.index.search(query, ret["top_k"])
+        inc = self.provider.incident
+        hits = [] if inc and inc.retrieval_down else self.index.search(query, ret["top_k"])
         support = next((h.score for h in hits if h.doc == aid), 0.0)
         if ret["require_agreement"] and support < ret["min_score"]:
             return self._decline(st, message, calls, label, reason="not supported by the help centre")
@@ -154,10 +163,21 @@ class Agent:
         tin = self.models["system_prompt_tokens"] + tokens(message) + context + 40
         if not self._call("answer", m["answer_tier"], tin, tokens(reply), calls):
             return self._handoff(st, "support", "model provider unavailable", calls, error=True)
-        ev = [{"type": "answer", "article": aid, "plan": (plan or "pro") if art.plan_specific else None, "confidence": round(conf, 3), "support": round(support, 2), "sources": [aid]}]
+        ev = [
+            {
+                "type": "answer",
+                "article": aid,
+                "plan": (plan or "pro") if art.plan_specific else None,
+                "confidence": round(conf, 3),
+                "support": round(support, 2),
+                "sources": [aid],
+            }
+        ]
         return self._turn(st, AgentTurn(reply, "answer", ev, asks_if_resolved=ask), calls)
 
-    def _decline(self, st: ConvState, message: str, calls: list[Call], label: str, reason: str = "no answer in the help centre") -> AgentTurn:
+    def _decline(
+        self, st: ConvState, message: str, calls: list[Call], label: str, reason: str = "no answer in the help centre"
+    ) -> AgentTurn:
         ev = [{"type": "decline", "predicted": label, "reason": reason}]
         text = "I'm sorry, I don't have a reliable answer to that. Would you like me to connect you with a member of our team?"
         self._call("answer", "small", self.models["system_prompt_tokens"] + tokens(message), tokens(text), calls)
@@ -188,7 +208,11 @@ class Agent:
                     st.run = None
                     return self._handoff(st, "billing", "identity could not be verified", calls)
                 ev = [{"type": "verify", "retry": True}]
-                return self._turn(st, AgentTurn("That code doesn't match. Please check the latest email from us and send the 6-digit code.", "verify", ev), calls)
+                return self._turn(
+                    st,
+                    AgentTurn("That code doesn't match. Please check the latest email from us and send the 6-digit code.", "verify", ev),
+                    calls,
+                )
         elif run.waiting:
             val = email_in(message) if run.waiting == "new_email" else message.strip()
             if not val:
@@ -196,7 +220,15 @@ class Agent:
                 if run.attempts >= 2:
                     st.run = None
                     return self._handoff(st, "support", f"missing {run.waiting}", calls)
-                return self._turn(st, AgentTurn("Sorry, I need that to continue. " + run.proc.steps[run.at]["question"], "ask_slot", [{"type": "ask_slot", "slot": run.waiting}]), calls)
+                return self._turn(
+                    st,
+                    AgentTurn(
+                        "Sorry, I need that to continue. " + run.proc.steps[run.at]["question"],
+                        "ask_slot",
+                        [{"type": "ask_slot", "slot": run.waiting}],
+                    ),
+                    calls,
+                )
             run.scope[run.waiting] = val
             run.waiting = None
             run.at += 1
@@ -211,7 +243,15 @@ class Agent:
                     continue
                 self.sys.send_verification(conv, acct)
                 run.waiting = "code"
-                return self._turn(st, AgentTurn("For your security I've sent a 6-digit code to the email address on your account. What's the code?", "verify", [ev_step, {"type": "verify"}]), calls)
+                return self._turn(
+                    st,
+                    AgentTurn(
+                        "For your security I've sent a 6-digit code to the email address on your account. What's the code?",
+                        "verify",
+                        [ev_step, {"type": "verify"}],
+                    ),
+                    calls,
+                )
             if t == "lookup":
                 run.scope[s["into"]] = getattr(self.sys, s["call"])(conv, acct)
                 run.at += 1
@@ -233,8 +273,13 @@ class Agent:
                     return self._handoff(st, "support", "model provider unavailable", calls, error=True)
                 ask = self.cfg["guidance"]["ask_if_resolved"]
                 st.run = None
-                ev = [ev_step, {"type": "result", "procedure": run.proc.name, "outcome": s.get("outcome", "done"), "article": s.get("article")}]
-                return self._turn(st, AgentTurn(text + (" Is there anything else?" if ask else ""), "result", ev, asks_if_resolved=ask), calls)
+                ev = [
+                    ev_step,
+                    {"type": "result", "procedure": run.proc.name, "outcome": s.get("outcome", "done"), "article": s.get("article")},
+                ]
+                return self._turn(
+                    st, AgentTurn(text + (" Is there anything else?" if ask else ""), "result", ev, asks_if_resolved=ask), calls
+                )
             raise ValueError(f"unknown step type {t}")
         st.run = None
         return self._handoff(st, "support", "procedure ended without a result", calls)

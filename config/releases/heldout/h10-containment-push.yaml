@@ -1,0 +1,4 @@
+id: h10-containment-push
+description: Clarify more readily (below 0.50, up to three times) and only offer a person after four failed answers, to raise containment and cut human support cost.
+understanding: {clarify_below: 0.50, max_clarifications: 3}
+guidance: {offer_human_after_failures: 4}

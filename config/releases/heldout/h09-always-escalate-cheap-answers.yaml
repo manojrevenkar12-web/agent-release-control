@@ -1,0 +1,4 @@
+id: h09-always-escalate-cheap-answers
+description: Always ask the large tier to understand the message but answer from only two passages, trading answer tokens for routing accuracy at roughly flat cost.
+models: {escalate_below: 1.01, context_articles: 2}
+understanding: {clarify_below: 0.25}

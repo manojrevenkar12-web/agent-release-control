@@ -1,0 +1,4 @@
+id: h06-frictionless-small-refunds
+description: Refund charges under 20 EUR without the email verification step and stop asking clarifying questions, so small refunds finish in one or two turns.
+procedures: {refund: v3}
+understanding: {max_clarifications: 0}

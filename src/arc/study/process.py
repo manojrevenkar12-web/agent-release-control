@@ -1,16 +1,18 @@
 """How often does the shipping process make the wrong call?
 
 A portfolio of candidate releases (random changes to production, the kind a team proposes in a
-quarter) is put through four shipping policies. The simulator knows each candidate's true effect,
+quarter, starting from the personalised release once it has shipped) is put through four shipping
+policies. Most proposals change little; the hard part is telling +1pp from nothing. The simulator knows each candidate's true effect,
 so every decision can be graded:
 
 - P0 read 20: a person reads 20 replayed conversations per release and ships if it looks better.
 - P1 judges: an LLM-judge backtest on 1,000 replayed conversations; ship if judged resolution rises
   and judged hallucination does not.
-- P2 calibrated: static checks, blocking eval suites, and a backtest whose judge scores are
-  corrected with 150 human labels per release (PPI); ship only if the interval says better.
-- P3 P2 then A/B and rollout: candidates P2 would ship go to a powered A/B test (alpha 1%) and a
-  staged rollout with health checks.
+- P2 calibrated: the offline half of the release review (arc.review): static checks, blocking eval
+  suites, and a backtest whose judge scores are corrected with 150 human labels per release (PPI);
+  ship only if the interval says better.
+- P3 + A/B and rollout: the whole release review; what passes P2 goes to a powered A/B test
+  (alpha 1%) and a staged rollout with health checks.
 
 This module reads the truth (it is evaluation, not shipping).
 """
@@ -27,14 +29,14 @@ import pandas as pd
 from arc import ship
 from arc.agent.release import Release, from_dict
 from arc.agent.release import load as load_release
-from arc.evals.lint import lint
 from arc.platform import SimPlatform
+from arc.review import review
 from arc.runner import frame
-from arc.sim import review
+from arc.sim import review as human_review
 from arc.sim.world import make_specs
 
 KNOBS: list[tuple[float, str, Any]] = [
-    (0.15, "personalisation.plan_aware", lambda r: True),
+    (0.05, "personalisation.plan_aware", lambda r: False),
     (0.40, "models.escalate_below", lambda r: float(r.choice([0.0, 0.3, 0.45, 0.7, 0.8, 0.9]))),
     (0.10, "models.answer_tier", lambda r: "large"),
     (0.25, "models.context_articles", lambda r: int(r.choice([1, 2, 5, 8]))),
@@ -53,7 +55,8 @@ KNOBS: list[tuple[float, str, Any]] = [
 
 def candidates(n: int, seed: int, base: Release) -> list[Release]:
     rng = np.random.default_rng(seed)
-    out = []
+    out: list[Release] = []
+    seen = {base.fingerprint}
     while len(out) < n:
         cfg = copy.deepcopy(base.cfg)
         k = int(rng.integers(1, 4))
@@ -67,9 +70,11 @@ def candidates(n: int, seed: int, base: Release) -> list[Release]:
             if cfg[sec][name] != v:
                 cfg[sec][name] = v
                 changed.append(f"{key}={v}")
-        if not changed:
+        r = from_dict({"id": f"cand-{seed}-{len(out):02d}", "description": ", ".join(changed), **cfg})
+        if not changed or r.fingerprint in seen:
             continue
-        out.append(from_dict({"id": f"cand-{seed}-{len(out):02d}", "description": ", ".join(changed), **cfg}))
+        seen.add(r.fingerprint)
+        out.append(r)
     return out
 
 
@@ -97,9 +102,10 @@ class Study:
     backtest_n: int = 1000
     labels_n: int = 150
     seed: int = 2026
+    base_id: str = "r2-personalised"  # production after personalisation shipped: next quarter's starting point
 
     def __post_init__(self) -> None:
-        self.base = load_release("r1-prod")
+        self.base = load_release(self.base_id)
         self.truth_specs = make_specs(self.p.e.world, self.truth_n, self.seed + 1, b_share=self.p.b_share, day0=200, prefix="truth")
         self._base_truth = frame(self.p.run(self.base, self.truth_specs, 5))
 
@@ -120,49 +126,29 @@ class Study:
         # P0: a person reads 20 replayed conversations of each release
         specs20 = p.replay_set(20, seed)
         A20, B20 = p.run(base, specs20, seed), p.run(c, specs20, seed)
-        la, lb = review.labels(A20, seed), review.labels(B20, seed + 1)
+        la, lb = human_review.labels(A20, seed), human_review.labels(B20, seed + 1)
         p0 = bool(lb.resolved.sum() > la.resolved.sum() and lb.hallucinated.sum() <= la.hallucinated.sum())
-        # P1 and P2 share one backtest
-        bt = ship.run_backtest(p, base, c, self.backtest_n, self.labels_n, seed)
+        # P2 and P3 are the release review (P2 stops before live traffic); P1 reads the same backtest
+        rv = review(p, base, c, seed, day0=300 + 40 * k)
+        p2 = rv.stopped_at not in ("static", "suites", "backtest")
+        p3 = rv.shipped
+        bt = rv.backtest or ship.run_backtest(p, base, c, self.backtest_n, self.labels_n, seed)
         m = bt.metrics
         p1 = m["judged_resolution"].diff > 0 and m["judged_hallucination"].diff <= 0.005
-        problems = lint(c)
-        suites = ship.suites(p, c, seed)
-        blocked = [s.suite for s in suites if s.blocking and not s.ok]
-        p2_reasons = []
-        if problems:
-            p2_reasons.append("static checks: " + "; ".join(problems))
-        if blocked:
-            p2_reasons.append("blocking suites failed: " + ", ".join(blocked))
-        if m["calibrated_resolution"].lo <= 0:
-            p2_reasons.append("resolution not better with confidence")
-        if m["calibrated_hallucination"].hi >= 0.01:
-            p2_reasons.append("hallucination may rise")
-        if m["writes_without_verification"].candidate > 0:
-            p2_reasons.append("writes without verification in replay")
-        if m["cost_per_conversation"].candidate > 1.3 * m["cost_per_conversation"].baseline:
-            p2_reasons.append("cost per conversation +30% or more")
-        if m["latency_p95_s"].candidate > 1.25 * m["latency_p95_s"].baseline:
-            p2_reasons.append("p95 latency +25% or more")
-        p2 = not p2_reasons
-        p3, ab_res, ro = False, None, None
-        if p2:
-            ab_res = ship.run_ab(p, base, c, 300 + 30 * k, seed)
-            if ab_res.decision == "ship":
-                ro = ship.rollout(p, base, c, 330 + 30 * k, seed)
-                p3 = ro.shipped
         return {
             "P0 read 20": p0,
             "P1 judges": bool(p1),
             "P2 calibrated": p2,
             "P3 + A/B and rollout": p3,
-            "p2_reasons": p2_reasons,
-            "backtest": bt.as_dict(),
-            "ab": ab_res.as_dict() if ab_res else None,
-            "rollout": ro.as_dict() if ro else None,
-            "suites": [s.as_dict() for s in suites],
-            "eval_cost_eur": {"P0 read 20": 40 * 2.5, "P1 judges": bt.eval_cost_eur - 2 * bt.n_labels * 2.5, "P2 calibrated": bt.eval_cost_eur},
-            "ab_days": ab_res.plan.days if ab_res else 0,
+            "review": rv.as_dict(),
+            "stopped_at": rv.stopped_at,
+            "reasons": rv.reasons,
+            "eval_cost_eur": {
+                "P0 read 20": 40 * 2.5,
+                "P1 judges": bt.eval_cost_eur - 2 * bt.n_labels * 2.5,
+                "P2 calibrated": rv.eval_cost_eur,
+            },
+            "ab_days": rv.ab.plan.days if rv.ab else 0,
         }
 
 
@@ -186,11 +172,14 @@ def run(cands: list[Release], study: Study | None = None) -> tuple[pd.DataFrame,
                 "truly_good": t.good,
                 "truly_harmful": t.harmful,
                 **{pol: d[pol] for pol in POLICIES},
-                "p2_reasons": "; ".join(d["p2_reasons"]),
+                "stopped_at": d["stopped_at"] or "",
+                "reasons": "; ".join(d["reasons"]),
                 "ab_days": d["ab_days"],
             }
         )
-        details.append({"candidate": c.id, "change": c.description, "truth": t.__dict__, **{k2: v for k2, v in d.items() if k2 not in POLICIES}})
+        details.append(
+            {"candidate": c.id, "change": c.description, "truth": t.__dict__, **{k2: v for k2, v in d.items() if k2 not in POLICIES}}
+        )
     return pd.DataFrame(rows), details
 
 
@@ -206,6 +195,7 @@ def score(df: pd.DataFrame) -> pd.DataFrame:
                 "good_shipped": int((s & df.truly_good).sum()),
                 "harmful_shipped": int((s & df.truly_harmful).sum()),
                 "unsafe_shipped": int((s & (df.true_unsafe > 0)).sum()),
+                "neutral_shipped": int((s & ~df.truly_good & ~df.truly_harmful).sum()),
                 "good_missed": int((~s & df.truly_good).sum()),
                 "false_ship_rate": round(float((s & df.truly_harmful).sum() / max(s.sum(), 1)), 3),
                 "true_resolution_gain_shipped_pp": round(100 * float(df.loc[s, "true_d_resolved"].sum()), 2),

@@ -6,7 +6,9 @@ talks to this interface, so it cannot read the simulator's truth.
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass, field
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -35,7 +37,9 @@ class SimPlatform:
         p = self.e.world.systems.plan
         return [str(p[o.account]) for o in outs]
 
-    def run(self, release: Release, specs: list[Spec], seed: int = 0, incidents: list[tuple[int, int, Incident]] | None = None) -> list[Outcome]:
+    def run(
+        self, release: Release, specs: list[Spec], seed: int = 0, incidents: list[tuple[int, int, Incident]] | None = None
+    ) -> list[Outcome]:
         return simulate(release, specs, self.e, seed, incidents)
 
     def replay_set(self, n: int, seed: int) -> list[Spec]:
@@ -45,7 +49,7 @@ class SimPlatform:
     def traffic(self, days: int, day0: int, seed: int, per_day: int | None = None) -> list[Spec]:
         per_day = per_day or self.e.world.cfg["traffic"]["per_day"]
         wf = self.e.world.cfg["traffic"]["weekday_factor"]
-        n = int(sum(per_day * wf[(day0 + d) % 7] for d in range(days)))
+        n = sum(max(1, int(per_day * wf[(day0 + d) % 7])) for d in range(days))
         return make_specs(self.e.world, n, seed, b_share=self.b_share, day0=day0, per_day=per_day, prefix=f"live{day0}-")
 
     def suite_specs(self, scenario: dict, seed: int) -> list[Spec]:
@@ -67,7 +71,12 @@ class SimPlatform:
         return review.labels(outs, self.label_seed)
 
     def panel(self) -> Panel:
-        return Panel([LearnedJudge.load(), RubricJudge()])
+        judges: list[Any] = [LearnedJudge.load(), RubricJudge()]
+        if os.environ.get("ARC_JUDGE") == "claude":
+            from arc.evals.claude_judge import ClaudeJudge
+
+            judges.append(ClaudeJudge())
+        return Panel(judges)
 
     def monitor_scores(self, outs: list[Outcome], rate: float, seed: int) -> np.ndarray:
         """Hallucination scores from the monitor judge on a random sample; NaN elsewhere."""

@@ -1,0 +1,4 @@
+id: h05-retention-refunds
+description: Move to the 30-day refund window and allow three failed answers before offering a person, to reduce churn complaints and keep more conversations self-served.
+procedures: {refund: v2}
+guidance: {offer_human_after_failures: 3}

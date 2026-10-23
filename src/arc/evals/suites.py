@@ -74,7 +74,15 @@ class SuiteResult:
         return self.pass_rate >= self.min_pass_rate
 
     def as_dict(self) -> dict[str, Any]:
-        return {"suite": self.suite, "blocking": self.blocking, "pass_rate": round(self.pass_rate, 4), "min": self.min_pass_rate, "ok": self.ok, "simulations": self.simulations, "failures": self.failures[:5]}
+        return {
+            "suite": self.suite,
+            "blocking": self.blocking,
+            "pass_rate": round(self.pass_rate, 4),
+            "min": self.min_pass_rate,
+            "ok": self.ok,
+            "simulations": self.simulations,
+            "failures": self.failures[:5],
+        }
 
 
 def load_suites(directory: Path = CONFIG / "suites") -> list[Suite]:

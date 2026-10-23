@@ -1,0 +1,32 @@
+# Production drill: a fortnight of traffic with these incidents injected. Times are minutes from
+# the start of the day. Used by `arc ops` to measure whether the alerts fire, how fast, and how
+# often they fire when nothing is wrong.
+days: 14
+day0: 400
+release: r1-prod
+incidents:
+  - name: provider latency spike
+    day: 2
+    start: 600
+    minutes: 180
+    effect: {latency_factor: 3.0}
+  - name: provider error burst
+    day: 4
+    start: 840
+    minutes: 45
+    effect: {error_rate: 0.35}
+  - name: large tier outage (fallback to small)
+    day: 6
+    start: 300
+    minutes: 120
+    effect: {error_rate: 1.0, tier: large}
+  - name: help-centre search index down
+    day: 8
+    start: 540
+    minutes: 150
+    effect: {retrieval_down: true}
+  - name: bad config push (every reply on the large tier)
+    day: 11
+    start: 780
+    minutes: 360
+    release: r4-always-large

@@ -5,6 +5,5 @@ __pycache__/
 .mypy_cache/
 /data/
 /models/
+/ci-reports/
 .venv/
-reports/*.json
-!reports/evaluation.json

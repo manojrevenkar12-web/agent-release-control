@@ -51,7 +51,11 @@ class Systems:
 
     def last_charge(self, conv: str, account_id: int) -> dict[str, Any]:
         a = self.account(account_id)
-        return {"days_ago": a.last_charge_days if a.last_charge_days is not None else 9999, "amount": a.last_charge_eur, "refunded_this_year": a.refunded_this_year}
+        return {
+            "days_ago": a.last_charge_days if a.last_charge_days is not None else 9999,
+            "amount": a.last_charge_eur,
+            "refunded_this_year": a.refunded_this_year,
+        }
 
     # -- identity ---------------------------------------------------------------------------------
     def send_verification(self, conv: str, account_id: int) -> None:

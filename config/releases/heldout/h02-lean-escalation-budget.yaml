@@ -1,0 +1,3 @@
+id: h02-lean-escalation-budget
+description: Escalate to the large tier only below 0.40 confidence and send two passages per answer, cutting model spend on the bulk of easy questions.
+models: {escalate_below: 0.40, context_articles: 2}

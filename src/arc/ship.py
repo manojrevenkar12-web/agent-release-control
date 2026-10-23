@@ -21,7 +21,14 @@ from arc.types import Outcome
 
 
 def suites(p: SimPlatform, r: Release, seed: int = 0) -> list[SuiteResult]:
-    return [run_suite(s, lambda sc, k=k: p.run(r, p.suite_specs(sc, seed + 97 * k + zlib.crc32(sc["intent"].encode()) % 1000)), p.systems) for k, s in enumerate(load_suites())]
+    out = []
+    for k, s in enumerate(load_suites()):
+
+        def play(sc: dict[str, Any], k: int = k) -> list[Outcome]:
+            return p.run(r, p.suite_specs(sc, seed + 97 * k + zlib.crc32(sc["intent"].encode()) % 1000))
+
+        out.append(run_suite(s, play, p.systems))
+    return out
 
 
 def run_backtest(p: SimPlatform, base: Release, cand: Release, n: int, n_labels: int, seed: int, panel: Any = None) -> BacktestResult:
@@ -136,7 +143,14 @@ def rollout(p: SimPlatform, base: Release, cand: Release, day0: int, seed: int, 
             B = p.run(cand, [s for s, x in zip(specs, t, strict=True) if x], seed + k + 50)
             exposed += len(B)
             metrics, bad = _health(A, B, p, seed + k, False)
-        out.stages.append({"stage": st["name"], "days": st["days"], **{a: (round(b, 4) if isinstance(b, float) else b) for a, b in metrics.items()}, "failed": bad})
+        out.stages.append(
+            {
+                "stage": st["name"],
+                "days": st["days"],
+                **{a: (round(b, 4) if isinstance(b, float) else b) for a, b in metrics.items()},
+                "failed": bad,
+            }
+        )
         if bad:
             out.stopped_at, out.reasons = st["name"], bad
             break

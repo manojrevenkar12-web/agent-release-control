@@ -137,11 +137,12 @@ class Customer:
         self.o.transcript.append({"role": "customer", "text": text})
         return text
 
-    def _end(self) -> None:
+    def _end(self) -> str | None:
+        """Ends the conversation; returns None (no further customer message) so callers can `return self._end()`."""
         self.ended = True
         return None
 
-    def _leave(self) -> None:
+    def _leave(self) -> str | None:
         self.o.abandoned = True
         return self._end()
 
@@ -172,7 +173,12 @@ class Customer:
                 if self.w.eligible_for_refund(self.s.account):
                     return "billing.refund" in acts
                 return "billing.refund" not in acts and turn.kind == "result" and ev.get("result", {}).get("outcome") == "not_eligible"
-            want = {"cancel": "billing.cancel", "change_email": "account.change_email", "send_invoice": "billing.resend_invoice", "update_payment": "billing.send_card_link"}[p]
+            want = {
+                "cancel": "billing.cancel",
+                "change_email": "account.change_email",
+                "send_invoice": "billing.resend_invoice",
+                "update_payment": "billing.send_card_link",
+            }[p]
             return want in acts
         return False
 

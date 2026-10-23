@@ -1,8 +1,9 @@
 """Model provider: what a call costs, how long it takes and whether it fails.
 
 `Offline` is a stand-in with the latency, error and price profile of real tiers (config/models.yaml);
-incidents (slow or failing provider) can be switched on to test alarms and fallbacks. With
-ARC_LLM=claude and an API key, `arc.agent.llm` makes real calls instead.
+incidents (slow or failing provider, search index down) can be switched on to test alarms and
+fallbacks. Real model calls are used for judging (`arc.evals.claude_judge`); the agent's own calls
+are simulated so that every run is reproducible and free.
 """
 
 from __future__ import annotations
@@ -21,6 +22,7 @@ class Incident:
     latency_factor: float = 1.0
     error_rate: float = 0.0
     tier: str | None = None  # None = all tiers
+    retrieval_down: bool = False  # the help-centre search index is unavailable
 
 
 @dataclass

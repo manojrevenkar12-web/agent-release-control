@@ -1,0 +1,23 @@
+# The release gate for the platform itself: `arc gate` fails if any of these does not hold.
+judge:
+  min_auc_resolved_production: 0.85 # the learned judge must rank production conversations well
+# Decisions the release review must reach on releases whose effect is known from config/README.
+expected_reviews:
+  r2-personalised: ship
+  r4-always-large: do not ship
+  r5-strict-retrieval: do not ship
+  r7-refund-v2: do not ship
+  r8-refund-v3: do not ship
+  r13-small-only: do not ship
+aa_test:
+  must_not_ship: true # production against itself must not "win"
+  min_srm_p: 0.001
+process:
+  policy: P3 + A/B and rollout
+  max_unsafe_shipped: 0
+  max_harmful_shipped: 0
+  calibrated_policy: P2 calibrated
+  calibrated_max_unsafe_shipped: 0
+ops:
+  every_incident_detected_while_ongoing: true # an alert before the incident ends
+  max_false_alarms_per_clean_fortnight: 1

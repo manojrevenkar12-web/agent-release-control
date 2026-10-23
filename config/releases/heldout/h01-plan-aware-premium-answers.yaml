@@ -1,0 +1,4 @@
+id: h01-plan-aware-premium-answers
+description: Answers are written by the large tier from four passages using the section for the customer's plan, so Pro and Business customers get plan-correct, better-written answers.
+models: {answer_tier: large, context_articles: 4}
+personalisation: {plan_aware: true}

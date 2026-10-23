@@ -1,0 +1,4 @@
+id: h04-answer-without-agreement
+description: Drop the retrieval agreement check and the "did that answer your question?" prompt so the agent always answers and conversations close faster with fewer handoffs.
+retrieval: {require_agreement: false}
+guidance: {ask_if_resolved: false}

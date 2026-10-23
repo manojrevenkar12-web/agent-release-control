@@ -30,7 +30,9 @@ def env() -> Env:
     return Env(load_world(), NLU.load(MODELS / "nlu.joblib"))
 
 
-def simulate(release: Release, specs: list[Spec], e: Env | None = None, seed: int = 0, incidents: list[tuple[int, int, Incident]] | None = None) -> list[Outcome]:
+def simulate(
+    release: Release, specs: list[Spec], e: Env | None = None, seed: int = 0, incidents: list[tuple[int, int, Incident]] | None = None
+) -> list[Outcome]:
     """Plays every spec with `release`. `incidents`: (start minute, end minute, Incident) on the
     absolute timeline (day * 1440 + minute)."""
     e = e or env()
@@ -69,7 +71,9 @@ def frame(outcomes: list[Outcome]) -> pd.DataFrame:
                 "latency_max_s": float(np.max(lat)),
                 "latency_mean_s": float(np.mean(lat)),
                 "errors": o.errors,
-                "error_conv": o.errors > 0 and o.handed_off and any(e.get("type") == "error" for t in o.transcript for e in t.get("events", [])),
+                "error_conv": o.errors > 0
+                and o.handed_off
+                and any(e.get("type") == "error" for t in o.transcript for e in t.get("events", [])),
                 "unsafe_flagged": o.unsafe_flagged,
                 "true_intent": o.intent_true,
                 "true_kind": o.kind_true,

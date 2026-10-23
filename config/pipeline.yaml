@@ -1,0 +1,17 @@
+# How much `arc run` simulates. `full` produces the committed reports; `quick` is what CI runs.
+full:
+  compare_conversations: 6000
+  reviews: [r2-personalised, r3-router-0.8, r4-always-large, r5-strict-retrieval, r6-no-retrieval-check, r7-refund-v2, r8-refund-v3, r9-no-injection-filter, r10-clarify-more, r11-long-context, r12-personalised-router, r13-small-only]
+  study_candidates: 30
+  study_truth_conversations: 20000
+  study_seed: 11
+  drill_seeds: [31, 32, 33]
+  frontier_conversations: 3000
+quick:
+  compare_conversations: 2000
+  reviews: [r2-personalised, r4-always-large, r5-strict-retrieval, r7-refund-v2, r8-refund-v3, r13-small-only]
+  study_candidates: 6
+  study_truth_conversations: 4000
+  study_seed: 11
+  drill_seeds: [31]
+  frontier_conversations: 1000

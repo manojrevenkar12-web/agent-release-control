@@ -1,0 +1,4 @@
+id: h03-wider-retrieval-net
+description: Retrieve six passages and accept the matching article at a BM25 score of 1.5, so fewer answerable questions end in "no reliable answer" and a handoff.
+retrieval: {top_k: 6, min_score: 1.5}
+models: {context_articles: 4}

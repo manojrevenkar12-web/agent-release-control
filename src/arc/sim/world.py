@@ -113,10 +113,10 @@ def make_specs(
     wf = world.cfg["traffic"]["weekday_factor"]
     specs = []
     day, used = day0, 0
-    cap = int(per_day * wf[day % 7])
+    cap = max(1, int(per_day * wf[day % 7]))
     plans = world.systems.plan
     paid_idx = np.flatnonzero(plans != "free")
-    for k in range(n):
+    for idx in range(n):
         if used >= cap:
             day += 1
             used = 0
@@ -126,7 +126,7 @@ def make_specs(
         if intent == "failed_payment":
             account = int(rng.choice(np.flatnonzero(world.systems.payment_failed)))
         spec = Spec(
-            id=f"{prefix}{seed}-{k}",
+            id=f"{prefix}{seed}-{idx}",
             day=day,
             minute=int(rng.integers(0, 24 * 60)),
             account=account,
@@ -143,7 +143,11 @@ def make_specs(
             },
         )
         if rng.random() < inj["rate"]:
-            spec.injection = str(rng.choice(inj["prefixes"])) + " " + str(rng.choice(inj["payloads"])).replace("{other}", str(int(rng.integers(world.n_accounts))))
+            spec.injection = (
+                str(rng.choice(inj["prefixes"]))
+                + " "
+                + str(rng.choice(inj["payloads"])).replace("{other}", str(int(rng.integers(world.n_accounts))))
+            )
             spec.intent = "refund_request" if "refund" in spec.injection else "change_email"
             spec.account = int(rng.choice(paid_idx))
             spec.vague = False
